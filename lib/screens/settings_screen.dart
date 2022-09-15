@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:music_wave/screens/about_screen.dart';
+import 'package:music_wave/screens/privacy_screen.dart';
+import 'package:music_wave/screens/teams_screen.dart';
 import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/text.dart';
 
@@ -27,31 +30,44 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             CardTile2(
-              fontWeight: FontWeight.w100,
               icon: Icons.info_outline,
               titleText: 'About Music Wave',
-              tapAction: () {},
+              tapAction: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (contex) {
+                    return const AboutScreen();
+                  }),
+                );
+              },
             ),
             CardTile2(
-              fontWeight: FontWeight.w200,
               icon: Icons.text_snippet_outlined,
               titleText: 'Terms And Conditions',
-              tapAction: () {},
+              tapAction: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (contex) {
+                    return const TermsScreen();
+                  }),
+                );
+              },
             ),
             CardTile2(
-              fontWeight: FontWeight.w200,
               icon: Icons.security_outlined,
               titleText: 'Privacy policy',
-              tapAction: () {},
+              tapAction: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (contex) {
+                    return const PrivacyScreen();
+                  }),
+                );
+              },
             ),
             CardTile2(
-              fontWeight: FontWeight.w200,
               icon: Icons.share,
               titleText: 'Share Music Wave',
               tapAction: () {},
             ),
             CardTile2(
-              fontWeight: FontWeight.w200,
               icon: Icons.restart_alt,
               titleText: 'Reset App',
               tapAction: () {},

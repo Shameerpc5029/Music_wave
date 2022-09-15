@@ -9,7 +9,6 @@ class VolumeSlider extends StatelessWidget {
       width: 300,
       child: Slider.adaptive(
         activeColor: Colors.red,
-        inactiveColor: Colors.black38,
         value: 30,
         onChanged: ((value) {}),
         max: 100,

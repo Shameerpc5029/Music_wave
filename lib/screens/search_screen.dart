@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:music_wave/widgets/search_bar.dart';
 import 'package:music_wave/widgets/text.dart';
+import 'package:music_wave/widgets/white_space.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class SearchScreen extends StatelessWidget {
       body: Column(
         children: [
           const SearchBar(),
+          const WhiteSpace10(),
           Padding(
             padding: const EdgeInsets.only(
               left: 40,
@@ -36,11 +38,7 @@ class SearchScreen extends StatelessWidget {
               ),
               IconButton(
                 splashRadius: 5,
-                onPressed: () {
-                  print(
-                    "object",
-                  );
-                },
+                onPressed: () {},
                 icon: const Icon(
                   Icons.close,
                   size: 10,
@@ -51,11 +49,7 @@ class SearchScreen extends StatelessWidget {
               ),
               IconButton(
                 splashRadius: 5,
-                onPressed: () {
-                  print(
-                    "object",
-                  );
-                },
+                onPressed: () {},
                 icon: const Icon(
                   Icons.close,
                   size: 10,

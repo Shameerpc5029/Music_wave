@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_wave/screens/player_screen.dart';
-import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/grid_card.dart';
+import 'package:music_wave/widgets/song_card.dart';
 import 'package:music_wave/widgets/text.dart';
 
 class AllSong extends StatelessWidget {

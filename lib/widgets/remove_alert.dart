@@ -10,17 +10,21 @@ class RemoveAlert extends StatelessWidget {
         'Remove?',
       ),
       content: const Text(
-        'Do You Remove?',
+        'Do You Remove Playlist?',
       ),
       actions: [
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           child: const Text(
             'No',
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            //data
+          },
           child: const Text(
             'Yes',
           ),

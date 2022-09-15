@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_wave/screens/player_screen.dart';
-import 'package:music_wave/widgets/card.dart';
+import 'package:music_wave/widgets/song_card.dart';
 
 class FavorateScreen extends StatelessWidget {
   const FavorateScreen({super.key});
@@ -11,7 +11,6 @@ class FavorateScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Favorate Songs'),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 174, 48, 39),
         leading: IconButton(
           onPressed: (() {
             Navigator.pop(context);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_wave/widgets/card.dart';
+import 'package:music_wave/widgets/song_card.dart';
 
 class PlaylistScreen extends StatelessWidget {
   const PlaylistScreen({super.key});
@@ -24,12 +24,6 @@ class PlaylistScreen extends StatelessWidget {
           'Playlist',
         ),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(
-          255,
-          174,
-          48,
-          39,
-        ),
         leading: IconButton(
           onPressed: (() {
             Navigator.pop(context);

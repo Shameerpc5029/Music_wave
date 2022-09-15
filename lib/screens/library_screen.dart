@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:music_wave/screens/favorate_screen.dart';
 import 'package:music_wave/screens/playlist_screen.dart';
-import 'package:music_wave/screens/search_screen.dart';
 import 'package:music_wave/widgets/bottom_sheet.dart';
 
 import 'package:music_wave/widgets/card.dart';
+import 'package:music_wave/widgets/remove_alert.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
 
@@ -14,7 +14,7 @@ class LibraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Bottom(),
+      floatingActionButton: const Bottom(),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const ScrollPhysics(),
@@ -60,6 +60,16 @@ class LibraryScreen extends StatelessWidget {
                     //playlist 1
                     subText: '$index Songs',
                     tittleText: 'Playlist ${1 + index}',
+                    trailingIcon: IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: ((context) {
+                              return const RemoveAlert();
+                            }));
+                      },
+                      icon: const Icon(Icons.playlist_remove),
+                    ),
 
                     icon: Icons.playlist_play,
                     iconColor: Colors.black,

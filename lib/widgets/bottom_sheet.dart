@@ -30,7 +30,7 @@ class _BottomState extends State<Bottom> {
         buttonClick = true;
       } else {
         text = const Text(
-          'Save',
+          'Save Playlist',
         );
         iconData = const Icon(
           Icons.save,

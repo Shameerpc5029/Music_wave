@@ -14,7 +14,7 @@ class HeadingText extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.sarala(
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -31,7 +31,7 @@ class SubTitle extends StatelessWidget {
     return Text(
       titleText,
       style: GoogleFonts.sarala(
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         color: Colors.black45,
       ),
@@ -51,7 +51,7 @@ class HeadingTextthin extends StatelessWidget {
     return Text(
       titleText,
       style: GoogleFonts.sarala(
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: FontWeight.w300,
         color: Colors.white,
       ),

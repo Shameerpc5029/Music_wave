@@ -30,12 +30,8 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(
-          255,
-          174,
-          48,
-          39,
-        ),
+        elevation: 1,
+        backgroundColor: Colors.white,
       ),
       // floatingActionButton: FloatingActionButton(
       //   backgroundColor: Color.fromARGB(255, 174, 48, 39),
