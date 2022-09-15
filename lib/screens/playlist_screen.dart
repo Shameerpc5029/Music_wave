@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:music_wave/widgets/card.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -10,38 +8,55 @@ class PlaylistScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromARGB(255, 174, 48, 39),
+        backgroundColor: const Color.fromARGB(
+          255,
+          174,
+          48,
+          39,
+        ),
         onPressed: () {},
-        child: Icon(
+        child: const Icon(
           Icons.add,
         ),
       ),
       appBar: AppBar(
-        title: Text('Playlist'),
+        title: const Text(
+          'Playlist',
+        ),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 174, 48, 39),
+        backgroundColor: const Color.fromARGB(
+          255,
+          174,
+          48,
+          39,
+        ),
         leading: IconButton(
           onPressed: (() {
             Navigator.pop(context);
           }),
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+          ),
         ),
       ),
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: ListView.builder(
           shrinkWrap: true,
-          physics: ScrollPhysics(),
+          physics: const ScrollPhysics(),
           itemCount: 20,
           itemBuilder: (context, index) {
             return SongCard(
               fontWeight: FontWeight.bold,
-                titleText: 'Track $index',
-                subText: 'Tittle $index',
-                leadingUrl:
-                    'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__480.jpg',
-                icon: Icon(Icons.favorite),
-                tapAction: (() {}));
+              titleText: 'Track $index',
+              subText: 'Tittle $index',
+              leadingUrl:
+                  'assets/images/[CITYPNG.COM]HD Music Graffiti Background Illustration Art PNG - 1255x1255.png',
+              icon: const Icon(
+                Icons.favorite,
+              ),
+              tapAction: (() {}),
+            );
           },
         ),
       ),

@@ -14,64 +14,72 @@ class LibraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: Bottom(),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Row(
-                    children: [
-                      HeadingText(
-                        //playlist heading
-                        text: 'Playlists',
-                      ),
-                    ],
-                  ),
-                ),
-                CardTile(
-                  //favorate
-                  subText: '10 Songs',
-                  tittleText: 'Favorate Songs',
-                  icon: Icons.favorite,
-                  iconColor: Colors.red,
-                  tapAction: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => FavorateScreen())));
-                  },
-                ),
-                WhiteSpace10(),
-                ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: ((context, index) {
-                    return CardTile(
-                      //playlist 1
-                      subText: '$index Songs',
-                      tittleText: 'Playlist ${1 + index}',
-
-                      icon: Icons.playlist_play,
-                      iconColor: Colors.black,
-                      tapAction: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: ((context) {
-                              return PlaylistScreen();
-                            }),
-                          ),
-                        );
-                      },
-                    );
-                  }),
-                  itemCount: 10,
-                )
-              ],
-            ),
+      floatingActionButton: Bottom(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const ScrollPhysics(),
+          padding: const EdgeInsets.all(
+            10,
           ),
-        ));
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(
+                  5,
+                ),
+                child: Row(
+                  children: const [
+                    HeadingText(
+                      //playlist heading
+                      text: 'Playlists',
+                    ),
+                  ],
+                ),
+              ),
+              CardTile(
+                //favorate
+                subText: '10 Songs',
+                tittleText: 'Favorate Songs',
+                icon: Icons.favorite,
+                iconColor: Colors.red,
+                tapAction: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: ((context) => const FavorateScreen()),
+                    ),
+                  );
+                },
+              ),
+              const WhiteSpace10(),
+              ListView.builder(
+                physics: const ScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: ((context, index) {
+                  return CardTile(
+                    //playlist 1
+                    subText: '$index Songs',
+                    tittleText: 'Playlist ${1 + index}',
+
+                    icon: Icons.playlist_play,
+                    iconColor: Colors.black,
+                    tapAction: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: ((context) {
+                            return const PlaylistScreen();
+                          }),
+                        ),
+                      );
+                    },
+                  );
+                }),
+                itemCount: 10,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

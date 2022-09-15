@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class CardTile extends StatelessWidget {
   final String tittleText;
@@ -39,14 +37,18 @@ class CardTile extends StatelessWidget {
         ),
         title: Text(
           tittleText,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
         subtitle: Padding(
-          padding: const EdgeInsets.only(top: 5.0),
-          child: Text(subText),
+          padding: const EdgeInsets.only(
+            top: 5.0,
+          ),
+          child: Text(
+            subText,
+          ),
         ),
         trailing: trailingIcon,
       ),
@@ -70,7 +72,9 @@ class CardTile2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(
+        0,
+      ),
       child: ListTile(
         onTap: () {
           tapAction();
@@ -81,7 +85,7 @@ class CardTile2 extends StatelessWidget {
         ),
         title: Text(
           titleText,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -91,30 +95,41 @@ class CardTile2 extends StatelessWidget {
   }
 }
 
-class SongCard extends StatelessWidget {
+class SongCard extends StatefulWidget {
   final String titleText;
   final String subText;
   final String leadingUrl;
   final dynamic icon;
   final Function() tapAction;
   FontWeight fontWeight;
-  SongCard(
-      {super.key,
-      required this.titleText,
-      required this.subText,
-      required this.leadingUrl,
-      required this.icon,
-      required this.tapAction,
-      required this.fontWeight});
+  SongCard({
+    super.key,
+    required this.titleText,
+    required this.subText,
+    required this.leadingUrl,
+    required this.icon,
+    required this.tapAction,
+    required this.fontWeight,
+  });
 
+  @override
+  State<SongCard> createState() => _SongCardState();
+}
+
+class _SongCardState extends State<SongCard> {
+  Color iconColor = Colors.black38;
+  bool buttonClick = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
+      padding: const EdgeInsets.only(
+        left: 10,
+        right: 10,
+      ),
       child: Card(
         elevation: 1,
         child: ListTile(
-          onTap: tapAction,
+          onTap: widget.tapAction,
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(
               10,
@@ -123,27 +138,56 @@ class SongCard extends StatelessWidget {
               fit: BoxFit.fill,
               width: 50,
               height: 50,
-              image: NetworkImage(
-                leadingUrl,
+              image: AssetImage(
+                widget.leadingUrl,
               ),
             ),
           ),
           title: Text(
-            titleText,
+            widget.titleText,
             style: TextStyle(
               fontSize: 16,
-              fontWeight: fontWeight,
+              fontWeight: widget.fontWeight,
             ),
           ),
+          // trailing: FavoriteButton(
+          //   iconSize: 35,
+          //   isFavorite: true,
+          //   valueChanged: (isFavorite) {
+          //     print("its Favorate");
+          //   },
+          // ),
           trailing: IconButton(
-            onPressed: () {},
-            icon: icon,
+            color: iconColor,
+            onPressed: () {
+              buttonPressed();
+            },
+            icon: const Icon(
+              Icons.favorite,
+            ),
           ),
           subtitle: Text(
-            subText,
+            widget.subText,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void buttonPressed() {
+    if (!buttonClick) {
+      setState(() {
+        iconColor = Colors.red;
+        buttonClick = true;
+      });
+    } else {
+      setState(() {
+        iconColor = Colors.black38;
+        buttonClick = false;
+      });
+    }
   }
 }

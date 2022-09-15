@@ -11,29 +11,39 @@ class AllSong extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      padding: EdgeInsets.all(20),
-      physics: ScrollPhysics(),
+      padding: const EdgeInsets.all(
+        20,
+      ),
+      physics: const ScrollPhysics(),
       child: Column(
         children: [
           Row(
-            children: [
+            children: const [
               Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: HeadingText(text: 'Suggested Songs '),
+                padding: EdgeInsets.only(
+                  bottom: 10.0,
+                ),
+                child: HeadingText(
+                  text: 'Suggested Songs',
+                ),
               ),
             ],
           ),
-          GridCard(),
+          const GridCard(),
           Row(
-            children: [
+            children: const [
               Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: HeadingText(text: 'All Songs'),
+                padding: EdgeInsets.only(
+                  bottom: 10.0,
+                ),
+                child: HeadingText(
+                  text: 'All Songs',
+                ),
               ),
             ],
           ),
           ListView.builder(
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             shrinkWrap: true,
             itemCount: 10,
             itemBuilder: ((context, index) {
@@ -41,12 +51,14 @@ class AllSong extends StatelessWidget {
                 titleText: 'Manavalan Thug',
                 subText: 'Dabzee',
                 leadingUrl:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwa8LQj93pfyktzQypRq78HaKu_DQ_K6Nu09tOYVxP&s',
-                icon: Icon(Icons.favorite),
+                    'assets/images/Thallumaala-Malayalam-2022-20220816184649-500x500.jpeg',
+                icon: const Icon(
+                  Icons.favorite,
+                ),
                 tapAction: (() {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: ((context) {
-                    return PlayerScreen();
+                    return const PlayerScreen();
                   })));
                 }),
                 fontWeight: FontWeight.bold,

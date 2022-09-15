@@ -6,7 +6,12 @@ class MusicSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slider.adaptive(
-      activeColor: Color.fromARGB(255, 174, 48, 39),
+      activeColor: const Color.fromARGB(
+        255,
+        174,
+        48,
+        39,
+      ),
       value: 20,
       onChanged: ((value) {}),
       min: 0,

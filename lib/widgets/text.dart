@@ -11,11 +11,13 @@ class HeadingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,
-        style: GoogleFonts.sarala(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ));
+    return Text(
+      text,
+      style: GoogleFonts.sarala(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    );
   }
 }
 
@@ -26,9 +28,14 @@ class SubTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(titleText,
-        style: GoogleFonts.sarala(
-            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black45));
+    return Text(
+      titleText,
+      style: GoogleFonts.sarala(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: Colors.black45,
+      ),
+    );
   }
 }
 
@@ -41,8 +48,13 @@ class HeadingTextthin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(titleText,
-        style: GoogleFonts.sarala(
-            fontSize: 18, fontWeight: FontWeight.w300, color: Colors.white));
+    return Text(
+      titleText,
+      style: GoogleFonts.sarala(
+        fontSize: 18,
+        fontWeight: FontWeight.w300,
+        color: Colors.white,
+      ),
+    );
   }
 }

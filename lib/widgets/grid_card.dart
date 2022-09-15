@@ -7,17 +7,16 @@ class GridCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         shrinkWrap: true,
         itemCount: 4,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 1,
         ),
         itemBuilder: (BuildContext context, int index) {
-          physics:
-          ScrollPhysics();
+          const ScrollPhysics();
 
           return Column(
             children: [
@@ -25,18 +24,29 @@ class GridCard extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: ((context) {
-                    return PlayerScreen();
+                    return const PlayerScreen();
                   })));
                 },
-                child: Image(
+                child: SizedBox(
                   width: 150,
                   height: 99,
-                  fit: BoxFit.fill,
-                  image: AssetImage(
-                      'assets/images/Thallumaala-Malayalam-2022-20220816184649-500x500.jpeg'),
+                  child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                    ),
+                    child: const Image(
+                      fit: BoxFit.fill,
+                      image: AssetImage(
+                        'assets/images/[CITYPNG.COM]HD Music Graffiti Background Illustration Art PNG - 1255x1255.png',
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              ListTile(
+              const ListTile(
                 title: Text(
                   'Manavalan Thag',
                   style: TextStyle(
@@ -45,10 +55,12 @@ class GridCard extends StatelessWidget {
                   ),
                 ),
                 subtitle: Text(
-                  'Hello',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  'Artist Name',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              )
+              ),
             ],
           );
         });

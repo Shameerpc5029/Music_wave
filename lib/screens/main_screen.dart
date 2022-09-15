@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:music_wave/screens/all_song_screen.dart';
 import 'package:music_wave/screens/library_screen.dart';
 import 'package:music_wave/screens/search_screen.dart';
@@ -22,16 +20,23 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   List<Widget> pages = [
-    AllSong(),
-    LibraryScreen(),
-    SearchScreen(),
-    SettingsScreen(),
+    const AllSong(),
+    const LibraryScreen(),
+    const SearchScreen(),
+    const SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromARGB(255, 174, 48, 39)),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(
+          255,
+          174,
+          48,
+          39,
+        ),
+      ),
       // floatingActionButton: FloatingActionButton(
       //   backgroundColor: Color.fromARGB(255, 174, 48, 39),
       //   onPressed: () {
@@ -47,23 +52,36 @@ class _MainScreenState extends State<MainScreen> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color.fromARGB(255, 174, 48, 39),
+        selectedItemColor: const Color.fromARGB(
+          255,
+          174,
+          48,
+          39,
+        ),
         backgroundColor: Colors.white,
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.music_note),
+            icon: Icon(
+              Icons.music_note,
+            ),
             label: "play",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.library_music),
+            icon: Icon(
+              Icons.library_music,
+            ),
             label: "play",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+            ),
             label: "play",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(
+              Icons.settings,
+            ),
             label: "play",
           ),
         ],

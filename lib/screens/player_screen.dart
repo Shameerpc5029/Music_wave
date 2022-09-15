@@ -1,76 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/music_slider.dart';
-import 'package:music_wave/widgets/player_controler.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/volume_slider.dart';
 import 'package:music_wave/widgets/white_space.dart';
-import 'package:perfect_volume_control/perfect_volume_control.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
-
-class PlayerScreen extends StatelessWidget {
+class PlayerScreen extends StatefulWidget {
   const PlayerScreen({super.key});
 
+  @override
+  State<PlayerScreen> createState() => _PlayerScreenState();
+}
+
+class _PlayerScreenState extends State<PlayerScreen> {
+  Color iconColor = Colors.black38;
+  bool buttonClick = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Player'),
+          title: const Text(
+            'Player',
+          ),
           centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 174, 48, 39),
+          backgroundColor: const Color.fromARGB(
+            255,
+            174,
+            48,
+            39,
+          ),
           leading: IconButton(
             onPressed: (() {
               Navigator.pop(context);
             }),
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+            ),
           ),
         ),
         body: Center(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 15, top: 10),
+                padding: const EdgeInsets.only(
+                  left: 15,
+                  top: 10,
+                ),
                 child: Row(
-                  children: [
-                    HeadingText(text: 'Next Song'),
+                  children: const [
+                    HeadingText(
+                      text: 'Next Song',
+                    ),
                   ],
                 ),
               ),
-              SongCard(
-                fontWeight: FontWeight.bold,
-                titleText: 'Song 1',
-                subText: 'Helloo',
-                leadingUrl:
-                    'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__480.jpg',
-                icon: Icon(Icons.favorite),
-                tapAction: (() {}),
-              ),
-              SongCard(
-                fontWeight: FontWeight.bold,
-                titleText: 'Song 1',
-                subText: 'Helloo',
-                leadingUrl:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwa8LQj93pfyktzQypRq78HaKu_DQ_K6Nu09tOYVxP&s',
-                icon: Icon(Icons.favorite),
-                tapAction: (() {}),
-              ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 2,
+                  itemBuilder: ((context, index) {
+                    return SongCard(
+                      fontWeight: FontWeight.bold,
+                      titleText: 'Song ${1 + index}',
+                      subText: 'Artist ${1 + index}',
+                      leadingUrl:
+                          'assets/images/[CITYPNG.COM]HD Music Graffiti Background Illustration Art PNG - 1255x1255.png',
+                      icon: const Icon(Icons.favorite),
+                      tapAction: (() {}),
+                    );
+                  })),
               const WhiteSpace10(),
-              VolumeSlider(),
+              const VolumeSlider(),
               const WhiteSpace10(),
-              // ClipRRect(
-              //   borderRadius: BorderRadius.circular(20),
-              //   child: SizedBox(
-              //     height: 160,
-              //     child: Card(
-              //       child: Image(
-              //           fit: BoxFit.fill,
-              //           image: NetworkImage(
-              //               'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__480.jpg')),
-              //     ),
-              //   ),
-              // ),
               SizedBox(
                 height: 150,
                 child: ScrollSnapList(
@@ -82,18 +82,22 @@ class PlayerScreen extends StatelessWidget {
                   focusOnItemTap: true,
                 ),
               ),
-              WhiteSpace10(),
+              const WhiteSpace10(),
               ListTile(
-                title: HeadingText(text: 'Manavalan Thug'),
-                subtitle: SubTitle(titleText: 'Dabze,SA'),
+                title: const HeadingText(
+                  text: 'Manavalan Thug',
+                ),
+                subtitle: const SubTitle(
+                  titleText: 'Dabze,SA',
+                ),
                 trailing: IconButton(
                   onPressed: (() {}),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.playlist_add,
                   ),
                 ),
               ),
-              MusicSlide(),
+              const MusicSlide(),
             ],
           ),
         ));
@@ -105,18 +109,67 @@ class PlayerScreen extends StatelessWidget {
       child: Card(
         elevation: 12,
         child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(
+                10,
+              ),
+            ),
             child: Column(
               children: [
-                Image(
-                  height: 142,
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                      'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__480.jpg'),
+                Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  children: [
+                    const Image(
+                      height: 142,
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        'assets/images/Thallumaala-Malayalam-2022-20220816184649-500x500.jpeg',
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(
+                        8.0,
+                      ),
+                      child: Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            50,
+                          ),
+                          color: Colors.white,
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            buttonPressed();
+                          },
+                          icon: Icon(
+                            Icons.favorite,
+                            color: iconColor,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
-            )),
+            ),),
       ),
     );
+  }
+
+  void buttonPressed() {
+    if (!buttonClick) {
+      setState(() {
+        iconColor = Colors.red;
+        buttonClick = true;
+      });
+    } else {
+      setState(() {
+        iconColor = Colors.black38;
+        buttonClick = false;
+      });
+    }
   }
 }
