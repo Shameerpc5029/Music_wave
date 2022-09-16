@@ -37,11 +37,29 @@ class GridCard extends StatelessWidget {
                         20,
                       ),
                     ),
-                    child: const Image(
-                      fit: BoxFit.fill,
-                      image: AssetImage(
-                        'assets/images/[CITYPNG.COM]HD Music Graffiti Background Illustration Art PNG - 1255x1255.png',
-                      ),
+                    child: Stack(
+                      alignment: AlignmentDirectional.bottomEnd,
+                      children: [
+                        const Image(
+                          width: 150,
+                          fit: BoxFit.fill,
+                          image: AssetImage(
+                            'assets/images/[CITYPNG.COM]HD Music Graffiti Background Illustration Art PNG - 1255x1255.png',
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                            ),
+                            onPressed: () {},
+                            child: const Icon(
+                              Icons.play_arrow_rounded,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
