@@ -4,7 +4,9 @@ import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
 
 class Bottom extends StatefulWidget {
-  const Bottom({super.key});
+  const Bottom({
+    super.key,
+  });
 
   @override
   State<Bottom> createState() => _BottomState();
@@ -12,6 +14,7 @@ class Bottom extends StatefulWidget {
 
 class _BottomState extends State<Bottom> {
   bool buttonClick = true;
+
   Text text = const Text(
     'Add Playlist',
   );
@@ -63,6 +66,7 @@ class _BottomState extends State<Bottom> {
         onPreesButton();
         buttonClick = false;
         showBottomSheet(
+          enableDrag: false,
           context: context,
           builder: ((context) {
             return SizedBox(
@@ -88,9 +92,9 @@ class _BottomState extends State<Bottom> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.arrow_drop_down_rounded,
-                        ),
+                        // const Icon(
+                        //   Icons.arrow_drop_down_rounded,
+                        // ),
                         const HeadingText(
                           text: 'Add Playlist',
                         ),
@@ -115,6 +119,7 @@ class _BottomState extends State<Bottom> {
                         ElevatedButton(
                           onPressed: (() {
                             onPreesButton();
+
                             Navigator.pop(context);
                           }),
                           child: const Text(

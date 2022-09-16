@@ -22,43 +22,12 @@ class AboutScreen extends StatelessWidget {
             ),
             floating: true,
             pinned: true,
-            expandedHeight: 280,
+            expandedHeight: 230,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: const BoxDecoration(
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     color: Color.fromARGB(255, 33, 194, 117),
-                  //     offset: const Offset(
-                  //       15.0,
-                  //       50.0,
-                  //     ),
-                  //     blurRadius: 30.0,
-                  //     spreadRadius: .100,
-                  //   ),
-                  // ],
-                  // borderRadius: BorderRadius.only(
-                  //     bottomLeft: Radius.circular(20),
-                  //     bottomRight: Radius.circular(20)),
-                  // gradient: LinearGradient(
-                  //   begin: Alignment.topRight,
-                  //   end: Alignment.topLeft,
-                  //   stops: [
-                  //     0.1,
-                  //     0.5,
-                  //     0.5,
-                  //     0.9,
-                  //   ],
-                  //   colors: [
-                  //     Color.fromARGB(255, 174, 48, 39),
-                  //     Color.fromARGB(255, 232, 172, 172),
-                  //     Color.fromARGB(255, 232, 172, 172),
-                  //     Color.fromARGB(255, 174, 48, 39),
-                  //   ],
-                  // ),
-                  // color: Color.fromARGB(255, 144, 131, 131),
                   image: DecorationImage(
-                    scale: 1.4,
+                    scale: 2,
                     image: AssetImage(
                       'assets/images/logo.png',
                     ),
@@ -68,6 +37,7 @@ class AboutScreen extends StatelessWidget {
               title: const Text(
                 'Music Wave',
                 style: TextStyle(
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 180, 30, 30),
                 ),

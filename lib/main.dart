@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_wave/screens/main_screen.dart';
+import 'package:music_wave/screens/splash_screen.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MainScreen(),
+      home: const SplashScreen(),
     );
   }
 }

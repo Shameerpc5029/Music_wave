@@ -28,11 +28,10 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
-  favorite_button: ^0.0.4
   flutter:
     sdk: flutter
   google_fonts: ^3.0.1
-  perfect_volume_control: ^1.0.5
+  loading_animation_widget: ^1.2.0+3
   scroll_snap_list: ^0.9.1
 
 dev_dependencies:
@@ -52,7 +51,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/images/25016806-removebg-preview.png
+  #  - assets/images/25016806-removebg-preview.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

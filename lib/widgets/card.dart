@@ -28,7 +28,7 @@ class CardTile extends StatelessWidget {
           tapAction();
         },
         leading: CircleAvatar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.white10,
           child: Icon(
             icon,
             color: iconColor,
