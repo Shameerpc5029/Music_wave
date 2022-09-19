@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:music_wave/screens/splash_screen.dart';
 
 void main(List<String> args) {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {

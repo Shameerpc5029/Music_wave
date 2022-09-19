@@ -62,7 +62,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           subText: 'Artist ${1 + index}',
                           leadingUrl:
                               'assets/images/[CITYPNG.COM]HD Music Graffiti Background Illustration Art PNG - 1255x1255.png',
-                          icon: const Icon(Icons.favorite),
+                          icon: const Icon(Icons.favorite,),
                           tapAction: (() {}),
                         );
                       })),

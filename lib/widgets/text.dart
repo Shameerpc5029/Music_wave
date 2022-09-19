@@ -24,7 +24,10 @@ class HeadingText extends StatelessWidget {
 class SubTitle extends StatelessWidget {
   final String titleText;
 
-  const SubTitle({super.key, required this.titleText});
+  const SubTitle({
+    super.key,
+    required this.titleText,
+  });
 
   @override
   Widget build(BuildContext context) {

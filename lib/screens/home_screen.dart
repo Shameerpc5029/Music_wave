@@ -32,9 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 25,
+          vertical: 20,
+        ),
         child: GNav(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 5,
+          ),
 
           //
           // hoverColor: Colors.black,
@@ -53,7 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
           haptic: true,
           // tabBackgroundColor: const Color.fromARGB(255, 174, 48, 39),
-          activeColor: const Color.fromARGB(255, 174, 48, 39),
+          activeColor: const Color.fromARGB(
+            255,
+            174,
+            48,
+            39,
+          ),
           selectedIndex: selectedIndex,
           onTabChange: (index) {
             navBottonBar(index);

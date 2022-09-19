@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 class PlayerController extends StatelessWidget {
   final dynamic icons;
 
-   final double size;
+  final double size;
   final void Function() buttonAction;
 
   const PlayerController({
     super.key,
     required this.icons,
-    required this.buttonAction, required this.size,
+    required this.buttonAction,
+    required this.size,
   });
 
   @override
@@ -18,7 +19,9 @@ class PlayerController extends StatelessWidget {
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(
+              50,
+            ),
             side: const BorderSide(
               color: Colors.red,
             ),
@@ -30,7 +33,7 @@ class PlayerController extends StatelessWidget {
       },
       child: Icon(
         icons,
-        size:size ,
+        size: size,
         color: Colors.red,
       ),
     );

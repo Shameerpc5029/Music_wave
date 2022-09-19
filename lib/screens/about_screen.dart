@@ -39,7 +39,12 @@ class AboutScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 180, 30, 30),
+                  color: Color.fromARGB(
+                    255,
+                    180,
+                    30,
+                    30,
+                  ),
                 ),
               ),
               centerTitle: true,

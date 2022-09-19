@@ -67,7 +67,9 @@ class LibraryScreen extends StatelessWidget {
                               return const RemoveAlert();
                             }));
                       },
-                      icon: const Icon(Icons.playlist_remove),
+                      icon: const Icon(
+                        Icons.playlist_remove,
+                      ),
                     ),
 
                     icon: Icons.playlist_play,

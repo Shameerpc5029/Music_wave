@@ -32,14 +32,19 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 200,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/logo.png'),
+                  image: AssetImage(
+                    'assets/images/logo.png',
+                  ),
                 ),
               ),
             ),
             const WhiteSpace(),
             const Text(
               "Music Wave",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(
               height: 200,
@@ -56,9 +61,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> gotoMainScreen() async {
     await Future.delayed(
-      const Duration(seconds: 3),
+      const Duration(
+        seconds: 3,
+      ),
     );
-
 
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(

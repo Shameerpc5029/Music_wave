@@ -9,13 +9,17 @@ class FavorateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorate Songs'),
+        title: const Text(
+          'Favorate Songs',
+        ),
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
             Navigator.pop(context);
           }),
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+          ),
         ),
       ),
       body: SafeArea(

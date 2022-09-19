@@ -15,24 +15,25 @@ class TermsScreen extends StatelessWidget {
               Icons.arrow_back_ios_new_outlined,
             )),
       ),
-      body: ListView(children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Center(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Terms and Conditions',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Center(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Terms and Conditions',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const Text('''
+                    ],
+                  ),
+                  const Text('''
 
 Welcome to Music Wave! 
 
@@ -104,11 +105,12 @@ To the maximum extent permitted by applicable law, we exclude all representation
 The limitations and prohibitions of liability set in this Section and elsewhere in this disclaimer: (a) are subject to the preceding paragraph; and (b) govern all liabilities arising under the disclaimer, including liabilities arising in contract, in tort and for breach of statutory duty.
 As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.
 '''),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
