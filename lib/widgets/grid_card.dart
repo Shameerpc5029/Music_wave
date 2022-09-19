@@ -29,7 +29,7 @@ class GridCard extends StatelessWidget {
                 },
                 child: SizedBox(
                   width: 150,
-                  height: 99,
+                  height: 89,
                   child: Card(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     shape: RoundedRectangleBorder(

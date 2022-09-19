@@ -72,6 +72,13 @@ class SettingsScreen extends StatelessWidget {
               titleText: 'Reset App',
               tapAction: () {},
             ),
+            const Spacer(),
+            const Text(
+              'V 1.0.0',
+              style: TextStyle(
+                color: Colors.black12,
+              ),
+            )
           ],
         ),
       ),

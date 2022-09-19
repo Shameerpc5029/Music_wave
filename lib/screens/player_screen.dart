@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:music_wave/widgets/music_slider.dart';
 import 'package:music_wave/widgets/player_controler.dart';
 import 'package:music_wave/widgets/song_card.dart';
@@ -20,120 +21,125 @@ class _PlayerScreenState extends State<PlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          // title: const Text(
-          //   'Player',
-          // ),
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: (() {
-              Navigator.pop(context);
-            }),
-            icon: const Icon(
-              Icons.arrow_back_ios,
-            ),
+      appBar: AppBar(
+        // title: const Text(
+        //   'Player',
+        // ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: (() {
+            Navigator.pop(context);
+          }),
+          icon: const Icon(
+            Icons.arrow_back_ios,
           ),
         ),
-        body: ListView(
-          children: [
-            Center(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15,
-                      top: 10,
-                    ),
-                    child: Row(
-                      children: const [
-                        HeadingText(
-                          text: 'Next Song',
-                        ),
-                      ],
-                    ),
+      ),
+      body: ListView(
+        children: [
+          Center(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15,
+                    top: 10,
                   ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      itemBuilder: ((context, index) {
-                        return SongCard(
-                          fontWeight: FontWeight.bold,
-                          titleText: 'Song ${1 + index}',
-                          subText: 'Artist ${1 + index}',
-                          leadingUrl:
-                              'assets/images/[CITYPNG.COM]HD Music Graffiti Background Illustration Art PNG - 1255x1255.png',
-                          icon: const Icon(Icons.favorite,),
-                          tapAction: (() {}),
-                        );
-                      })),
-                  const WhiteSpace10(),
-                  SizedBox(
-                    height: 150,
-                    child: ScrollSnapList(
-                      itemBuilder: scroll,
-                      itemCount: 5,
-                      itemSize: 150,
-                      onItemFocus: (index) {},
-                      dynamicItemSize: true,
-                      focusOnItemTap: true,
-                    ),
-                  ),
-                  const WhiteSpace10(),
-                  ListTile(
-                    title: const HeadingText(
-                      text: 'Manavalan Thug',
-                    ),
-                    subtitle: const SubTitle(
-                      titleText: 'Dabze,SA',
-                    ),
-                    trailing: IconButton(
-                      onPressed: (() {}),
-                      icon: const Icon(
-                        Icons.playlist_add,
-                      ),
-                    ),
-                  ),
-                  const MusicSlide(),
-                  const WhiteSpace(),
-                  Stack(
-                    children: [
-                      // Clip(),
-                      Column(
-                        children: [
-                          PlayerController(
-                            icons: Icons.play_arrow,
-                            buttonAction: () {},
-                            size: 50,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              PlayerController(
-                                icons: Icons.skip_previous_rounded,
-                                buttonAction: () {},
-                                size: 30,
-                              ),
-                              const SizedBox(
-                                width: 100,
-                              ),
-                              PlayerController(
-                                icons: Icons.skip_next,
-                                buttonAction: () {},
-                                size: 30,
-                              ),
-                            ],
-                          ),
-                          const WhiteSpace(),
-                          const VolumeSlider(),
-                        ],
+                  child: Row(
+                    children: const [
+                      HeadingText(
+                        text: 'Next Song',
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 2,
+                    itemBuilder: ((context, index) {
+                      return SongCard(
+                        fontWeight: FontWeight.bold,
+                        titleText: 'Song ${1 + index}',
+                        subText: 'Artist ${1 + index}',
+                        leadingUrl:
+                            'assets/images/[CITYPNG.COM]HD Music Graffiti Background Illustration Art PNG - 1255x1255.png',
+                        icon: const Icon(
+                          Icons.favorite,
+                        ),
+                        tapAction: (() {}),
+                      );
+                    })),
+                const WhiteSpace10(),
+                SizedBox(
+                  height: 150,
+                  child: ScrollSnapList(
+                    itemBuilder: scroll,
+                    itemCount: 5,
+                    itemSize: 150,
+                    onItemFocus: (index) {
+                      print('Selected');
+                    },
+                    dynamicItemSize: true,
+                    focusOnItemTap: true,
+                  ),
+                ),
+                const WhiteSpace10(),
+                ListTile(
+                  title: const HeadingText(
+                    text: 'Manavalan Thug',
+                  ),
+                  subtitle: const SubTitle(
+                    titleText: 'Dabze,SA',
+                  ),
+                  trailing: IconButton(
+                    onPressed: (() {}),
+                    icon: const Icon(
+                      Icons.playlist_add,
+                    ),
+                  ),
+                ),
+                const MusicSlide(),
+                const WhiteSpace(),
+                Stack(
+                  children: [
+                    // Clip(),
+                    Column(
+                      children: [
+                        PlayerController(
+                          icons: Icons.play_arrow,
+                          buttonAction: () {},
+                          size: 50,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            PlayerController(
+                              icons: Icons.skip_previous_rounded,
+                              buttonAction: () {},
+                              size: 30,
+                            ),
+                            const SizedBox(
+                              width: 100,
+                            ),
+                            PlayerController(
+                              icons: Icons.skip_next,
+                              buttonAction: () {},
+                              size: 30,
+                            ),
+                          ],
+                        ),
+                        const WhiteSpace(),
+                        const VolumeSlider(),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 
   Widget scroll(BuildContext context, int index) {

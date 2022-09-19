@@ -13,8 +13,8 @@ class Bottom extends StatefulWidget {
 }
 
 class _BottomState extends State<Bottom> {
-  bool buttonClick = true;
-
+  bool buttonClick = false;
+//edit
   Text text = const Text(
     'Add Playlist',
   );
@@ -23,14 +23,15 @@ class _BottomState extends State<Bottom> {
   );
   void onPreesButton() {
     setState(() {
-      if (!buttonClick) {
+      // buttonClick ? text : text = Text('data');
+      if (buttonClick) {
         text = const Text(
           'Add Playlist',
         );
         iconData = const Icon(
           Icons.playlist_add,
         );
-        buttonClick = true;
+        buttonClick = false;
       } else {
         text = const Text(
           'Save Playlist',
@@ -38,20 +39,10 @@ class _BottomState extends State<Bottom> {
         iconData = const Icon(
           Icons.save,
         );
-        buttonClick = false;
+        buttonClick = true;
       }
     });
   }
-
-  // void cancelPreesButton() {
-  //   if (!buttonClick) {
-  //     text;
-  //     iconData;
-  //   } else {
-  //     text = Text('SAve');
-  //     iconData = Icon(Icons.save);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +55,7 @@ class _BottomState extends State<Bottom> {
       ),
       onPressed: (() {
         onPreesButton();
-        buttonClick = false;
+        buttonClick = true;
         showBottomSheet(
           enableDrag: false,
           context: context,
