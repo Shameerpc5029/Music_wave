@@ -5,14 +5,23 @@ class VolumeSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300,
-      child: Slider.adaptive(
-        activeColor: Colors.red,
-        value: 30,
-        onChanged: ((value) {}),
-        max: 100,
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.volume_up,
+          color: Colors.red,
+        ),
+        SizedBox(
+          width: 300,
+          child: Slider.adaptive(
+            activeColor: Colors.red,
+            value: 30,
+            onChanged: ((value) {}),
+            max: 100,
+          ),
+        ),
+      ],
     );
   }
 }

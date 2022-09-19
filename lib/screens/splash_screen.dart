@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:music_wave/screens/all_song_screen.dart';
-import 'package:music_wave/screens/main_screen.dart';
+import 'package:music_wave/screens/home_screen.dart';
 import 'package:music_wave/widgets/white_space.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -61,10 +58,12 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(
       const Duration(seconds: 3),
     );
+
+
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (ctx) {
-          return const MainScreen();
+          return const HomeScreen();
         },
       ),
     );

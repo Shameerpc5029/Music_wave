@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:music_wave/screens/favorate_screen.dart';
 import 'package:music_wave/screens/playlist_screen.dart';
 import 'package:music_wave/widgets/bottom_sheet.dart';
-
 import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/remove_alert.dart';
 import 'package:music_wave/widgets/text.dart';

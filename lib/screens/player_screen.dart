@@ -95,31 +95,40 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ),
                   const MusicSlide(),
                   const WhiteSpace(),
-                  PlayerController(
-                    icons: Icons.play_arrow,
-                    buttonAction: () {},
-                    size: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Stack(
                     children: [
-                      PlayerController(
-                        icons: Icons.skip_previous_rounded,
-                        buttonAction: () {},
-                        size: 30,
-                      ),
-                      const SizedBox(
-                        width: 100,
-                      ),
-                      PlayerController(
-                        icons: Icons.skip_next,
-                        buttonAction: () {},
-                        size: 30,
+                      // Clip(),
+                      Column(
+                        children: [
+                          PlayerController(
+                            icons: Icons.play_arrow,
+                            buttonAction: () {},
+                            size: 50,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              PlayerController(
+                                icons: Icons.skip_previous_rounded,
+                                buttonAction: () {},
+                                size: 30,
+                              ),
+                              const SizedBox(
+                                width: 100,
+                              ),
+                              PlayerController(
+                                icons: Icons.skip_next,
+                                buttonAction: () {},
+                                size: 30,
+                              ),
+                            ],
+                          ),
+                          const WhiteSpace(),
+                          const VolumeSlider(),
+                        ],
                       ),
                     ],
                   ),
-                  const WhiteSpace(),
-                  const VolumeSlider(),
                 ],
               ),
             ),

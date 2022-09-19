@@ -24,7 +24,7 @@ class AllSong extends StatelessWidget {
                   bottom: 10.0,
                 ),
                 child: HeadingText(
-                  text: 'Suggested Songs',
+                  text: 'Recently Songs',
                 ),
               ),
             ],
