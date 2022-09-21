@@ -4,7 +4,7 @@ class PlayerController extends StatelessWidget {
   final dynamic icons;
 
   final double size;
-  final void Function() buttonAction;
+  final Function() buttonAction;
 
   const PlayerController({
     super.key,
@@ -22,7 +22,7 @@ class PlayerController extends StatelessWidget {
             borderRadius: BorderRadius.circular(
               50,
             ),
-            side: const BorderSide(
+            side: BorderSide(
               color: Colors.red,
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_wave/widgets/switch_button.dart';
 
 class CardTile extends StatelessWidget {
   final String tittleText;
@@ -21,7 +22,7 @@ class CardTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      // color: Colors.white,
       elevation: 1,
       child: ListTile(
         onTap: () {
@@ -88,6 +89,50 @@ class CardTile2 extends StatelessWidget {
             fontSize: 20,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CardTile3 extends StatelessWidget {
+  final dynamic icon;
+  final String titleText;
+  final Function() tapAction;
+
+  const CardTile3({
+    super.key,
+    required this.icon,
+    required this.titleText,
+    required this.tapAction,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(
+        0,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              onTap: () {
+                tapAction();
+              },
+              leading: Icon(
+                icon,
+                size: 28,
+              ),
+              title: Text(
+                titleText,
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+          SwitchButton(),
+        ],
       ),
     );
   }

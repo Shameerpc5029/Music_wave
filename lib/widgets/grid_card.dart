@@ -22,10 +22,7 @@ class GridCard extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: ((context) {
-                    return const PlayerScreen();
-                  })));
+                 
                 },
                 child: SizedBox(
                   width: 150,
@@ -56,6 +53,12 @@ class GridCard extends StatelessWidget {
                             onPressed: () {},
                             child: const Icon(
                               Icons.play_arrow_rounded,
+                              color: Color.fromARGB(
+                                255,
+                                180,
+                                30,
+                                30,
+                              ),
                             ),
                           ),
                         )

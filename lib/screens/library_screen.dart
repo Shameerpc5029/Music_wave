@@ -45,7 +45,7 @@ class LibraryScreen extends StatelessWidget {
                 tapAction: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: ((context) => const FavorateScreen()),
+                      builder: ((context) => FavorateScreen()),
                     ),
                   );
                 },
@@ -75,13 +75,13 @@ class LibraryScreen extends StatelessWidget {
                     icon: Icons.playlist_play,
                     iconColor: Colors.black,
                     tapAction: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: ((context) {
-                            return const PlaylistScreen();
-                          }),
-                        ),
-                      );
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: ((context) {
+                      //       return PlaylistScreen();
+                      //     }),
+                      //   ),
+                      // );
                     },
                   );
                 }),

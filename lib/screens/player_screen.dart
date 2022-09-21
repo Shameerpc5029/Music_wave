@@ -1,21 +1,79 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/widgets/music_slider.dart';
-import 'package:music_wave/widgets/player_controler.dart';
+
+import 'package:music_wave/widgets/scroll_card.dart';
 import 'package:music_wave/widgets/song_card.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/volume_slider.dart';
 import 'package:music_wave/widgets/white_space.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 
 class PlayerScreen extends StatefulWidget {
-  const PlayerScreen({super.key});
+  final SongModel songModel;
+  final AudioPlayer audioPlayer;
+  const PlayerScreen(
+      {super.key, required this.songModel, required this.audioPlayer});
 
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
+  final _audioQuery = OnAudioQuery();
+  final audioPlayer = AudioPlayer();
+  playSong(String? uri) {
+    try {
+      audioPlayer.setAudioSource(
+        AudioSource.uri(
+          Uri.parse(uri!),
+        ),
+      );
+      audioPlayer.play();
+    } on Exception {
+      log("Error pasing song");
+    }
+  }
+
+  Duration duration = Duration.zero;
+  Duration position = Duration.zero;
+
+  bool _isPlaying = false;
+  @override
+  void initState() {
+    super.initState();
+    playSongs();
+  }
+
+  void playSongs() {
+    try {
+      widget.audioPlayer;
+      widget.audioPlayer.setAudioSource(
+        AudioSource.uri(
+          Uri.parse(widget.songModel.uri!),
+        ),
+      );
+      widget.audioPlayer.play();
+      _isPlaying = true;
+    } on Exception {
+      log("Cannot pase song");
+    }
+    widget.audioPlayer.durationStream.listen((d) {
+      setState(() {
+        duration = d!;
+      });
+    });
+    widget.audioPlayer.positionStream.listen((p) {
+      setState(() {
+        position = p;
+      });
+    });
+  }
+
   Color iconColor = Colors.black38;
   bool buttonClick = false;
   @override
@@ -53,27 +111,59 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     ],
                   ),
                 ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 2,
-                    itemBuilder: ((context, index) {
-                      return SongCard(
-                        fontWeight: FontWeight.bold,
-                        titleText: 'Song ${1 + index}',
-                        subText: 'Artist ${1 + index}',
-                        leadingUrl:
-                            'assets/images/[CITYPNG.COM]HD Music Graffiti Background Illustration Art PNG - 1255x1255.png',
-                        icon: const Icon(
-                          Icons.favorite,
-                        ),
-                        tapAction: (() {}),
-                      );
-                    })),
+                FutureBuilder<List<SongModel>>(
+                    future: _audioQuery.querySongs(
+                      sortType: null,
+                      orderType: OrderType.ASC_OR_SMALLER,
+                      uriType: UriType.EXTERNAL,
+                      ignoreCase: true,
+                    ),
+                    builder: (context, item) {
+                      if (item.data == null) {
+                        return LoadingAnimationWidget.staggeredDotsWave(
+                          color: Colors.black,
+                          size: 40,
+                        );
+                      } else if (item.data!.isEmpty) {
+                        return const SizedBox(
+                          height: 200,
+                          child: Center(
+                            child: Text(
+                              'No Songs Found',
+                            ),
+                          ),
+                        );
+                      }
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 2,
+                          itemBuilder: ((context, index) {
+                            return SongCard(
+                              player: audioPlayer,
+                              index: index,
+                              item: item,
+                              fontWeight: FontWeight.bold,
+                              titleText: widget.songModel.displayNameWOExt,
+                              subText: widget.songModel.artist.toString() ==
+                                      "<unknown>"
+                                  ? "Unknown Artist"
+                                  : widget.songModel.artist.toString(),
+                              icon: const Icon(
+                                Icons.favorite,
+                              ),
+                            );
+                          }));
+                    }),
                 const WhiteSpace10(),
                 SizedBox(
                   height: 150,
                   child: ScrollSnapList(
-                    itemBuilder: scroll,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ScrollCard(
+                        id: widget.songModel.id,
+                        type: ArtworkType.AUDIO,
+                      );
+                    },
                     itemCount: 5,
                     itemSize: 150,
                     onItemFocus: (index) {
@@ -85,11 +175,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 ),
                 const WhiteSpace10(),
                 ListTile(
-                  title: const HeadingText(
-                    text: 'Manavalan Thug',
+                  title: HeadingText(
+                    text: widget.songModel.displayNameWOExt,
                   ),
-                  subtitle: const SubTitle(
-                    titleText: 'Dabze,SA',
+                  subtitle: SubTitle(
+                    titleText: widget.songModel.artist.toString() == "<unknown>"
+                        ? "Unknown Artist"
+                        : widget.songModel.artist.toString(),
                   ),
                   trailing: IconButton(
                     onPressed: (() {}),
@@ -98,36 +190,114 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     ),
                   ),
                 ),
-                const MusicSlide(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(position.toString().split(".")[0]),
+                      Expanded(
+                        child: MusicSlide(
+                          duration: duration,
+                          position: position,
+                          audioPlayer: audioPlayer,
+                        ),
+                      ),
+                      Text(duration.toString().split(".")[0]),
+                    ],
+                  ),
+                ),
                 const WhiteSpace(),
                 Stack(
                   children: [
                     // Clip(),
                     Column(
                       children: [
-                        PlayerController(
-                          icons: Icons.play_arrow,
-                          buttonAction: () {},
-                          size: 50,
-                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            PlayerController(
-                              icons: Icons.skip_previous_rounded,
-                              buttonAction: () {},
-                              size: 30,
+                            RawMaterialButton(
+                              padding: EdgeInsets.all(15),
+                              shape: CircleBorder(
+                                side: BorderSide(
+                                    color: Color.fromARGB(255, 185, 18, 18),
+                                    width: 3),
+                              ),
+                              onPressed: () {},
+                              child: Icon(
+                                Icons.skip_previous_rounded,
+                                size: 20,
+                                color: Color.fromARGB(255, 185, 18, 18),
+                              ),
                             ),
-                            const SizedBox(
-                              width: 100,
+                            RawMaterialButton(
+                              shape: CircleBorder(
+                                side: BorderSide(
+                                    color: Color.fromARGB(255, 185, 18, 18),
+                                    width: 3),
+                              ),
+                              padding: EdgeInsets.all(15),
+                              onPressed: () {
+                                setState(() {
+                                  if (_isPlaying) {
+                                    widget.audioPlayer.pause();
+                                  } else {
+                                    widget.audioPlayer.play();
+                                  }
+                                  _isPlaying = !_isPlaying;
+                                });
+                              },
+                              child: Icon(
+                                _isPlaying
+                                    ? Icons.pause_rounded
+                                    : Icons.play_arrow_rounded,
+                                color: Color.fromARGB(255, 185, 18, 18),
+                                size: 40,
+                              ),
                             ),
-                            PlayerController(
-                              icons: Icons.skip_next,
-                              buttonAction: () {},
-                              size: 30,
+                            RawMaterialButton(
+                              padding: EdgeInsets.all(15),
+                              shape: CircleBorder(
+                                side: BorderSide(
+                                    color: Color.fromARGB(255, 185, 18, 18),
+                                    width: 3),
+                              ),
+                              onPressed: () {},
+                              child: Icon(
+                                Icons.skip_next_rounded,
+                                size: 20,
+                                color: Color.fromARGB(255, 185, 18, 18),
+                              ),
                             ),
                           ],
                         ),
+                        // IconButton(
+                        //   onPressed: () {
+                        //     setState(() {
+                        //       if (_isPlaying) {
+                        //         widget.audioPlayer.pause();
+                        //       } else {
+                        //         widget.audioPlayer.play();
+                        //       }
+                        //       _isPlaying = !_isPlaying;
+                        //     });
+                        //   },
+                        //   icon: Icon(
+                        //     _isPlaying ? Icons.pause : Icons.play_arrow,
+                        //   ),
+                        // ),
+
+                        // PlayerController(
+                        //   icons: Icons.skip_previous_rounded,
+                        //   buttonAction: () {
+                        //     print("object");
+                        //   },
+                        //   size: 30,
+                        // ),
+                        const SizedBox(
+                          width: 75,
+                        ),
+
                         const WhiteSpace(),
                         const VolumeSlider(),
                       ],
@@ -140,73 +310,5 @@ class _PlayerScreenState extends State<PlayerScreen> {
         ],
       ),
     );
-  }
-
-  Widget scroll(BuildContext context, int index) {
-    return SizedBox(
-      width: 150,
-      child: Card(
-        elevation: 12,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              10,
-            ),
-          ),
-          child: Column(
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                  const Image(
-                    height: 142,
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                      'assets/images/Thallumaala-Malayalam-2022-20220816184649-500x500.jpeg',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(
-                      8.0,
-                    ),
-                    child: Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          50,
-                        ),
-                        color: Colors.white,
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          buttonPressed();
-                        },
-                        icon: const Icon(Icons.favorite),
-                        color: iconColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void buttonPressed() {
-    if (!buttonClick) {
-      setState(() {
-        iconColor = Colors.red;
-        buttonClick = true;
-      });
-    } else {
-      setState(() {
-        iconColor = Colors.black38;
-        buttonClick = false;
-      });
-    }
   }
 }

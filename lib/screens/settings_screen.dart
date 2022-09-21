@@ -72,6 +72,11 @@ class SettingsScreen extends StatelessWidget {
               titleText: 'Reset App',
               tapAction: () {},
             ),
+            CardTile3(
+              icon: Icons.dark_mode_rounded,
+              titleText: 'Dark Mode',
+              tapAction: () {},
+            ),
             const Spacer(),
             const Text(
               'V 1.0.0',

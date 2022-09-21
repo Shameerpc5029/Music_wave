@@ -1,20 +1,30 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:music_wave/screens/player_screen.dart';
+
+import 'package:on_audio_query/on_audio_query.dart';
 
 class SongCard extends StatefulWidget {
+  final AsyncSnapshot<List<SongModel>> item;
+  final AudioPlayer player;
+  final int index;
   final String titleText;
   final String subText;
-  final String leadingUrl;
+
   final dynamic icon;
-  final Function() tapAction;
+
   final FontWeight fontWeight;
   const SongCard({
     super.key,
     required this.titleText,
     required this.subText,
-    required this.leadingUrl,
     required this.icon,
-    required this.tapAction,
     required this.fontWeight,
+    required this.item,
+    required this.index,
+    required this.player,
   });
 
   @override
@@ -22,6 +32,20 @@ class SongCard extends StatefulWidget {
 }
 
 class _SongCardState extends State<SongCard> {
+  final audioPlayer = AudioPlayer();
+  playSong(String? uri) {
+    try {
+      audioPlayer.setAudioSource(
+        AudioSource.uri(
+          Uri.parse(uri!),
+        ),
+      );
+      audioPlayer.play();
+    } on Exception {
+      log("Error pasing song");
+    }
+  }
+
   Color iconColor = Colors.black38;
   bool buttonClick = false;
   @override
@@ -34,25 +58,41 @@ class _SongCardState extends State<SongCard> {
       child: Card(
         elevation: 1,
         child: ListTile(
-          onTap: widget.tapAction,
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-            child: Image(
-              fit: BoxFit.fill,
-              width: 50,
-              height: 50,
-              image: AssetImage(
-                widget.leadingUrl,
-              ),
+          onTap: (() {
+            Navigator.push(context, MaterialPageRoute(builder: ((context) {
+              return PlayerScreen(
+                  songModel: widget.item.data![widget.index],
+                  audioPlayer: widget.player);
+            })));
+          }),
+          leading: QueryArtworkWidget(
+            id: widget.item.data![widget.index].id,
+            type: ArtworkType.AUDIO,
+            nullArtworkWidget: CircleAvatar(
+              radius: MediaQuery.of(context).size.aspectRatio * 50,
+              backgroundColor: Colors.blue,
+              child: const Icon(Icons.music_note),
             ),
           ),
+          // leading: ClipRRect(
+          //   borderRadius: BorderRadius.circular(
+          //     10,
+          //   ),
+          //   child: Image(
+          //     fit: BoxFit.fill,
+          //     width: 50,
+          //     height: 50,
+          //     image: AssetImage(
+          //       widget.leadingUrl,
+          //     ),
+          //   ),
+          // ),
           title: Text(
             widget.titleText,
             style: TextStyle(
               fontSize: 16,
               fontWeight: widget.fontWeight,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           // trailing: FavoriteButton(
@@ -75,6 +115,7 @@ class _SongCardState extends State<SongCard> {
             widget.subText,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),

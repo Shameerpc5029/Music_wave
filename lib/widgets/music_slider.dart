@@ -1,21 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
-class MusicSlide extends StatelessWidget {
-  const MusicSlide({super.key});
+class MusicSlide extends StatefulWidget {
+  final AudioPlayer audioPlayer;
+  final Duration position;
+  final Duration duration;
+
+  const MusicSlide({
+    super.key,
+    required this.position,
+    required this.duration,
+    required this.audioPlayer,
+  });
 
   @override
+  State<MusicSlide> createState() => _MusicSlideState();
+}
+
+class _MusicSlideState extends State<MusicSlide> {
+  @override
   Widget build(BuildContext context) {
-    return Slider.adaptive(
+    return Slider(
       activeColor: const Color.fromARGB(
         255,
         174,
         48,
         39,
       ),
-      value: 20,
-      onChanged: ((value) {}),
-      min: 0,
-      max: 100,
+      onChanged: ((value) {
+        setState(() {
+          // changeToSecond(value.toInt());
+          value = value;
+        });
+      }),
+      value: widget.position.inSeconds.toDouble(),
+      min: const Duration(microseconds: 0).inSeconds.toDouble(),
+      max: widget.duration.inSeconds.toDouble(),
     );
+  }
+
+  void changeToSecond(int seconds) {
+    Duration duration = Duration(seconds: seconds);
+    widget.audioPlayer.seek(duration);
   }
 }

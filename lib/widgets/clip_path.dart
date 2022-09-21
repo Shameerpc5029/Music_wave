@@ -22,6 +22,7 @@ class CustomClipPath extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
     path.lineTo(size.width / 5, size.height);
+    
     path.lineTo(size.width, 10.0);
     path.lineTo(size.width, 10.0);
     return path;
