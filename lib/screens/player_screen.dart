@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/widgets/music_slider.dart';
+import 'package:music_wave/widgets/player_controler.dart';
 
 import 'package:music_wave/widgets/scroll_card.dart';
 import 'package:music_wave/widgets/song_card.dart';
@@ -17,7 +18,7 @@ class PlayerScreen extends StatefulWidget {
   final SongModel songModel;
   final AudioPlayer audioPlayer;
   const PlayerScreen(
-      {super.key, required this.songModel, required this.audioPlayer});
+      {super.key, required this.audioPlayer, required this.songModel});
 
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
@@ -112,48 +113,49 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ),
                 ),
                 FutureBuilder<List<SongModel>>(
-                    future: _audioQuery.querySongs(
-                      sortType: null,
-                      orderType: OrderType.ASC_OR_SMALLER,
-                      uriType: UriType.EXTERNAL,
-                      ignoreCase: true,
-                    ),
-                    builder: (context, item) {
-                      if (item.data == null) {
-                        return LoadingAnimationWidget.staggeredDotsWave(
-                          color: Colors.black,
-                          size: 40,
-                        );
-                      } else if (item.data!.isEmpty) {
-                        return const SizedBox(
-                          height: 200,
-                          child: Center(
-                            child: Text(
-                              'No Songs Found',
-                            ),
+                  future: _audioQuery.querySongs(
+                    sortType: null,
+                    orderType: OrderType.ASC_OR_SMALLER,
+                    uriType: UriType.EXTERNAL,
+                    ignoreCase: true,
+                  ),
+                  builder: (context, item) {
+                    if (item.data == null) {
+                      return LoadingAnimationWidget.staggeredDotsWave(
+                        color: Colors.black,
+                        size: 40,
+                      );
+                    } else if (item.data!.isEmpty) {
+                      return const SizedBox(
+                        height: 200,
+                        child: Center(
+                          child: Text(
+                            'No Songs Found',
                           ),
-                        );
-                      }
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 2,
-                          itemBuilder: ((context, index) {
-                            return SongCard(
-                              player: audioPlayer,
-                              index: index,
-                              item: item,
-                              fontWeight: FontWeight.bold,
-                              titleText: widget.songModel.displayNameWOExt,
-                              subText: widget.songModel.artist.toString() ==
-                                      "<unknown>"
-                                  ? "Unknown Artist"
-                                  : widget.songModel.artist.toString(),
-                              icon: const Icon(
-                                Icons.favorite,
-                              ),
-                            );
-                          }));
-                    }),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 2,
+                        itemBuilder: ((context, index) {
+                          return SongCard(
+                            player: audioPlayer,
+                            index: index,
+                            item: item,
+                            fontWeight: FontWeight.bold,
+                            titleText: widget.songModel.displayNameWOExt,
+                            subText: widget.songModel.artist.toString() ==
+                                    "<unknown>"
+                                ? "Unknown Artist"
+                                : widget.songModel.artist.toString(),
+                            icon: const Icon(
+                              Icons.favorite,
+                            ),
+                          );
+                        }));
+                  },
+                ),
                 const WhiteSpace10(),
                 SizedBox(
                   height: 150,
@@ -223,7 +225,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                     color: Color.fromARGB(255, 185, 18, 18),
                                     width: 3),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                widget.audioPlayer.seekToPrevious();
+                              },
                               child: Icon(
                                 Icons.skip_previous_rounded,
                                 size: 20,
@@ -271,33 +275,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             ),
                           ],
                         ),
-                        // IconButton(
-                        //   onPressed: () {
-                        //     setState(() {
-                        //       if (_isPlaying) {
-                        //         widget.audioPlayer.pause();
-                        //       } else {
-                        //         widget.audioPlayer.play();
-                        //       }
-                        //       _isPlaying = !_isPlaying;
-                        //     });
-                        //   },
-                        //   icon: Icon(
-                        //     _isPlaying ? Icons.pause : Icons.play_arrow,
-                        //   ),
-                        // ),
-
-                        // PlayerController(
-                        //   icons: Icons.skip_previous_rounded,
-                        //   buttonAction: () {
-                        //     print("object");
-                        //   },
-                        //   size: 30,
-                        // ),
                         const SizedBox(
                           width: 75,
                         ),
-
                         const WhiteSpace(),
                         const VolumeSlider(),
                       ],

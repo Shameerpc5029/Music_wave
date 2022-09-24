@@ -8,6 +8,7 @@ import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
 
 class LibraryScreen extends StatelessWidget {
+  
   const LibraryScreen({Key? key}) : super(key: key);
 
   @override
@@ -45,7 +46,9 @@ class LibraryScreen extends StatelessWidget {
                 tapAction: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: ((context) => FavorateScreen()),
+                      builder: ((context) => FavorateScreen(
+                      
+                      )),
                     ),
                   );
                 },

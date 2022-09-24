@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/screens/splash_screen.dart';
 
-void main(List<String> args) {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FavDb.initializeDatabase();
   runApp(
     const MyApp(),
   );

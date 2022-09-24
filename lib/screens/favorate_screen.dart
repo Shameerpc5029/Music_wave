@@ -1,15 +1,36 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
+import 'package:music_wave/widgets/fav_button.dart';
+import 'package:music_wave/widgets/fav_card.dart';
 
 import 'package:music_wave/widgets/song_card.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class FavorateScreen extends StatelessWidget {
-  final _audioQuery = OnAudioQuery();
+class FavorateScreen extends StatefulWidget {
+  FavorateScreen({
+    super.key,
+  });
+
+  @override
+  State<FavorateScreen> createState() => _FavorateScreenState();
+}
+
+class _FavorateScreenState extends State<FavorateScreen> {
+  @override
+  void initState() {
+    FavDb.getAllSongs();
+    super.initState();
+  }
+
+  final audioQuery = OnAudioQuery();
+
   final audioPlayer = AudioPlayer();
+
   playSong(String? uri) {
     try {
       audioPlayer.setAudioSource(
@@ -23,85 +44,123 @@ class FavorateScreen extends StatelessWidget {
     }
   }
 
-  FavorateScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Favorate Songs',
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: (() {
-            Navigator.pop(context);
-          }),
-          icon: const Icon(
-            Icons.arrow_back_ios,
+        appBar: AppBar(
+          title: const Text(
+            'Favorate Songs',
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: (() {
+              Navigator.pop(context);
+            }),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+            ),
           ),
         ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-            physics: const ScrollPhysics(),
-            child: FutureBuilder<List<SongModel>>(
-                future: _audioQuery.querySongs(
-                  sortType: null,
-                  orderType: OrderType.ASC_OR_SMALLER,
-                  uriType: UriType.EXTERNAL,
-                  ignoreCase: true,
-                ),
-                builder: (context, item) {
-                  if (item.data == null) {
-                    return LoadingAnimationWidget.staggeredDotsWave(
-                      color: Colors.black,
-                      size: 40,
-                    );
-                  } else if (item.data!.isEmpty) {
-                    return const SizedBox(
-                      height: 200,
-                      child: Center(
-                        child: Text(
-                          'No Songs Found',
-                        ),
-                      ),
-                    );
-                  }
-                  return ListView.builder(
-                    physics: const ScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 20,
-                    itemBuilder: ((context, index) {
-                      return SongCard(
-                        player: audioPlayer,
-                        index: index,
-                        item: item,
-                        titleText: 'Pala Palli',
-                        subText: 'Athul Narukara and Jakes Bejoy',
-                        fontWeight: FontWeight.bold,
-
-                        icon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                          ),
-                        ),
-                        // tapAction: () {
-                        //   // Navigator.of(context).push(
-                        //   //   MaterialPageRoute(
-                        //   //     builder: ((context) {
-                        //   //       return PlayerScreen(songModel: item.data![index],);
-                        //   //     }),
-                        //   //   ),
-                        //   // );
-                        // },
-                      );
-                    }),
+        body: SafeArea(
+            child: SingleChildScrollView(
+          padding: EdgeInsets.all(10),
+          physics: const ScrollPhysics(),
+          child: ValueListenableBuilder(
+            valueListenable: FavDb.musicListNotifier,
+            builder: ((BuildContext context, List<SongModel> musiclist,
+                Widget? child) {
+              if (musiclist == null) {
+                return LoadingAnimationWidget.staggeredDotsWave(
+                  color: Colors.black,
+                  size: 40,
+                );
+              } else if (musiclist.isEmpty) {
+                return Center(
+                  heightFactor: 30,
+                  child: Text(
+                    'No Songs Found!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
+              return ListView.builder(
+                physics: const ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: musiclist.length,
+                itemBuilder: ((BuildContext context, int index) {
+                  FavDb.getAllSongs();
+                  return FavCard(
+                    title: musiclist[index].title,
+                    subtitle: musiclist[index].artist.toString() == "<unknown>"
+                        ? "Unknown Artist"
+                        : musiclist[index].artist.toString(),
+                    traling: showCard(),
                   );
-                })),
-      ),
-    );
+                }),
+              );
+            }),
+          ),
+        )));
   }
+
+  Widget showCard() => PopupMenuButton(
+      splashRadius: 50,
+      shape: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.transparent),
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
+      ),
+      offset: Offset(-30, 20),
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+              value: 1,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.favorite,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text('Unlike'),
+                ],
+              )),
+          PopupMenuItem(
+            value: 2,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.playlist_add,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text('Add Playlist'),
+              ],
+            ),
+          ),
+          PopupMenuItem(
+            value: 2,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.share,
+                  color: Colors.green,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  'Share Music',
+                  style: TextStyle(color: Colors.green),
+                ),
+              ],
+            ),
+          ),
+        ];
+      });
 }

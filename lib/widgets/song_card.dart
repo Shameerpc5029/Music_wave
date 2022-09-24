@@ -2,13 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/screens/player_screen.dart';
+import 'package:music_wave/widgets/fav_button.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SongCard extends StatefulWidget {
   final AsyncSnapshot<List<SongModel>> item;
   final AudioPlayer player;
+
   final int index;
   final String titleText;
   final String subText;
@@ -32,6 +35,7 @@ class SongCard extends StatefulWidget {
 }
 
 class _SongCardState extends State<SongCard> {
+  // final audioQuery = OnAudioQuery();
   final audioPlayer = AudioPlayer();
   playSong(String? uri) {
     try {
@@ -46,10 +50,9 @@ class _SongCardState extends State<SongCard> {
     }
   }
 
-  Color iconColor = Colors.black38;
-  bool buttonClick = false;
   @override
   Widget build(BuildContext context) {
+    FavDb.getAllSongs();
     return Padding(
       padding: const EdgeInsets.only(
         left: 10,
@@ -61,8 +64,9 @@ class _SongCardState extends State<SongCard> {
           onTap: (() {
             Navigator.push(context, MaterialPageRoute(builder: ((context) {
               return PlayerScreen(
-                  songModel: widget.item.data![widget.index],
-                  audioPlayer: widget.player);
+                songModel: widget.item.data![widget.index],
+                audioPlayer: widget.player,
+              );
             })));
           }),
           leading: QueryArtworkWidget(
@@ -102,38 +106,18 @@ class _SongCardState extends State<SongCard> {
           //     print("its Favorate");
           //   },
           // ),
-          trailing: IconButton(
-            color: iconColor,
-            onPressed: (() {
-              buttonPressed();
-            }),
-            icon: const Icon(
-              Icons.favorite,
-            ),
+          trailing: FavButton(
+            
+            songModel: widget.item.data![widget.index],
           ),
           subtitle: Text(
             widget.subText,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
       ),
     );
-  }
-
-  void buttonPressed() {
-    if (!buttonClick) {
-      setState(() {
-        iconColor = Colors.red;
-        buttonClick = true;
-      });
-    } else {
-      setState(() {
-        iconColor = Colors.black38;
-        buttonClick = false;
-      });
-    }
   }
 }

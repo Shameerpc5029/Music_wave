@@ -60,65 +60,60 @@ class _BottomState extends State<Bottom> {
           enableDrag: false,
           context: context,
           builder: ((context) {
-            return SizedBox(
-              height: 220,
-              width: 400,
-              child: Container(
-                padding: const EdgeInsets.all(
-                  10,
+            return Container(
+              height: 200,
+              padding: const EdgeInsets.all(
+                10,
+              ),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(
+                  255,
+                  255,
+                  255,
+                  255,
                 ),
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(
-                    255,
-                    255,
-                    255,
-                    255,
-                  ),
-                ),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(
-                      8.0,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // const Icon(
-                        //   Icons.arrow_drop_down_rounded,
-                        // ),
-                        const HeadingText(
-                          text: 'Add Playlist',
-                        ),
-                        const WhiteSpace10(),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.fromLTRB(
-                              20.0,
-                              10.0,
-                              20.0,
-                              10.0,
-                            ),
-                            labelText: 'Playlist Name',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                30,
-                              ),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // const Icon(
+                      //   Icons.arrow_drop_down_rounded,
+                      // ),
+                      const HeadingText(
+                        text: 'Add Playlist',
+                      ),
+                      const WhiteSpace10(),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.fromLTRB(
+                            20.0,
+                            10.0,
+                            20.0,
+                            10.0,
+                          ),
+                          labelText: 'Playlist Name',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              30,
                             ),
                           ),
                         ),
-                        const WhiteSpace10(),
-                        ElevatedButton(
-                          onPressed: (() {
-                            onPreesButton();
+                      ),
+                      const WhiteSpace10(),
+                      ElevatedButton(
+                        onPressed: (() {
+                          onPreesButton();
 
-                            Navigator.pop(context);
-                          }),
-                          child: const Text(
-                            'Cancel',
-                          ),
+                          Navigator.pop(context);
+                        }),
+                        child: const Text(
+                          'Cancel',
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
