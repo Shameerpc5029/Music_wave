@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music_wave/db/model/data_model.dart';
-import 'package:music_wave/widgets/music_file.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:sqflite/sqflite.dart';
 

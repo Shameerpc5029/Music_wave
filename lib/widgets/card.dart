@@ -116,9 +116,6 @@ class CardTile3 extends StatelessWidget {
         children: [
           Expanded(
             child: ListTile(
-              onTap: () {
-                tapAction();
-              },
               leading: Icon(
                 icon,
                 size: 28,
@@ -131,7 +128,7 @@ class CardTile3 extends StatelessWidget {
               ),
             ),
           ),
-          SwitchButton(),
+          const SwitchButton(),
         ],
       ),
     );

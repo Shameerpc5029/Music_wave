@@ -13,7 +13,7 @@ class HeadingText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         overflow: TextOverflow.ellipsis,
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -34,7 +34,7 @@ class SubTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       titleText,
-      style: TextStyle(
+      style: const TextStyle(
         overflow: TextOverflow.ellipsis,
         fontSize: 16,
         fontWeight: FontWeight.bold,

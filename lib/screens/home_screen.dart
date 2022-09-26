@@ -41,24 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
             horizontal: 15,
             vertical: 5,
           ),
-
-          //
-          // hoverColor: Colors.black,
-          // tabBackgroundGradient: LinearGradient(
-          //   end: Alignment.topLeft,
-          //   begin: Alignment.center,
-          //   colors: [
-          //     const Color.fromARGB(255, 174, 48, 39),
-          //     Colors.red,
-          //     Colors.white,
-          //   ],
-          // ),
           tabActiveBorder: Border.all(width: 1.5, color: Colors.black),
           tabBorderRadius: 10,
           gap: 10,
-
           haptic: true,
-          // tabBackgroundColor: const Color.fromARGB(255, 174, 48, 39),
           activeColor: const Color.fromARGB(
             255,
             174,

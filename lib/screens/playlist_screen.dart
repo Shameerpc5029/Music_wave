@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:music_wave/widgets/song_card.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -41,40 +39,41 @@ class PlaylistScreen extends StatelessWidget {
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: FutureBuilder<List<SongModel>>(
-            future: _audioQuery.querySongs(
-              sortType: null,
-              orderType: OrderType.ASC_OR_SMALLER,
-              uriType: UriType.EXTERNAL,
-              ignoreCase: true,
-            ),
-            builder: (context, item) {
-              if (item.data == null) {
-                return LoadingAnimationWidget.staggeredDotsWave(
-                  color: Colors.black,
-                  size: 40,
-                );
-              } else if (item.data!.isEmpty) {
-                return const SizedBox(
-                  height: 200,
-                  child: Center(
-                    child: Text(
-                      'No Songs Found',
-                    ),
-                  ),
-                );
-              }
-
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const ScrollPhysics(),
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('hello'),
-                  );
-                },
+          future: _audioQuery.querySongs(
+            sortType: null,
+            orderType: OrderType.ASC_OR_SMALLER,
+            uriType: UriType.EXTERNAL,
+            ignoreCase: true,
+          ),
+          builder: (context, item) {
+            if (item.data == null) {
+              return LoadingAnimationWidget.staggeredDotsWave(
+                color: Colors.black,
+                size: 40,
               );
-            }),
+            } else if (item.data!.isEmpty) {
+              return const SizedBox(
+                height: 200,
+                child: Center(
+                  child: Text(
+                    'No Songs Found',
+                  ),
+                ),
+              );
+            }
+
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              itemCount: 20,
+              itemBuilder: (context, index) {
+                return const ListTile(
+                  title: Text('hello'),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

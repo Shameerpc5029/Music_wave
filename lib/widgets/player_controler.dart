@@ -22,7 +22,7 @@ class PlayerController extends StatelessWidget {
             borderRadius: BorderRadius.circular(
               50,
             ),
-            side: BorderSide(
+            side:const  BorderSide(
               color: Colors.red,
             ),
           ),

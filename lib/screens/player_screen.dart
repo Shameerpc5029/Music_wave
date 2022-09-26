@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/widgets/music_slider.dart';
-import 'package:music_wave/widgets/player_controler.dart';
 
 import 'package:music_wave/widgets/scroll_card.dart';
 import 'package:music_wave/widgets/song_card.dart';
@@ -17,8 +16,11 @@ import 'package:scroll_snap_list/scroll_snap_list.dart';
 class PlayerScreen extends StatefulWidget {
   final SongModel songModel;
   final AudioPlayer audioPlayer;
-  const PlayerScreen(
-      {super.key, required this.audioPlayer, required this.songModel});
+  const PlayerScreen({
+    super.key,
+    required this.audioPlayer,
+    required this.songModel,
+  });
 
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
@@ -26,15 +28,15 @@ class PlayerScreen extends StatefulWidget {
 
 class _PlayerScreenState extends State<PlayerScreen> {
   final _audioQuery = OnAudioQuery();
-  final audioPlayer = AudioPlayer();
+
   playSong(String? uri) {
     try {
-      audioPlayer.setAudioSource(
+      widget.audioPlayer.setAudioSource(
         AudioSource.uri(
           Uri.parse(uri!),
         ),
       );
-      audioPlayer.play();
+      widget.audioPlayer.play();
     } on Exception {
       log("Error pasing song");
     }
@@ -63,16 +65,20 @@ class _PlayerScreenState extends State<PlayerScreen> {
     } on Exception {
       log("Cannot pase song");
     }
-    widget.audioPlayer.durationStream.listen((d) {
-      setState(() {
-        duration = d!;
-      });
-    });
-    widget.audioPlayer.positionStream.listen((p) {
-      setState(() {
-        position = p;
-      });
-    });
+    widget.audioPlayer.durationStream.listen(
+      (d) {
+        setState(() {
+          duration = d!;
+        });
+      },
+    );
+    widget.audioPlayer.positionStream.listen(
+      (p) {
+        setState(() {
+          position = p;
+        });
+      },
+    );
   }
 
   Color iconColor = Colors.black38;
@@ -81,9 +87,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: const Text(
-        //   'Player',
-        // ),
+        title: const Text(
+          'Now Playing',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
@@ -94,10 +104,31 @@ class _PlayerScreenState extends State<PlayerScreen> {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          Center(
-            child: Column(
+      body: Center(
+        child: FutureBuilder<List<SongModel>>(
+          future: _audioQuery.querySongs(
+            sortType: null,
+            orderType: OrderType.ASC_OR_SMALLER,
+            uriType: UriType.EXTERNAL,
+            ignoreCase: true,
+          ),
+          builder: (context, item) {
+            if (item.data == null) {
+              return LoadingAnimationWidget.staggeredDotsWave(
+                color: Colors.black,
+                size: 40,
+              );
+            } else if (item.data!.isEmpty) {
+              return const SizedBox(
+                height: 200,
+                child: Center(
+                  child: Text(
+                    'No Songs Found',
+                  ),
+                ),
+              );
+            }
+            return Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
@@ -136,24 +167,25 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       );
                     }
                     return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 2,
-                        itemBuilder: ((context, index) {
-                          return SongCard(
-                            player: audioPlayer,
-                            index: index,
-                            item: item,
-                            fontWeight: FontWeight.bold,
-                            titleText: widget.songModel.displayNameWOExt,
-                            subText: widget.songModel.artist.toString() ==
-                                    "<unknown>"
-                                ? "Unknown Artist"
-                                : widget.songModel.artist.toString(),
-                            icon: const Icon(
-                              Icons.favorite,
-                            ),
-                          );
-                        }));
+                      shrinkWrap: true,
+                      itemCount: 2,
+                      itemBuilder: ((context, index) {
+                        return SongCard(
+                          player: widget.audioPlayer,
+                          index: index,
+                          item: item,
+                          fontWeight: FontWeight.bold,
+                          titleText: widget.songModel.displayNameWOExt,
+                          subText:
+                              widget.songModel.artist.toString() == "<unknown>"
+                                  ? "Unknown Artist"
+                                  : widget.songModel.artist.toString(),
+                          icon: const Icon(
+                            Icons.favorite,
+                          ),
+                        );
+                      }),
+                    );
                   },
                 ),
                 const WhiteSpace10(),
@@ -162,15 +194,16 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   child: ScrollSnapList(
                     itemBuilder: (BuildContext context, int index) {
                       return ScrollCard(
-                        id: widget.songModel.id,
+                        songModel: widget.songModel,
+                        // id: item,
+
+                        id: item.data![index].id,
                         type: ArtworkType.AUDIO,
                       );
                     },
-                    itemCount: 5,
+                    itemCount: item.data!.length,
                     itemSize: 150,
-                    onItemFocus: (index) {
-                      print('Selected');
-                    },
+                    onItemFocus: (index) {},
                     dynamicItemSize: true,
                     focusOnItemTap: true,
                   ),
@@ -202,7 +235,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         child: MusicSlide(
                           duration: duration,
                           position: position,
-                          audioPlayer: audioPlayer,
+                          audioPlayer: widget.audioPlayer,
                         ),
                       ),
                       Text(duration.toString().split(".")[0]),
@@ -219,64 +252,67 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             RawMaterialButton(
-                              padding: EdgeInsets.all(15),
-                              shape: CircleBorder(
+                              padding: const EdgeInsets.all(15),
+                              shape: const CircleBorder(
                                 side: BorderSide(
                                     color: Color.fromARGB(255, 185, 18, 18),
                                     width: 3),
                               ),
                               onPressed: () {
-                                widget.audioPlayer.seekToPrevious();
+                                setState(
+                                  () {
+                                    widget.audioPlayer.seekToPrevious();
+                                  },
+                                );
                               },
-                              child: Icon(
+                              child: const Icon(
                                 Icons.skip_previous_rounded,
                                 size: 20,
                                 color: Color.fromARGB(255, 185, 18, 18),
                               ),
                             ),
                             RawMaterialButton(
-                              shape: CircleBorder(
+                              shape: const CircleBorder(
                                 side: BorderSide(
                                     color: Color.fromARGB(255, 185, 18, 18),
                                     width: 3),
                               ),
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               onPressed: () {
-                                setState(() {
-                                  if (_isPlaying) {
-                                    widget.audioPlayer.pause();
-                                  } else {
-                                    widget.audioPlayer.play();
-                                  }
-                                  _isPlaying = !_isPlaying;
-                                });
+                                setState(
+                                  () {
+                                    if (_isPlaying) {
+                                      widget.audioPlayer.pause();
+                                    } else {
+                                      widget.audioPlayer.play();
+                                    }
+                                    _isPlaying = !_isPlaying;
+                                  },
+                                );
                               },
                               child: Icon(
                                 _isPlaying
                                     ? Icons.pause_rounded
                                     : Icons.play_arrow_rounded,
-                                color: Color.fromARGB(255, 185, 18, 18),
+                                color: const Color.fromARGB(255, 185, 18, 18),
                                 size: 40,
                               ),
                             ),
                             RawMaterialButton(
-                              padding: EdgeInsets.all(15),
-                              shape: CircleBorder(
+                              padding: const EdgeInsets.all(15),
+                              shape: const CircleBorder(
                                 side: BorderSide(
                                     color: Color.fromARGB(255, 185, 18, 18),
                                     width: 3),
                               ),
                               onPressed: () {},
-                              child: Icon(
+                              child: const Icon(
                                 Icons.skip_next_rounded,
                                 size: 20,
                                 color: Color.fromARGB(255, 185, 18, 18),
                               ),
                             ),
                           ],
-                        ),
-                        const SizedBox(
-                          width: 75,
                         ),
                         const WhiteSpace(),
                         const VolumeSlider(),
@@ -285,9 +321,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ],
                 ),
               ],
-            ),
-          ),
-        ],
+            );
+          },
+        ),
       ),
     );
   }

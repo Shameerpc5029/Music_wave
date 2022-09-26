@@ -29,7 +29,7 @@ class _MusicSlideState extends State<MusicSlide> {
       ),
       onChanged: ((value) {
         setState(() {
-          // changeToSecond(value.toInt());
+          changeToSecond(value.toInt());
           value = value;
         });
       }),

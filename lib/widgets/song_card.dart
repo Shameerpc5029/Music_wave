@@ -62,12 +62,17 @@ class _SongCardState extends State<SongCard> {
         elevation: 1,
         child: ListTile(
           onTap: (() {
-            Navigator.push(context, MaterialPageRoute(builder: ((context) {
-              return PlayerScreen(
-                songModel: widget.item.data![widget.index],
-                audioPlayer: widget.player,
-              );
-            })));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: ((context) {
+                  return PlayerScreen(
+                    songModel: widget.item.data![widget.index],
+                    audioPlayer: widget.player,
+                  );
+                }),
+              ),
+            );
           }),
           leading: QueryArtworkWidget(
             id: widget.item.data![widget.index].id,
@@ -107,13 +112,14 @@ class _SongCardState extends State<SongCard> {
           //   },
           // ),
           trailing: FavButton(
-            
             songModel: widget.item.data![widget.index],
+            
           ),
           subtitle: Text(
             widget.subText,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis
             ),
           ),
         ),

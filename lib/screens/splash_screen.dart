@@ -47,9 +47,6 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             const Spacer(),
-            // const SizedBox(
-            //   height: 200,
-            // ),
             LoadingAnimationWidget.staggeredDotsWave(
               color: Colors.black,
               size: 40,

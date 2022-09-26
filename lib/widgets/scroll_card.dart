@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+
+import 'package:music_wave/widgets/fav_button.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class ScrollCard extends StatefulWidget {
+  final SongModel songModel;
   final dynamic id;
   final ArtworkType type;
-  const ScrollCard({super.key, required this.id, required this.type});
+  const ScrollCard({
+    super.key,
+    required this.id,
+    required this.type,
+    required this.songModel,
+  });
 
   @override
   State<ScrollCard> createState() => _ScrollCardState();
@@ -32,31 +40,27 @@ class _ScrollCardState extends State<ScrollCard> {
                 alignment: AlignmentDirectional.bottomEnd,
                 children: [
                   QueryArtworkWidget(
-                      id: widget.id,
-                      type: widget.type,
-                      keepOldArtwork: true,
-                      quality: 100,
-                      artworkFit: BoxFit.fill,
-                      artworkBorder: BorderRadius.circular(0),
-                      artworkHeight: 142,
-                      artworkWidth: 500,
-                      nullArtworkWidget: Container(
-                        color: Colors.blue,
-                        height: 142,
-                        child: const Center(
-                            child: Icon(
-                          Icons.music_note,
-                          color: Colors.white,
-                          size: 50,
-                        )),
+                     id: widget.id,
+                    // id:widget.id,
+                    type: ArtworkType.AUDIO,
+                    // type: widget.type,
+                    keepOldArtwork: true,
+                    quality: 100,
+                    artworkFit: BoxFit.fill,
+                    artworkBorder: BorderRadius.circular(0),
+                    artworkHeight: 142,
+                    artworkWidth: 500,
+                    nullArtworkWidget: Container(
+                      color: Colors.blue,
+                      height: 142,
+                      child: const Center(
+                          child: Icon(
+                        Icons.music_note,
+                        color: Colors.white,
+                        size: 50,
                       )),
-                  // const Image(
-                  //   height: 142,
-                  //   fit: BoxFit.cover,
-                  //   image: AssetImage(
-                  //     'assets/images/Thallumaala-Malayalam-2022-20220816184649-500x500.jpeg',
-                  //   ),
-                  // ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(
                       8.0,
@@ -70,13 +74,7 @@ class _ScrollCardState extends State<ScrollCard> {
                         ),
                         color: Colors.white,
                       ),
-                      child: IconButton(
-                        onPressed: () {
-                          buttonPressed();
-                        },
-                        icon: const Icon(Icons.favorite),
-                        color: iconColor,
-                      ),
+                      child: FavButton(songModel: widget.songModel),
                     ),
                   ),
                 ],
@@ -86,19 +84,5 @@ class _ScrollCardState extends State<ScrollCard> {
         ),
       ),
     );
-  }
-
-  void buttonPressed() {
-    if (!buttonClick) {
-      setState(() {
-        iconColor = Colors.red;
-        buttonClick = true;
-      });
-    } else {
-      setState(() {
-        iconColor = Colors.black38;
-        buttonClick = false;
-      });
-    }
   }
 }
