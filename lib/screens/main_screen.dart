@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:music_wave/screens/all_song_screen.dart';
 import 'package:music_wave/screens/library_screen.dart';
 import 'package:music_wave/screens/search_screen.dart';
 import 'package:music_wave/screens/settings_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+
+  const MainScreen({Key? key,}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
-
+ 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
   void navBottonBar(int index) {
@@ -21,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> pages = [
     const AllSong(),
-    const LibraryScreen(),
+   const  LibraryScreen(),
     const SearchScreen(),
     const SettingsScreen(),
   ];

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:music_wave/widgets/box_fav_button.dart';
 import 'package:music_wave/widgets/music_slider.dart';
 
 import 'package:music_wave/widgets/scroll_card.dart';
@@ -54,7 +55,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   void playSongs() {
     try {
-      widget.audioPlayer;
       widget.audioPlayer.setAudioSource(
         AudioSource.uri(
           Uri.parse(widget.songModel.uri!),
@@ -129,76 +129,91 @@ class _PlayerScreenState extends State<PlayerScreen> {
               );
             }
             return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 15,
-                    top: 10,
-                  ),
-                  child: Row(
-                    children: const [
-                      HeadingText(
-                        text: 'Next Song',
-                      ),
-                    ],
-                  ),
-                ),
-                FutureBuilder<List<SongModel>>(
-                  future: _audioQuery.querySongs(
-                    sortType: null,
-                    orderType: OrderType.ASC_OR_SMALLER,
-                    uriType: UriType.EXTERNAL,
-                    ignoreCase: true,
-                  ),
-                  builder: (context, item) {
-                    if (item.data == null) {
-                      return LoadingAnimationWidget.staggeredDotsWave(
-                        color: Colors.black,
-                        size: 40,
-                      );
-                    } else if (item.data!.isEmpty) {
-                      return const SizedBox(
-                        height: 200,
-                        child: Center(
-                          child: Text(
-                            'No Songs Found',
-                          ),
-                        ),
-                      );
-                    }
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      itemBuilder: ((context, index) {
-                        return SongCard(
-                          player: widget.audioPlayer,
-                          index: index,
-                          item: item,
-                          fontWeight: FontWeight.bold,
-                          titleText: widget.songModel.displayNameWOExt,
-                          subText:
-                              widget.songModel.artist.toString() == "<unknown>"
-                                  ? "Unknown Artist"
-                                  : widget.songModel.artist.toString(),
-                          icon: const Icon(
-                            Icons.favorite,
-                          ),
-                        );
-                      }),
-                    );
-                  },
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(
+                //     left: 15,
+                //     top: 10,
+                //   ),
+                //   child: Row(
+                //     children: const [
+                //       HeadingText(
+                //         text: 'Next Song',
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // FutureBuilder<List<SongModel>>(
+                //   future: _audioQuery.querySongs(
+                //     sortType: null,
+                //     orderType: OrderType.ASC_OR_SMALLER,
+                //     uriType: UriType.EXTERNAL,
+                //     ignoreCase: true,
+                //   ),
+                //   builder: (context, item) {
+                //     if (item.data == null) {
+                //       return LoadingAnimationWidget.staggeredDotsWave(
+                //         color: Colors.black,
+                //         size: 40,
+                //       );
+                //     } else if (item.data!.isEmpty) {
+                //       return const SizedBox(
+                //         height: 200,
+                //         child: Center(
+                //           child: Text(
+                //             'No Songs Found',
+                //           ),
+                //         ),
+                //       );
+                //     }
+                //     return ListView.builder(
+                //       shrinkWrap: true,
+                //       itemCount: 2,
+                //       itemBuilder: ((context, index) {
+                //         return SongCard(
+                //           player: widget.audioPlayer,
+                //           index: index,
+                //           item: item,
+                //           fontWeight: FontWeight.bold,
+                //           titleText: widget.songModel.displayNameWOExt,
+                //           subText:
+                //               widget.songModel.artist.toString() == "<unknown>"
+                //                   ? "Unknown Artist"
+                //                   : widget.songModel.artist.toString(),
+                //           icon: const Icon(
+                //             Icons.favorite,
+                //           ),
+                //         );
+                //       }),
+                //     );
+                //   },
+                // ),
                 const WhiteSpace10(),
                 SizedBox(
-                  height: 150,
+                  height: 200,
                   child: ScrollSnapList(
                     itemBuilder: (BuildContext context, int index) {
-                      return ScrollCard(
-                        songModel: widget.songModel,
-                        // id: item,
+                      return Stack(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        children: [
+                          ScrollCard(
+                            songModel: widget.songModel,
+                            // id: item,
 
-                        id: item.data![index].id,
-                        type: ArtworkType.AUDIO,
+                            id: item.data![index].id,
+                            type: ArtworkType.AUDIO,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: SizedBox(
+                              width: 130,
+                              child: BoxFavButton(
+                                songModel: widget.songModel,
+                              ),
+                            ),
+                          )
+                        ],
                       );
                     },
                     itemCount: item.data!.length,
@@ -208,7 +223,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     focusOnItemTap: true,
                   ),
                 ),
-                const WhiteSpace10(),
+                const WhiteSpace(),
                 ListTile(
                   title: HeadingText(
                     text: widget.songModel.displayNameWOExt,
@@ -258,12 +273,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                     color: Color.fromARGB(255, 185, 18, 18),
                                     width: 3),
                               ),
-                              onPressed: () {
-                                setState(
-                                  () {
-                                    widget.audioPlayer.seekToPrevious();
-                                  },
-                                );
+                              onPressed: () async {
+                                if (widget.audioPlayer.hasPrevious) {
+                                  _isPlaying = true;
+                                  await widget.audioPlayer.seekToPrevious();
+                                  await widget.audioPlayer.play();
+                                } else {
+                                  await widget.audioPlayer.play();
+                                }
                               },
                               child: const Icon(
                                 Icons.skip_previous_rounded,
@@ -305,7 +322,15 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                     color: Color.fromARGB(255, 185, 18, 18),
                                     width: 3),
                               ),
-                              onPressed: () {},
+                              onPressed: () async {
+                                if (widget.audioPlayer.hasNext) {
+                                  _isPlaying = true;
+                                  await widget.audioPlayer.seekToNext();
+                                  await widget.audioPlayer.play();
+                                } else {
+                                  await widget.audioPlayer.play();
+                                }
+                              },
                               child: const Icon(
                                 Icons.skip_next_rounded,
                                 size: 20,
@@ -314,7 +339,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             ),
                           ],
                         ),
-                        const WhiteSpace(),
+                        const WhiteSpace40(),
                         const VolumeSlider(),
                       ],
                     ),

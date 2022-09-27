@@ -5,9 +5,9 @@ import 'package:sqflite/sqflite.dart';
 class FavDb {
   static ValueNotifier<List<SongModel>> musicListNotifier = ValueNotifier([]);
 
-  static late Database _db;
+  static late Database db;
   static Future<void> initializeDatabase() async {
-    _db = await openDatabase(
+    db = await openDatabase(
       'song.db',
       version: 1,
       onCreate: ((Database db, int version) async {
@@ -18,20 +18,17 @@ class FavDb {
   }
 
   static Future<void> addFav(SongModel song) async {
-    _db.rawInsert('INSERT INTO song (title,artist) VALUES (?,?)',
+    db.rawInsert('INSERT INTO song (title,artist) VALUES (?,?)',
         [song.title, song.artist]);
     musicListNotifier.value.add(song);
     getAllSongs();
-
-    musicListNotifier.notifyListeners();
+    FavDb.musicListNotifier.notifyListeners();
   }
 
   static Future<void> getAllSongs() async {
-    final song = await _db.rawQuery('SELECT * FROM song');
+    final song = await db.rawQuery('SELECT * FROM song');
     print(song);
-
     musicListNotifier.value.clear();
-
     for (var map in song) {
       final addsong = SongModel(map);
       musicListNotifier.value.add(addsong);

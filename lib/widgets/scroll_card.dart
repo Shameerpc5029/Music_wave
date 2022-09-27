@@ -36,49 +36,44 @@ class _ScrollCardState extends State<ScrollCard> {
           ),
           child: Column(
             children: [
-              Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                  QueryArtworkWidget(
-                     id: widget.id,
-                    // id:widget.id,
-                    type: ArtworkType.AUDIO,
-                    // type: widget.type,
-                    keepOldArtwork: true,
-                    quality: 100,
-                    artworkFit: BoxFit.fill,
-                    artworkBorder: BorderRadius.circular(0),
-                    artworkHeight: 142,
-                    artworkWidth: 500,
-                    nullArtworkWidget: Container(
-                      color: Colors.blue,
-                      height: 142,
-                      child: const Center(
-                          child: Icon(
-                        Icons.music_note,
-                        color: Colors.white,
-                        size: 50,
-                      )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(
-                      8.0,
-                    ),
-                    child: Container(
-                      width: 45,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          50,
-                        ),
-                        color: Colors.white,
-                      ),
-                      child: FavButton(songModel: widget.songModel),
-                    ),
-                  ),
-                ],
+              QueryArtworkWidget(
+                id: widget.id,
+                // id:widget.id,
+                type: ArtworkType.AUDIO,
+                // type: widget.type,
+                keepOldArtwork: true,
+                quality: 100,
+                artworkFit: BoxFit.fill,
+                artworkBorder: BorderRadius.circular(0),
+                artworkHeight: 142,
+                artworkWidth: 500,
+                nullArtworkWidget: Container(
+                  color: Colors.blue,
+                  height: 142,
+                  child: const Center(
+                      child: Icon(
+                    Icons.music_note,
+                    color: Colors.white,
+                    size: 50,
+                  )),
+                ),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.all(
+              //     8.0,
+              //   ),
+              // child: Container(
+              //   width: 45,
+              //   height: 45,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(
+              //       50,
+              //     ),
+              //     color: Colors.white,
+              //   ),
+              //   child: FavButton(songModel: widget.songModel),
+              // ),
+              // ),
             ],
           ),
         ),

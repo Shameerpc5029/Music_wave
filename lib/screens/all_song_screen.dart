@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -6,13 +7,13 @@ import 'package:music_wave/widgets/grid_card.dart';
 import 'package:music_wave/widgets/song_card.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:permission_handler/permission_handler.dart';
+
 
 class AllSong extends StatefulWidget {
   const AllSong({
     Key? key,
   }) : super(key: key);
-
+  // static List<SongModel> playSong = [];
   @override
   State<AllSong> createState() => _AllSongState();
 }
@@ -24,8 +25,16 @@ class _AllSongState extends State<AllSong> {
     requestPermission();
   }
 
-  void requestPermission() {
-    Permission.storage.request();
+  void requestPermission() async {
+    if (!kIsWeb) {
+      bool permissionStatus = await _audioQuery.permissionsStatus();
+      if (!permissionStatus) {
+        await _audioQuery.permissionsRequest();
+      }
+      setState(() {
+        
+      });
+    }
   }
 
   final _audioQuery = OnAudioQuery();

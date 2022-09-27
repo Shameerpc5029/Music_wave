@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
+import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/fav_card.dart';
+import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/popup_card.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -25,9 +27,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
   }
 
   final audioQuery = OnAudioQuery();
-
   final audioPlayer = AudioPlayer();
-
   playSong(String? uri) {
     try {
       audioPlayer.setAudioSource(
@@ -94,18 +94,14 @@ class _FavorateScreenState extends State<FavorateScreen> {
                   FavDb.getAllSongs();
                   return FavCard(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: ((context) {
-                      //       return PlayerScreen(
-                      //         // songModel: ,
-                      //         // songModel: widget.item.data![widget.index],
-                      //         // audioPlayer: audioPlayer,
-                      //       );
-                      //     }),
-                      //   ),
-                      // );
+                      // MusicFile.audioPlayer.play();
+                      // MusicFile.audioPlayer.setAudioSource(
+                      //     MusicFile.createSongList(musiclist),
+                      //     initialIndex: index);
+                      // MusicFile.audioPlayer.play();
+                      // Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
+                      //   return PlayerScreen(audioPlayer: audioPlayer, songModel: musiclist,)
+                      // })));
                     },
                     title: musiclist[index].title,
                     subtitle: musiclist[index].artist.toString() == "<unknown>"
