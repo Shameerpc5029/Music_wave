@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:sqflite/sqflite.dart';
@@ -12,28 +14,36 @@ class FavDb {
       version: 1,
       onCreate: ((Database db, int version) async {
         await db.execute(
-            'CREATE TABLE song (id INTEGER PRIMARY KEY, title TEXT, artist TEXT)');
+            'CREATE TABLE IF NOT EXISTS song (id INTEGER PRIMARY KEY AUTOINCREMENT, _id INTEGER, title TEXT, artist TEXT)');
       }),
     );
   }
 
   static Future<void> addFav(SongModel song) async {
-    db.rawInsert('INSERT INTO song (title,artist) VALUES (?,?)',
-        [song.title, song.artist]);
+    int id = await db.rawInsert(
+        'INSERT INTO song (_id,title,artist) VALUES (?,?,?)',
+        [song.id, song.title, song.artist]);
     musicListNotifier.value.add(song);
+    print(id);
     getAllSongs();
+    // removeFav(id);
     FavDb.musicListNotifier.notifyListeners();
   }
 
   static Future<void> getAllSongs() async {
     final song = await db.rawQuery('SELECT * FROM song');
-    print(song);
+    log(song.toString());
     musicListNotifier.value.clear();
     for (var map in song) {
       final addsong = SongModel(map);
       musicListNotifier.value.add(addsong);
-      musicListNotifier.notifyListeners();
+      // musicListNotifier.notifyListeners();
     }
     // musicListNotifier.value.add(song);
+   
+  }
+
+  static Future<void> removeFav(int id) async {
+    await db.delete('song.db', where: 'id= ?', whereArgs: [id]);
   }
 }

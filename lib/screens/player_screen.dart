@@ -2,12 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/widgets/box_fav_button.dart';
 import 'package:music_wave/widgets/music_slider.dart';
-
 import 'package:music_wave/widgets/scroll_card.dart';
-import 'package:music_wave/widgets/song_card.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/volume_slider.dart';
 import 'package:music_wave/widgets/white_space.dart';
@@ -30,21 +29,8 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   final _audioQuery = OnAudioQuery();
 
-  playSong(String? uri) {
-    try {
-      widget.audioPlayer.setAudioSource(
-        AudioSource.uri(
-          Uri.parse(uri!),
-        ),
-      );
-      widget.audioPlayer.play();
-    } on Exception {
-      log("Error pasing song");
-    }
-  }
-
-  Duration duration = Duration.zero;
-  Duration position = Duration.zero;
+  Duration duration = const Duration();
+  Duration position = const Duration();
 
   bool _isPlaying = false;
   @override
@@ -58,6 +44,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
       widget.audioPlayer.setAudioSource(
         AudioSource.uri(
           Uri.parse(widget.songModel.uri!),
+          tag: MediaItem(
+            id: '${widget.songModel.id}',
+            album: "${widget.songModel.album}",
+            title: widget.songModel.displayNameWOExt,
+            artUri: Uri.parse('https://example.com/albumart.jpg'),
+          ),
         ),
       );
       widget.audioPlayer.play();
@@ -65,20 +57,17 @@ class _PlayerScreenState extends State<PlayerScreen> {
     } on Exception {
       log("Cannot pase song");
     }
-    widget.audioPlayer.durationStream.listen(
-      (d) {
-        setState(() {
-          duration = d!;
-        });
-      },
-    );
-    widget.audioPlayer.positionStream.listen(
-      (p) {
-        setState(() {
-          position = p;
-        });
-      },
-    );
+    // widget.audioPlayer.durationStream.listen(
+    //   (d) {
+    //     duration = d!;
+    //   },
+    // );
+    // widget.audioPlayer.positionStream.listen(
+    //   (p) {
+    //     position = p;
+    //   },
+    // // );
+    // setState(() {});
   }
 
   Color iconColor = Colors.black38;
@@ -274,13 +263,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                     width: 3),
                               ),
                               onPressed: () async {
-                                if (widget.audioPlayer.hasPrevious) {
-                                  _isPlaying = true;
-                                  await widget.audioPlayer.seekToPrevious();
-                                  await widget.audioPlayer.play();
-                                } else {
-                                  await widget.audioPlayer.play();
-                                }
+                                // if (widget.audioPlayer.hasPrevious) {
+                                //   _isPlaying = true;
+                                //   await widget.audioPlayer.seekToPrevious();
+                                //   await widget.audioPlayer.play();
+                                // } else {
+                                //   await widget.audioPlayer.play();
+                                // }
                               },
                               child: const Icon(
                                 Icons.skip_previous_rounded,
@@ -323,13 +312,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                     width: 3),
                               ),
                               onPressed: () async {
-                                if (widget.audioPlayer.hasNext) {
-                                  _isPlaying = true;
-                                  await widget.audioPlayer.seekToNext();
-                                  await widget.audioPlayer.play();
-                                } else {
-                                  await widget.audioPlayer.play();
-                                }
+                                // if (widget.audioPlayer.hasNext) {
+                                //   _isPlaying = true;
+                                //   await widget.audioPlayer.seekToNext();
+                                //   await widget.audioPlayer.play();
+                                // } else {
+                                //   await widget.audioPlayer.play();
+                                // }
                               },
                               child: const Icon(
                                 Icons.skip_next_rounded,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:music_wave/screens/all_song_screen.dart';
 import 'package:music_wave/screens/library_screen.dart';
 import 'package:music_wave/screens/search_screen.dart';

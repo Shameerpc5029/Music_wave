@@ -42,12 +42,11 @@ class _FavButtonState extends State<FavButton> {
         FavDb.addFav(widget.songModel);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 1),
+            duration: const Duration(seconds: 1),
             shape: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-            content: Text('Favorate Added!'),
+            content: const Text('Favorate Added!'),
           ),
         );
       });

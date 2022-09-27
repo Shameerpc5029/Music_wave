@@ -4,6 +4,7 @@ import 'package:music_wave/screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await FavDb.initializeDatabase();
   runApp(
     const MyApp(),

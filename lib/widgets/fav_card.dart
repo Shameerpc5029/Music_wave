@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class FavCard extends StatelessWidget {
   final String title;
   final Function onTap;
   final String subtitle;
   final Widget traling;
+  final int id;
 
   const FavCard({
     super.key,
@@ -12,6 +14,7 @@ class FavCard extends StatelessWidget {
     required this.subtitle,
     required this.traling,
     required this.onTap,
+    required this.id,
   });
 
   @override
@@ -22,12 +25,15 @@ class FavCard extends StatelessWidget {
         onTap: () {
           onTap;
         },
-        leading: const CircleAvatar(),
-        // leading: QueryArtworkWidget(
+        // leading: const CircleAvatar(),
+        leading: QueryArtworkWidget(
+          id: id,
+          type: ArtworkType.AUDIO,
+          keepOldArtwork: true,
+          nullArtworkWidget: CircleAvatar(),
 
-        //   type: ArtworkType.AUDIO,
-        //   keepOldArtwork: true,
-        // ),
+          // id: id,
+        ),
         title: Text(
           title,
           style: const TextStyle(

@@ -2,6 +2,7 @@
     package="com.example.music_wave">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
    <application
         android:label="music_wave"
         android:name="${applicationName}"

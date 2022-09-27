@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:music_wave/screens/favorate_screen.dart';
 import 'package:music_wave/widgets/bottom_sheet.dart';
 import 'package:music_wave/widgets/card.dart';
@@ -47,7 +46,7 @@ class LibraryScreen extends StatelessWidget {
                 tapAction: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: ((context) => FavorateScreen(
+                      builder: ((context) =>const FavorateScreen(
                            
                           )),
                     ),

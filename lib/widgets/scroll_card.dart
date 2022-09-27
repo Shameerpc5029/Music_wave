@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:music_wave/widgets/fav_button.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class ScrollCard extends StatefulWidget {

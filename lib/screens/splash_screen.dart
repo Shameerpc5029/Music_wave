@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/screens/home_screen.dart';
@@ -13,7 +15,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    gotoMainScreen();
+    gotMainScreen();
     super.initState();
   }
 
@@ -57,19 +59,14 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  Future<void> gotoMainScreen() async {
-    await Future.delayed(
-      const Duration(
-        seconds: 3,
-      ),
-    );
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (ctx) {
-          return const HomeScreen();
-        },
-      ),
+  gotMainScreen() {
+    Timer(
+      const Duration(seconds: 3),
+      (() => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: ((context) => const HomeScreen()),
+            ),
+          )),
     );
   }
 }

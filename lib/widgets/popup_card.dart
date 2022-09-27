@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
 
 class PopUpcard extends StatelessWidget {
-  const PopUpcard({super.key});
+  final Function onPress;
+  const PopUpcard({super.key, required this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,9 @@ class PopUpcard extends StatelessWidget {
       itemBuilder: (context) {
         return [
           PopupMenuItem(
+              onTap: () {
+                onPress;
+              },
               value: 1,
               child: Row(
                 children: const [
