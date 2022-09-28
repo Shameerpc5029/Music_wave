@@ -55,6 +55,7 @@ class _BottomState extends State<Bottom> {
       ),
       onPressed: (() {
         onPreesButton();
+
         buttonClick = true;
         showBottomSheet(
           enableDrag: false,
@@ -66,12 +67,13 @@ class _BottomState extends State<Bottom> {
                 10,
               ),
               decoration: const BoxDecoration(
-                color: Color.fromARGB(
-                  255,
-                  255,
-                  255,
-                  255,
-                ),
+                color: Colors.transparent,
+                // color: Color.fromARGB(
+                //   255,
+                //   255,
+                //   255,
+                //   255,
+                // ),
               ),
               child: Center(
                 child: Padding(

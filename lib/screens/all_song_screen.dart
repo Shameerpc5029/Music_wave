@@ -8,7 +8,6 @@ import 'package:music_wave/widgets/song_card.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-
 class AllSong extends StatefulWidget {
   const AllSong({
     Key? key,
@@ -31,9 +30,7 @@ class _AllSongState extends State<AllSong> {
       if (!permissionStatus) {
         await _audioQuery.permissionsRequest();
       }
-      setState(() {
-        
-      });
+      setState(() {});
     }
   }
 
@@ -115,8 +112,8 @@ class _AllSongState extends State<AllSong> {
                       ),
                     ),
                   );
-                }
-                return ListView.builder(
+                }else {
+                  return ListView.builder(
                   physics: const ScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: item.data!.length,
@@ -124,7 +121,7 @@ class _AllSongState extends State<AllSong> {
                     return SongCard(
                       item: item,
                       index: index,
-                      player: audioPlayer,
+                      audioPlayer: audioPlayer,
                       titleText: item.data![index].displayNameWOExt,
                       subText:
                           item.data![index].artist.toString() == "<unknown>"
@@ -137,6 +134,7 @@ class _AllSongState extends State<AllSong> {
                     );
                   }),
                 );
+                }
               },
             ),
           ],

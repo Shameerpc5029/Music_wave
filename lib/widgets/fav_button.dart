@@ -42,11 +42,22 @@ class _FavButtonState extends State<FavButton> {
         FavDb.addFav(widget.songModel);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            margin: const EdgeInsets.all(10),
+            elevation: 5,
+            backgroundColor: const Color.fromARGB(255, 174, 48, 39),
+            margin: const EdgeInsets.only(bottom: 5, right: 30, left: 30),
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 1),
-            shape: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-            content: const Text('Favorate Added!'),
+            shape: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(color: Colors.transparent)),
+            content: const Text(
+              'Favorite Added!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
           ),
         );
       });

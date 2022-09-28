@@ -10,7 +10,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class SongCard extends StatefulWidget {
   final AsyncSnapshot<List<SongModel>> item;
-  final AudioPlayer player;
+  final AudioPlayer audioPlayer;
 
   final int index;
   final String titleText;
@@ -27,7 +27,7 @@ class SongCard extends StatefulWidget {
     required this.fontWeight,
     required this.item,
     required this.index,
-    required this.player,
+    required this.audioPlayer,
   });
 
   @override
@@ -36,15 +36,15 @@ class SongCard extends StatefulWidget {
 
 class _SongCardState extends State<SongCard> {
   // final audioQuery = OnAudioQuery();
-  final audioPlayer = AudioPlayer();
+  // final audioPlayer = AudioPlayer();
   playSong(String? uri) {
     try {
-      audioPlayer.setAudioSource(
+      widget.audioPlayer.setAudioSource(
         AudioSource.uri(
           Uri.parse(uri!),
         ),
       );
-      audioPlayer.play();
+      widget.audioPlayer.play();
     } on Exception {
       log("Error pasing song");
     }
@@ -68,7 +68,7 @@ class _SongCardState extends State<SongCard> {
                 builder: ((context) {
                   return PlayerScreen(
                     songModel: widget.item.data![widget.index],
-                    audioPlayer: widget.player,
+                    audioPlayer: widget.audioPlayer,
                   );
                 }),
               ),
@@ -113,14 +113,11 @@ class _SongCardState extends State<SongCard> {
           // ),
           trailing: FavButton(
             songModel: widget.item.data![widget.index],
-            
           ),
           subtitle: Text(
             widget.subText,
             style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              overflow: TextOverflow.ellipsis
-            ),
+                fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
           ),
         ),
       ),

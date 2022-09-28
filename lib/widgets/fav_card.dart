@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:music_wave/screens/player_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class FavCard extends StatelessWidget {
   final String title;
-  final Function onTap;
+  final void Function() onTap;
   final String subtitle;
   final Widget traling;
   final int id;
@@ -13,8 +15,8 @@ class FavCard extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.traling,
-    required this.onTap,
     required this.id,
+    required this.onTap,
   });
 
   @override
@@ -22,17 +24,16 @@ class FavCard extends StatelessWidget {
     return Card(
       elevation: 1,
       child: ListTile(
-        onTap: () {
-          onTap;
-        },
-        // leading: const CircleAvatar(),
+        onTap: onTap,
         leading: QueryArtworkWidget(
           id: id,
           type: ArtworkType.AUDIO,
           keepOldArtwork: true,
-          nullArtworkWidget: CircleAvatar(),
-
-          // id: id,
+          nullArtworkWidget: CircleAvatar(
+            radius: MediaQuery.of(context).size.aspectRatio * 50,
+            backgroundColor: Colors.blue,
+            child: const Icon(Icons.music_note),
+          ),
         ),
         title: Text(
           title,

@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
+import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/fav_card.dart';
 import 'package:music_wave/widgets/popup_card.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 
 class FavorateScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
   }
 
   // final audioQuery = OnAudioQuery();
-  // final audioPlayer = AudioPlayer();
+  final audioPlayer = AudioPlayer();
   // playSong(String? uri) {
   //   try {
   //     audioPlayer.setAudioSource(
@@ -44,7 +45,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Favorate Songs',
+          'Favorite Songs',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -68,12 +69,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
             valueListenable: FavDb.musicListNotifier,
             builder: ((BuildContext context, List<SongModel> musiclist,
                 Widget? child) {
-              if (musiclist == null) {
-                return LoadingAnimationWidget.staggeredDotsWave(
-                  color: Colors.black,
-                  size: 40,
-                );
-              } else if (musiclist.isEmpty) {
+              if (musiclist.isEmpty) {
                 return const Center(
                   heightFactor: 30,
                   child: Text(
@@ -84,9 +80,9 @@ class _FavorateScreenState extends State<FavorateScreen> {
                   ),
                 );
               } else {
-                for (var element in musiclist) {
-                  log('SongID= ${element.id}');
-                }
+                // for (var element in musiclist) {
+                //   log('SongID= ${element.id}');
+                // }
                 return ListView.builder(
                   physics: const ScrollPhysics(),
                   shrinkWrap: true,
@@ -95,37 +91,40 @@ class _FavorateScreenState extends State<FavorateScreen> {
                     return FavCard(
                       id: musiclist[index].id,
                       onTap: () {
-                        // MusicFile.audioPlayer.play();
-                        // MusicFile.audioPlayer.setAudioSource(
-                        //     MusicFile.createSongList(musiclist),
-                        //     initialIndex: index);
-                        // MusicFile.audioPlayer.play();
-                        // Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
-                        //   return PlayerScreen(audioPlayer: audioPlayer, songModel: musiclist,)
+                        // Navigator.of(context)
+                        //     .push(MaterialPageRoute(builder: ((context) {
+                        //   return PlayerScreen(
+                        //       audioPlayer: audioPlayer,
+                        //       //  songModel: widget.item.data![widget.index],
+                        //       songModel );
                         // })));
+                        log('Song Played');
                       },
                       title: musiclist[index].title,
                       subtitle:
                           musiclist[index].artist.toString() == "<unknown>"
                               ? "Unknown Artist"
                               : musiclist[index].artist.toString(),
-                      traling: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              // musiclist.removeAt(index);
-                              // FavDb.removeFav(musiclist[index].id);
-                            });
-                          },
-                          icon: Icon(Icons.favorite)),
-                      // traling: PopUpcard(
-                      //   onPress: () {
-                      //     setState(() {
-                      //       musiclist.removeAt(index);
-                      // FavDb.removeFav(index);
-                      // FavDb.musicListNotifier;
-                      //     });
-                      //   },
-                      // ),
+                      traling: PopUpcard(
+                        onPress: () {
+                          setState(() {
+                            FavDb.removeFav(musiclist[index].id);
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              margin: const EdgeInsets.all(10),
+                              behavior: SnackBarBehavior.floating,
+                              duration: const Duration(seconds: 1),
+                              shape: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              content: Text(
+                                '${musiclist[index].title} Unliked!',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     );
                   }),
                 );

@@ -10,7 +10,7 @@ class RemoveAlert extends StatelessWidget {
         'Remove?',
       ),
       content: const Text(
-        'Do You Remove Playlist?',
+        'Do You Want to Remove Playlist?',
       ),
       actions: [
         TextButton(

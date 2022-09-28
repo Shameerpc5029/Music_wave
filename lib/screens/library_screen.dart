@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_wave/screens/favorate_screen.dart';
+import 'package:music_wave/screens/playlist_screen.dart';
 import 'package:music_wave/widgets/bottom_sheet.dart';
 import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/remove_alert.dart';
@@ -46,9 +47,7 @@ class LibraryScreen extends StatelessWidget {
                 tapAction: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: ((context) =>const FavorateScreen(
-                           
-                          )),
+                      builder: ((context) => const FavorateScreen()),
                     ),
                   );
                 },
@@ -76,13 +75,10 @@ class LibraryScreen extends StatelessWidget {
                     icon: Icons.playlist_play,
                     iconColor: Colors.black,
                     tapAction: () {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: ((context) {
-                      //       return PlaylistScreen();
-                      //     }),
-                      //   ),
-                      // );
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: ((context) {
+                        return PlaylistScreen();
+                      })));
                     },
                   );
                 }),

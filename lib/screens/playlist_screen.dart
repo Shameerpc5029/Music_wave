@@ -3,12 +3,13 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistScreen extends StatelessWidget {
+  PlaylistScreen({
+    super.key,
+  });
   final _audioQuery = OnAudioQuery();
-
-  PlaylistScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(
