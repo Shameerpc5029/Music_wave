@@ -9,7 +9,6 @@ class PlaylistScreen extends StatelessWidget {
   final _audioQuery = OnAudioQuery();
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(

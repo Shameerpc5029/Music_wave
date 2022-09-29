@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class RemoveAlert extends StatelessWidget {
-  const RemoveAlert({super.key});
+  final void Function() yesPress;
+  const RemoveAlert({super.key, required this.yesPress});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +23,7 @@ class RemoveAlert extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {
-            //data
-          },
+          onPressed: yesPress,
           child: const Text(
             'Yes',
           ),

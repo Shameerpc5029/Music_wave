@@ -24,7 +24,7 @@ class FavDb {
     playlistDb = await openDatabase(
       'playlist.db',
       version: 1,
-      onCreate: (Database db, int version) async {
+      onCreate: (Database playlistDb, int version) async {
         await playlistDb.execute(
             'CREATE TABLE IF NOT EXISTS playlist (id INTEGER PRIMARY KEY,playlistName TEXT)');
       },
@@ -41,8 +41,16 @@ class FavDb {
     FavDb.playListNotifier.notifyListeners();
   }
 
+  static Future<void> removePlaylist(String playlistName) async {
+    await playlistDb.delete('playlist',
+        where: 'playlistName= ?', whereArgs: [playlistName]);
+    getAllPlaylist();
+    playListNotifier.notifyListeners();
+  }
+
   static Future<void> getAllPlaylist() async {
     final playlistmodel = await playlistDb.rawQuery('SELECT * FROM playlist');
+    print(playlistmodel);
     playListNotifier.value.clear();
     for (var map in playlistmodel) {
       final playlist = ListModel.fromMap(map);
