@@ -3,8 +3,9 @@ import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class BoxFavButton extends StatefulWidget {
-  final SongModel songModel;
-  const BoxFavButton({super.key, required this.songModel});
+  final List<SongModel> songModel;
+  final SongModel song;
+  const BoxFavButton({super.key, required this.songModel, required this.song});
 
   @override
   State<BoxFavButton> createState() => _BoxFavButtonState();
@@ -48,7 +49,7 @@ class _BoxFavButtonState extends State<BoxFavButton> {
         () {
           iconColor = Colors.red;
           buttonClick = true;
-          FavDb.addFav(widget.songModel);
+          FavDb.addFav(widget.song);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               margin: const EdgeInsets.all(10),

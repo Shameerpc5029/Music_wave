@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class ScrollCard extends StatefulWidget {
-  final SongModel songModel;
+  final List<SongModel> songModel;
   final dynamic id;
   final ArtworkType type;
   const ScrollCard({

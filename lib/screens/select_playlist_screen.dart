@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/song_card.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -68,6 +69,17 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
                     itemCount: item.data!.length,
                     itemBuilder: ((context, index) {
                       return SongCard(
+                        // onTap: () {
+                          
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: ((context) {
+                        //         return PlayerScreen(songModel: item.data!);
+                        //       }),
+                        //     ),
+                        //   );
+                        // },
                         leadingIcon: Icon(addButtonClick
                             ? Icons.playlist_add
                             : Icons.playlist_add_check),

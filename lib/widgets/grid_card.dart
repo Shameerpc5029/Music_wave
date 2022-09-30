@@ -98,10 +98,7 @@ class GridCard extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: ((context) {
-                                    return PlayerScreen(
-                                      songModel: item.data![index],
-                                      audioPlayer: audioPlayer,
-                                    );
+                                    return PlayerScreen(songModel: item.data!);
                                   }),
                                 ),
                               );
