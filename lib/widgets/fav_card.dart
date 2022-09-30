@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:music_wave/screens/player_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class FavCard extends StatelessWidget {

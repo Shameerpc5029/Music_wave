@@ -5,7 +5,13 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class FavButton extends StatefulWidget {
   final SongModel songModel;
-  const FavButton({super.key, required this.songModel});
+  final Widget leadingIcon;
+
+  const FavButton({
+    super.key,
+    required this.songModel,
+    required this.leadingIcon,
+  });
 
   @override
   State<FavButton> createState() => _FavButtonState();
@@ -26,9 +32,7 @@ class _FavButtonState extends State<FavButton> {
           onPressed: (() {
             buttonPressed();
           }),
-          icon: const Icon(
-            Icons.favorite,
-          ),
+          icon: widget.leadingIcon,
         );
       },
     );

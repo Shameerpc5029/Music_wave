@@ -1,82 +1,31 @@
-import 'dart:developer';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:music_wave/widgets/grid_card.dart';
 import 'package:music_wave/widgets/song_card.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class AllSong extends StatefulWidget {
-  const AllSong({
-    Key? key,
-  }) : super(key: key);
-  // static List<SongModel> playSong = [];
+class SelectPlaylistScreen extends StatefulWidget {
+  const SelectPlaylistScreen({super.key});
+
   @override
-  State<AllSong> createState() => _AllSongState();
+  State<SelectPlaylistScreen> createState() => _SelectPlaylistScreenState();
 }
 
-class _AllSongState extends State<AllSong> {
-  @override
-  void initState() {
-    super.initState();
-    requestPermission();
-  }
-
-  void requestPermission() async {
-    if (!kIsWeb) {
-      bool permissionStatus = await _audioQuery.permissionsStatus();
-      if (!permissionStatus) {
-        await _audioQuery.permissionsRequest();
-      }
-      setState(() {});
-    }
-  }
-
+class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
+  bool addButtonClick = false;
   final _audioQuery = OnAudioQuery();
   final audioPlayer = AudioPlayer();
-  playSong(String? uri) {
-    try {
-      audioPlayer.setAudioSource(
-        AudioSource.uri(
-          Uri.parse(uri!),
-        ),
-      );
-      audioPlayer.play();
-    } on Exception {
-      log(
-        "Error pasing song",
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: SafeArea(
+          child: SingleChildScrollView(
         padding: const EdgeInsets.all(
           10,
         ),
-        physics: const ScrollPhysics(),
         child: Column(
           children: [
-            Row(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: 10.0,
-                    left: 10,
-                  ),
-                  child: HeadingText(
-                    text: 'Recently Songs',
-                  ),
-                ),
-              ],
-            ),
-            GridCard(
-              audioPlayer: audioPlayer,
-            ),
             Row(
               children: const [
                 Padding(
@@ -119,7 +68,9 @@ class _AllSongState extends State<AllSong> {
                     itemCount: item.data!.length,
                     itemBuilder: ((context, index) {
                       return SongCard(
-                        leadingIcon: Icon(Icons.favorite),
+                        leadingIcon: Icon(addButtonClick
+                            ? Icons.playlist_add
+                            : Icons.playlist_add_check),
                         item: item,
                         index: index,
                         audioPlayer: audioPlayer,
@@ -137,9 +88,7 @@ class _AllSongState extends State<AllSong> {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
-
-  bool iconButtonClick = false;
 }

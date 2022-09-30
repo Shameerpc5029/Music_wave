@@ -17,7 +17,7 @@ class FavDb {
       version: 1,
       onCreate: ((Database db, int version) async {
         await db.execute(
-            'CREATE TABLE IF NOT EXISTS song (id INTEGER PRIMARY KEY AUTOINCREMENT, _id INTEGER, title TEXT, artist TEXT)');
+            'CREATE TABLE IF NOT EXISTS song (id INTEGER PRIMARY KEY AUTOINCREMENT, _id INTEGER, _uri TEXT, _data TEXT, title TEXT, artist TEXT)');
       }),
     );
 //playlist
@@ -61,8 +61,9 @@ class FavDb {
 
 //Song Fav
   static Future<void> addFav(SongModel song) async {
-    await db.rawInsert('INSERT INTO song (_id,title,artist) VALUES (?,?,?)',
-        [song.id, song.title, song.artist]);
+    await db.rawInsert(
+        'INSERT INTO song (_id,_uri,_data,title,artist) VALUES (?,?,?,?,?)',
+        [song.id, song.uri, song.data, song.title, song.artist]);
     musicListNotifier.value.add(song);
 
     getAllSongs();

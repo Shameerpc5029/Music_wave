@@ -65,7 +65,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        icon: Icon(
+        icon: const Icon(
           Icons.playlist_add,
         ),
       ),

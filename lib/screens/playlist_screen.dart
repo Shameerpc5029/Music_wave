@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:music_wave/screens/select_playlist_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -17,7 +18,11 @@ class PlaylistScreen extends StatelessWidget {
           48,
           39,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
+            return SelectPlaylistScreen();
+          })));
+        },
         child: const Icon(
           Icons.add,
         ),

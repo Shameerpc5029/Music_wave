@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
 
@@ -37,7 +36,7 @@ class ShowBottomSheet extends StatelessWidget {
               children: [
                 IconButton(
                     onPressed: closePress,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.close_rounded,
                     ))
               ],

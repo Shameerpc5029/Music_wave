@@ -75,8 +75,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
     // );
   }
 
-  Color iconColor = Colors.black38;
-  bool buttonClick = false;
+  bool addButtonClick = false;
+  // Color iconColor = Colors.black38;
+  // bool buttonClick = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,9 +176,16 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         : widget.songModel.artist.toString(),
                   ),
                   trailing: IconButton(
-                    onPressed: (() {}),
-                    icon: const Icon(
-                      Icons.playlist_add,
+                    onPressed: (() {
+                      setState(() {
+                        addButtonClick = !addButtonClick;
+                      });
+                    }),
+                    icon: Icon(
+                      !addButtonClick
+                          ? Icons.playlist_add
+                          : Icons.playlist_add_check,
+                      color: !addButtonClick ? Colors.black : Colors.red,
                     ),
                   ),
                 ),

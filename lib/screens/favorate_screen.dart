@@ -13,7 +13,7 @@ class FavorateScreen extends StatefulWidget {
   const FavorateScreen({
     super.key,
   });
-
+  static List<SongModel> song = [];
   @override
   State<FavorateScreen> createState() => _FavorateScreenState();
 }
@@ -80,9 +80,6 @@ class _FavorateScreenState extends State<FavorateScreen> {
                   ),
                 );
               } else {
-                // for (var element in musiclist) {
-                //   log('SongID= ${element.id}');
-                // }
                 return ListView.builder(
                   physics: const ScrollPhysics(),
                   shrinkWrap: true,
@@ -95,8 +92,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
                         //     .push(MaterialPageRoute(builder: ((context) {
                         //   return PlayerScreen(
                         //       audioPlayer: audioPlayer,
-                        //       //  songModel: widget.item.data![widget.index],
-                        //       songModel );
+                        //       songModel: musiclist[index].uri);
                         // })));
                         log('Song Played');
                       },
@@ -119,7 +115,8 @@ class _FavorateScreenState extends State<FavorateScreen> {
                                   borderRadius: BorderRadius.circular(10)),
                               content: Text(
                                 '${musiclist[index].title} Unliked!',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           );
