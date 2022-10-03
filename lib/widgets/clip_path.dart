@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
 
-class Clip extends StatelessWidget {
-  const Clip({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: CustomClipPath(),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 20,
-        color: Colors.red,
-      ),
-    );
-  }
-}
 
-class CustomClipPath extends CustomClipper<Path> {
-  var radius = 10.0;
+class WaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(size.width / 5, size.height);
-    
-    path.lineTo(size.width, 10.0);
-    path.lineTo(size.width, 10.0);
+    debugPrint(size.width.toString());
+    var path = Path();
+    path.lineTo(0, size.height - 30);
+
+    var start = Offset(size.width / 6, size.height);
+    var end = Offset(size.width / 2, size.height - 90);
+    path.quadraticBezierTo(start.dx, start.dy, end.dx, end.dy);
+
+    var secondstart = Offset(size.width, size.height - 220);
+    var secondend = Offset(size.width, size.height - 90);
+    path.quadraticBezierTo(
+        secondstart.dx, secondstart.dy, secondend.dx, secondend.dy);
+
+    path.lineTo(size.width, 0);
+    path.close();
+
     return path;
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
 }

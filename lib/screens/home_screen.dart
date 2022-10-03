@@ -30,7 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      // appBar: AppBar(
+      //   toolbarHeight: 0,
+      //),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 25,

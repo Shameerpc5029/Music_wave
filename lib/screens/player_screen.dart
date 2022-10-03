@@ -1,25 +1,24 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/widgets/box_fav_button.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/music_slider.dart';
 import 'package:music_wave/widgets/scroll_card.dart';
 import 'package:music_wave/widgets/text.dart';
-import 'package:music_wave/widgets/volume_slider.dart';
 import 'package:music_wave/widgets/white_space.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 
 class PlayerScreen extends StatefulWidget {
   // final AudioPlayer audioPlayer;
+  final int index;
   const PlayerScreen({
     super.key,
     // required this.audioPlayer,
     required this.songModel,
+    required this.index,
   });
   final List<SongModel> songModel;
 
@@ -32,6 +31,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   Duration duration = const Duration();
   Duration position = const Duration();
+
   int currentIndex = 0;
   bool _isPlaying = false;
 
@@ -118,8 +118,31 @@ class _PlayerScreenState extends State<PlayerScreen> {
               );
             }
             return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CircleAvatar(
+                        child: IconButton(
+                          onPressed: (() {
+                            setState(() {
+                              addButtonClick = !addButtonClick;
+                            });
+                          }),
+                          icon: Icon(
+                            !addButtonClick
+                                ? Icons.playlist_add
+                                : Icons.playlist_add_check,
+                            color: !addButtonClick ? Colors.black : Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 const WhiteSpace10(),
                 SizedBox(
                   height: 200,
@@ -131,8 +154,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           ScrollCard(
                             songModel: MusicFile.playingSong,
                             // id: item,
-                            id: widget.songModel[currentIndex].id,
-                            // id: item.data![index].id,
+                            // id: widget.songModel[currentIndex].id,
+                            id: item.data![index].id,
                             type: ArtworkType.AUDIO,
                           ),
                           Padding(
@@ -140,22 +163,21 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             child: SizedBox(
                               width: 130,
                               child: BoxFavButton(
-                                songModel: item.data!,
-                                song: widget.songModel[index],
+                                song: item.data![index],
                               ),
                             ),
-                          )
+                          ),
                         ],
                       );
                     },
-                    itemCount: 1,
-                    // itemCount: item.data!.length,
+                    // itemCount: 1,
+                    itemCount: item.data!.length,
                     itemSize: 150,
                     onItemFocus: (index) {
-                      log("message");
+                      widget.index.toDouble();
                     },
-                    initialIndex: 0,
-                    // initialIndex: widget.songModel.id,
+                    initialIndex: widget.index.toDouble(),
+                    // initialIndex: widget.songModel as double,
                     dynamicItemSize: true,
                     focusOnItemTap: true,
                   ),
@@ -172,26 +194,15 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             ? "Unknown Artist"
                             : widget.songModel[currentIndex].artist.toString(),
                   ),
-                  trailing: IconButton(
-                    onPressed: (() {
-                      setState(() {
-                        addButtonClick = !addButtonClick;
-                      });
-                    }),
-                    icon: Icon(
-                      !addButtonClick
-                          ? Icons.playlist_add
-                          : Icons.playlist_add_check,
-                      color: !addButtonClick ? Colors.black : Colors.red,
-                    ),
-                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(position.toString().split(".")[0]),
+                      Text(
+                        position.toString().split(".")[0],
+                      ),
                       Expanded(
                         child: MusicSlide(
                           duration: duration,
@@ -206,12 +217,20 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 const WhiteSpace(),
                 Stack(
                   children: [
-                    // Clip(),
+                    // WaveClipper(),
                     Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            IconButton(
+                              onPressed: () async {
+                                await MusicFile.audioPlayer.shuffle();
+                                await MusicFile.audioPlayer
+                                    .setShuffleModeEnabled(true);
+                              },
+                              icon: Icon(Icons.shuffle),
+                            ),
                             RawMaterialButton(
                               padding: const EdgeInsets.all(15),
                               shape: const CircleBorder(
@@ -281,10 +300,18 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                 color: Color.fromARGB(255, 185, 18, 18),
                               ),
                             ),
+                            IconButton(
+                              onPressed: () async {
+                                await MusicFile.audioPlayer
+                                    .setLoopMode(LoopMode.one);
+                              },
+                              icon: Icon(
+                                Icons.repeat,
+                              ),
+                            ),
                           ],
                         ),
                         const WhiteSpace40(),
-                        const VolumeSlider(),
                       ],
                     ),
                   ],

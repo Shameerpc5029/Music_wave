@@ -5,13 +5,14 @@ import 'package:music_wave/screens/search_screen.dart';
 import 'package:music_wave/screens/settings_screen.dart';
 
 class MainScreen extends StatefulWidget {
-
-  const MainScreen({Key? key,}) : super(key: key);
+  const MainScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
- 
+
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
   void navBottonBar(int index) {
@@ -22,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> pages = [
     const AllSong(),
-   const  LibraryScreen(),
+    const LibraryScreen(),
     const SearchScreen(),
     const SettingsScreen(),
   ];
@@ -30,10 +31,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        backgroundColor: Colors.white,
-      ),
+      // appBar: AppBar(
+      //   elevation: 1,
+      //   backgroundColor: Colors.white,
+      // ),
       // floatingActionButton: FloatingActionButton(
       //   backgroundColor: Color.fromARGB(255, 174, 48, 39),
       //   onPressed: () {
@@ -55,7 +56,6 @@ class _MainScreenState extends State<MainScreen> {
           48,
           39,
         ),
-        backgroundColor: Colors.white,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(

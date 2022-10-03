@@ -8,8 +8,11 @@ import 'package:sqflite/sqflite.dart';
 class FavDb {
   static ValueNotifier<List<SongModel>> musicListNotifier = ValueNotifier([]);
   static ValueNotifier<List<ListModel>> playListNotifier = ValueNotifier([]);
+  static ValueNotifier<List<SongModel>> playListMusicNotifier =
+      ValueNotifier([]);
   static late Database db;
   static late Database playlistDb;
+  static late Database playlistMusicDb;
   //fav
   static Future<void> initializeDatabase() async {
     db = await openDatabase(
@@ -17,10 +20,10 @@ class FavDb {
       version: 1,
       onCreate: ((Database db, int version) async {
         await db.execute(
-            'CREATE TABLE IF NOT EXISTS song (id INTEGER PRIMARY KEY AUTOINCREMENT, _id INTEGER, _uri TEXT, _data TEXT, title TEXT, artist TEXT)');
+            'CREATE TABLE IF NOT EXISTS song (id INTEGER PRIMARY KEY AUTOINCREMENT, _id INTEGER, _uri TEXT, _data TEXT, title TEXT, artist TEXT, _display_name_wo_ext TEXT)');
       }),
     );
-//playlist
+    //playlist
     playlistDb = await openDatabase(
       'playlist.db',
       version: 1,
@@ -29,9 +32,18 @@ class FavDb {
             'CREATE TABLE IF NOT EXISTS playlist (id INTEGER PRIMARY KEY,playlistName TEXT)');
       },
     );
+    //playlist music
+    playlistMusicDb = await openDatabase(
+      'playlistmusic.db',
+      version: 1,
+      onCreate: (Database playlistMusicDb, int version) async {
+        await playlistMusicDb.execute(
+            'CREATE TABLE IF NOT EXISTS playlistSong (id INTEGER PRIMARY KEY AUTOINCREMENT, _id INTEGER, _uri TEXT, _data TEXT, title TEXT, artist TEXT, _display_name_wo_ext TEXT)');
+      },
+    );
   }
 
-//playlist
+  //playlist
   static Future<void> addPlaylist(ListModel playlistmodel) async {
     await playlistDb.rawInsert('INSERT INTO playlist (playlistName) VALUES (?)',
         [playlistmodel.playlistName]);
@@ -59,11 +71,18 @@ class FavDb {
     }
   }
 
-//Song Fav
+  //Song Fav
   static Future<void> addFav(SongModel song) async {
     await db.rawInsert(
-        'INSERT INTO song (_id,_uri,_data,title,artist) VALUES (?,?,?,?,?)',
-        [song.id, song.uri, song.data, song.title, song.artist]);
+        'INSERT INTO song (_id,_uri,_data,title,artist,_display_name_wo_ext) VALUES (?,?,?,?,?,?)',
+        [
+          song.id,
+          song.uri,
+          song.data,
+          song.title,
+          song.artist,
+          song.displayNameWOExt
+        ]);
     musicListNotifier.value.add(song);
 
     getAllSongs();
@@ -85,5 +104,41 @@ class FavDb {
     await db.delete('song', where: '_id= ?', whereArgs: [id]);
     getAllSongs();
     musicListNotifier.notifyListeners();
+  }
+
+//add playlist music
+  static Future<void> getAllPlaylistSongs() async {
+    final song = await playlistMusicDb.rawQuery('SELECT * FROM playlistSong');
+    log(song.toString());
+    playListMusicNotifier.value.clear();
+    for (var map in song) {
+      final addsong = SongModel(map);
+      playListMusicNotifier.value.add(addsong);
+    }
+  }
+
+  static Future<void> addPlaylistMusic(SongModel song) async {
+    await playlistMusicDb.rawInsert(
+      'INSERT INTO playlistSong (_id,_uri,_data,title,artist,_display_name_wo_ext) VALUES (?,?,?,?,?,?)',
+      [
+        song.id,
+        song.uri,
+        song.data,
+        song.title,
+        song.artist,
+        song.displayNameWOExt
+      ],
+    );
+    playListMusicNotifier.value.add(song);
+
+    getAllPlaylistSongs();
+
+    FavDb.playListMusicNotifier.notifyListeners();
+  }
+
+  static Future<void> removePlaylistMusic(int id) async {
+    await playlistMusicDb.delete('playlistSong', where: '_id= ?', whereArgs: [id]);
+    getAllPlaylistSongs();
+    playListMusicNotifier.notifyListeners();
   }
 }

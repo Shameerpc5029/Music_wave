@@ -3,9 +3,9 @@ import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class BoxFavButton extends StatefulWidget {
-  final List<SongModel> songModel;
+  // final List<SongModel> songModel;
   final SongModel song;
-  const BoxFavButton({super.key, required this.songModel, required this.song});
+  const BoxFavButton({super.key, required this.song, });
 
   @override
   State<BoxFavButton> createState() => _BoxFavButtonState();

@@ -11,80 +11,82 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(
-          10,
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(
-                8.0,
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(
+            10,
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(
+                  8.0,
+                ),
+                child: Row(
+                  children: const [
+                    HeadingText(
+                      text: 'Settings',
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                children: const [
-                  HeadingText(
-                    text: 'Settings',
-                  ),
-                ],
+              CardTile2(
+                icon: Icons.info_outline,
+                titleText: 'About Music Wave',
+                tapAction: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (contex) {
+                      return const AboutScreen();
+                    }),
+                  );
+                },
               ),
-            ),
-            CardTile2(
-              icon: Icons.info_outline,
-              titleText: 'About Music Wave',
-              tapAction: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (contex) {
-                    return const AboutScreen();
-                  }),
-                );
-              },
-            ),
-            CardTile2(
-              icon: Icons.text_snippet_outlined,
-              titleText: 'Terms And Conditions',
-              tapAction: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (contex) {
-                    return const TermsScreen();
-                  }),
-                );
-              },
-            ),
-            CardTile2(
-              icon: Icons.security_outlined,
-              titleText: 'Privacy policy',
-              tapAction: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (contex) {
-                    return const PrivacyScreen();
-                  }),
-                );
-              },
-            ),
-            CardTile2(
-              icon: Icons.share,
-              titleText: 'Share Music Wave',
-              tapAction: () {},
-            ),
-            CardTile2(
-              icon: Icons.restart_alt,
-              titleText: 'Reset App',
-              tapAction: () {},
-            ),
-            CardTile3(
-              icon: Icons.dark_mode_rounded,
-              titleText: 'Dark Mode',
-              tapAction: () {},
-            ),
-            const Spacer(),
-            const Text(
-              'V 1.0.0',
-              style: TextStyle(
-                color: Colors.black12,
+              CardTile2(
+                icon: Icons.text_snippet_outlined,
+                titleText: 'Terms And Conditions',
+                tapAction: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (contex) {
+                      return const TermsScreen();
+                    }),
+                  );
+                },
               ),
-            )
-          ],
+              CardTile2(
+                icon: Icons.security_outlined,
+                titleText: 'Privacy policy',
+                tapAction: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (contex) {
+                      return const PrivacyScreen();
+                    }),
+                  );
+                },
+              ),
+              CardTile2(
+                icon: Icons.share,
+                titleText: 'Share Music Wave',
+                tapAction: () {},
+              ),
+              CardTile2(
+                icon: Icons.restart_alt,
+                titleText: 'Reset App',
+                tapAction: () {},
+              ),
+              CardTile3(
+                icon: Icons.dark_mode_rounded,
+                titleText: 'Dark Mode',
+                tapAction: () {},
+              ),
+              const Spacer(),
+              const Text(
+                'V 1.0.0',
+                style: TextStyle(
+                  color: Colors.black12,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/screens/select_playlist_screen.dart';
+import 'package:music_wave/widgets/playlist_card.dart';
+import 'package:music_wave/widgets/playlist_song_card.dart';
+import 'package:music_wave/widgets/popup_card.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class PlaylistScreen extends StatelessWidget {
+class PlaylistScreen extends StatefulWidget {
   PlaylistScreen({
     super.key,
   });
+
+  @override
+  State<PlaylistScreen> createState() => _PlaylistScreenState();
+}
+
+class _PlaylistScreenState extends State<PlaylistScreen> {
+  @override
+  void initState() {
+    FavDb.getAllPlaylistSongs();
+    super.initState();
+  }
+
   final _audioQuery = OnAudioQuery();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,13 +84,44 @@ class PlaylistScreen extends StatelessWidget {
               );
             }
 
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: const ScrollPhysics(),
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return const ListTile(
-                  title: Text('hello'),
+            return ValueListenableBuilder(
+              valueListenable: FavDb.playListMusicNotifier,
+              builder:
+                  (BuildContext context, List<SongModel> music, Widget? child) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const ScrollPhysics(),
+                  itemCount: music.length,
+                  itemBuilder: (context, index) {
+                    return PlaylistCard(
+                        title: music[index].title,
+                        subtitle: music[index].artist.toString() == "<unknown>"
+                            ? "Unknown Artist"
+                            : music[index].artist.toString(),
+                        traling: PopUpcard(
+                          onPress: () {
+                            setState(() {
+                              FavDb.removeFav(music[index].id);
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                margin: const EdgeInsets.all(10),
+                                behavior: SnackBarBehavior.floating,
+                                duration: const Duration(seconds: 1),
+                                shape: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                content: Text(
+                                  '${music[index].title} Unliked!',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        id: music[index].id,
+                        onTap: () {});
+                  },
                 );
               },
             );

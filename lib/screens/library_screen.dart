@@ -10,6 +10,8 @@ import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
 
 class LibraryScreen extends StatefulWidget {
+
+
   const LibraryScreen({
     Key? key,
   }) : super(key: key);
@@ -100,7 +102,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 tapAction: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: ((context) => const FavorateScreen()),
+                      builder: ((context) =>  FavorateScreen(
+                       
+                      )),
                     ),
                   );
                 },
@@ -141,7 +145,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         tapAction: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: ((context) {
-                            return PlaylistScreen();
+                            return PlaylistScreen(
+                             
+                            );
                           })));
                         },
                       );

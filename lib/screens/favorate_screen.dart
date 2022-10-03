@@ -7,6 +7,7 @@ import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/fav_card.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/popup_card.dart';
+import 'package:music_wave/widgets/song_card.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -26,21 +27,6 @@ class _FavorateScreenState extends State<FavorateScreen> {
 
     super.initState();
   }
-
-  // final audioQuery = OnAudioQuery();
-  // final audioPlayer = AudioPlayer();
-  // playSong(String? uri) {
-  //   try {
-  //     audioPlayer.setAudioSource(
-  //       AudioSource.uri(
-  //         Uri.parse(uri!),
-  //       ),
-  //     );
-  //     audioPlayer.play();
-  //   } on Exception {
-  //     log("Error pasing song");
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -82,60 +68,61 @@ class _FavorateScreenState extends State<FavorateScreen> {
                   builder: ((BuildContext context, List<SongModel> music,
                       Widget? child) {
                     return ListView.builder(
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: music.length,
-                      itemBuilder: ((BuildContext context, int index) {
-                        return FavCard(
-                          id: music[index].id,
-                          onTap: () {
-                            // List<SongModel> favList = [...music];
-                            MusicFile.audioPlayer.stop();
-                            MusicFile.audioPlayer.setAudioSource(
-                              MusicFile.createSongList(music),
-                              initialIndex: index,
-                            );
-                            MusicFile.audioPlayer.play();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: ((context) {
-                                  return PlayerScreen(
-                                    songModel: music,
-                                  );
-                                }),
-                              ),
-                            );
-                            log('Song Played');
-                          },
-                          title: music[index].title,
-                          subtitle:
-                              music[index].artist.toString() == "<unknown>"
-                                  ? "Unknown Artist"
-                                  : music[index].artist.toString(),
-                          traling: PopUpcard(
-                            onPress: () {
-                              setState(() {
-                                FavDb.removeFav(music[index].id);
-                              });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  margin: const EdgeInsets.all(10),
-                                  behavior: SnackBarBehavior.floating,
-                                  duration: const Duration(seconds: 1),
-                                  shape: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  content: Text(
-                                    '${music[index].title} Unliked!',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                        physics: const ScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: music.length,
+                        itemBuilder: ((BuildContext context, int index) {
+                          return FavCard(
+                            id: music[index].id,
+                            onTap: () {
+                              MusicFile.audioPlayer.stop();
+                              MusicFile.audioPlayer.setAudioSource(
+                                MusicFile.createSongList(music),
+                                initialIndex: index,
+                              );
+                              MusicFile.audioPlayer.play();
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: ((context) {
+                                    return PlayerScreen(
+                                      index: index,
+                                      songModel: music,
+                                    );
+                                  }),
                                 ),
                               );
+                              log('Song Played');
                             },
-                          ),
-                        );
-                      }),
-                    );
+                            title: music[index].title,
+                            subtitle:
+                                music[index].artist.toString() == "<unknown>"
+                                    ? "Unknown Artist"
+                                    : music[index].artist.toString(),
+                            traling: PopUpcard(
+                              onPress: () {
+                                setState(() { 
+                                  
+                                  FavDb.removeFav(music[index].id);
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    margin: const EdgeInsets.all(10),
+                                    behavior: SnackBarBehavior.floating,
+                                    duration: const Duration(seconds: 1),
+                                    shape: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    content: Text(
+                                      '${music[index].title} Unliked!',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }));
                   }),
                 ),
               ),

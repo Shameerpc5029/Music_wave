@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class FavCard extends StatelessWidget {
+class PlaylistCard extends StatelessWidget {
   final String title;
   final void Function() onTap;
   final String subtitle;
   final Widget traling;
   final int id;
 
-  const FavCard({
+  const PlaylistCard({
     super.key,
     required this.title,
     required this.subtitle,
