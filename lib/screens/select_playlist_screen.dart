@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:music_wave/db/functions/db_funtions.dart';
-import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/playlist_song_card.dart';
-import 'package:music_wave/widgets/song_card.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -21,7 +18,7 @@ class SelectPlaylistScreen extends StatefulWidget {
 class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
   bool addButtonClick = false;
   final _audioQuery = OnAudioQuery();
-  final audioPlayer = AudioPlayer();
+  // final audioPlayer = AudioPlayer();
   Color iconColor = Colors.black38;
   bool buttonClick = false;
   @override
@@ -84,7 +81,7 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
                         fontWeight: FontWeight.bold,
                         item: item,
                         index: index,
-                        audioPlayer: audioPlayer,
+                        audioPlayer:MusicFile. audioPlayer,
                         leadingIcon: Icon(addButtonClick
                             ? Icons.playlist_add
                             : Icons.playlist_add_check),

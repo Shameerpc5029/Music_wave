@@ -1,18 +1,19 @@
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
-import 'package:music_wave/screens/player_screen.dart';
+
 import 'package:music_wave/widgets/fav_button.dart';
 import 'package:music_wave/widgets/music_file.dart';
+
 
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SongCard extends StatefulWidget {
   final AsyncSnapshot<List<SongModel>> item;
-  final AudioPlayer audioPlayer;
+
   final Widget leadingIcon;
   final int index;
   final void Function() onTap;
@@ -27,7 +28,7 @@ class SongCard extends StatefulWidget {
     required this.fontWeight,
     required this.item,
     required this.index,
-    required this.audioPlayer,
+
     required this.leadingIcon,
     required this.onTap,
   });
@@ -37,16 +38,15 @@ class SongCard extends StatefulWidget {
 }
 
 class _SongCardState extends State<SongCard> {
-  // final audioQuery = OnAudioQuery();
-  // final audioPlayer = AudioPlayer();
+
   playSong(String? uri) {
     try {
-      widget.audioPlayer.setAudioSource(
+      MusicFile.audioPlayer.setAudioSource(
         AudioSource.uri(
           Uri.parse(uri!),
         ),
       );
-      widget.audioPlayer.play();
+      MusicFile.audioPlayer.play();
     } on Exception {
       log("Error pasing song");
     }
@@ -72,19 +72,6 @@ class _SongCardState extends State<SongCard> {
             ),
             child: const Icon(Icons.music_note)),
       ),
-      // leading: ClipRRect(
-      //   borderRadius: BorderRadius.circular(
-      //     10,
-      //   ),
-      //   child: Image(
-      //     fit: BoxFit.fill,
-      //     width: 50,
-      //     height: 50,
-      //     image: AssetImage(
-      //       widget.leadingUrl,
-      //     ),
-      //   ),
-      // ),
       title: Text(
         widget.titleText,
         style: TextStyle(
@@ -93,13 +80,6 @@ class _SongCardState extends State<SongCard> {
           overflow: TextOverflow.ellipsis,
         ),
       ),
-      // trailing: FavoriteButton(
-      //   iconSize: 35,
-      //   isFavorite: true,
-      //   valueChanged: (isFavorite) {
-      //     print("its Favorate");
-      //   },
-      // ),
       trailing: FavButton(
         leadingIcon: widget.leadingIcon,
         songModel: widget.item.data![widget.index],

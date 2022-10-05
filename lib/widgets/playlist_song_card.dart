@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/screens/player_screen.dart';
-import 'package:music_wave/widgets/fav_button.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/playlist_button.dart';
 
@@ -19,6 +18,7 @@ class PlaylistSongCard extends StatefulWidget {
   final String titleText;
   final String subText;
 
+
   final FontWeight fontWeight;
   const PlaylistSongCard({
     super.key,
@@ -29,7 +29,7 @@ class PlaylistSongCard extends StatefulWidget {
     required this.index,
     required this.audioPlayer,
     required this.leadingIcon,
-    // required this.onTap,
+
   });
 
   @override
@@ -37,8 +37,6 @@ class PlaylistSongCard extends StatefulWidget {
 }
 
 class _PlaylistSongCardState extends State<PlaylistSongCard> {
-  // final audioQuery = OnAudioQuery();
-  // final audioPlayer = AudioPlayer();
   playSong(String? uri) {
     try {
       widget.audioPlayer.setAudioSource(
@@ -65,7 +63,10 @@ class _PlaylistSongCardState extends State<PlaylistSongCard> {
           context,
           MaterialPageRoute(
             builder: ((context) {
-              return PlayerScreen(songModel: widget.item.data!,index: widget.index,);
+              return PlayerScreen(
+                songModel: widget.item.data!,
+                index: widget.index,
+              );
             }),
           ),
         );

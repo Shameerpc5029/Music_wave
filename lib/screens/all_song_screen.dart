@@ -5,7 +5,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/carousal_grid.dart';
-import 'package:music_wave/widgets/grid_card.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/song_card.dart';
 import 'package:music_wave/widgets/text.dart';
@@ -38,15 +37,15 @@ class _AllSongState extends State<AllSong> {
   }
 
   final _audioQuery = OnAudioQuery();
-  final audioPlayer = AudioPlayer();
+  // final audioPlayer = AudioPlayer();
   playSong(String? uri) {
     try {
-      audioPlayer.setAudioSource(
+      MusicFile.audioPlayer.setAudioSource(
         AudioSource.uri(
           Uri.parse(uri!),
         ),
       );
-      audioPlayer.play();
+      MusicFile.audioPlayer.play();
     } on Exception {
       log(
         "Error pasing song",
@@ -75,25 +74,7 @@ class _AllSongState extends State<AllSong> {
                   ),
                 ],
               ),
-              // Row(
-              //   children: const [
-              //     Padding(
-              //       padding: EdgeInsets.only(
-              //         bottom: 10.0,
-              //         left: 10,
-              //       ),
-              //       child: HeadingText(
-              //         text: 'Recently Songs',
-              //       ),
-              //     ),
-              //   ],
-              // ),
-
-              // GridCard(
-              //   audioPlayer: audioPlayer,
-              // ),
-              GridCarousal(),
-
+              const GridCarousal(),
               FutureBuilder<List<SongModel>>(
                 future: _audioQuery.querySongs(
                   sortType: null,
@@ -141,10 +122,9 @@ class _AllSongState extends State<AllSong> {
                               ),
                             );
                           },
-                          leadingIcon: Icon(Icons.favorite),
+                          leadingIcon: const Icon(Icons.favorite),
                           item: item,
                           index: index,
-                          audioPlayer: audioPlayer,
                           titleText: item.data![index].displayNameWOExt,
                           subText:
                               item.data![index].artist.toString() == "<unknown>"

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
 
 class FavButton extends StatefulWidget {

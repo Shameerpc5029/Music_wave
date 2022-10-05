@@ -46,12 +46,9 @@ class _GridCarousalState extends State<GridCarousal> {
             itemCount: item.data!.length,
             itemBuilder: (context, index, realIndex) {
               return Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: Card(
+                  elevation: 10,
                   margin: const EdgeInsets.symmetric(horizontal: 12),
-                  width: 300,
                   child: InkWell(
                     onTap: () {
                       MusicFile.audioPlayer.setAudioSource(
@@ -99,7 +96,7 @@ class _GridCarousalState extends State<GridCarousal> {
               );
             },
             options: CarouselOptions(
-              
+              viewportFraction: 0.3,
               enableInfiniteScroll: true,
               disableCenter: true,
               autoPlayAnimationDuration: const Duration(
@@ -108,7 +105,7 @@ class _GridCarousalState extends State<GridCarousal> {
               autoPlayInterval: const Duration(
                 seconds: 3,
               ),
-              aspectRatio: 100,
+              // aspectRatio: 100,
               height: 200,
               autoPlay: true,
               enlargeCenterPage: true,

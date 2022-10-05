@@ -5,16 +5,16 @@ class PlaylistCard extends StatelessWidget {
   final String title;
   final void Function() onTap;
   final String subtitle;
-  final Widget traling;
+  final Widget trailing;
   final int id;
 
   const PlaylistCard({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.traling,
     required this.id,
     required this.onTap,
+    required this.trailing,
   });
 
   @override
@@ -50,7 +50,7 @@ class PlaylistCard extends StatelessWidget {
           color: Colors.black38,
         ),
       ),
-      trailing: traling,
+    trailing: trailing,
     );
   }
 }

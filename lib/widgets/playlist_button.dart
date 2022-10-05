@@ -55,7 +55,7 @@ class _FavButtonState extends State<PlaylistButton> {
                 borderRadius: BorderRadius.circular(15),
                 borderSide: const BorderSide(color: Colors.transparent)),
             content: const Text(
-              'Favorite Added!',
+              'Song Added!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,

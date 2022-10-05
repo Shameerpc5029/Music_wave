@@ -1,12 +1,11 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:music_wave/screens/home_screen.dart';
 import 'package:music_wave/widgets/box_fav_button.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/music_slider.dart';
 import 'package:music_wave/widgets/scroll_card.dart';
-import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
@@ -28,7 +27,7 @@ class PlayerScreen extends StatefulWidget {
 
 class _PlayerScreenState extends State<PlayerScreen> {
   final _audioQuery = OnAudioQuery();
-
+  final int id = -1;
   Duration duration = const Duration();
   Duration position = const Duration();
 
@@ -70,8 +69,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
   }
 
   bool addButtonClick = false;
-  // Color iconColor = Colors.black38;
-  // bool buttonClick = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +84,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
-            Navigator.pop(context);
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return const HomeScreen();
+            }));
           }),
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -118,31 +118,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
               );
             }
             return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CircleAvatar(
-                        child: IconButton(
-                          onPressed: (() {
-                            setState(() {
-                              addButtonClick = !addButtonClick;
-                            });
-                          }),
-                          icon: Icon(
-                            !addButtonClick
-                                ? Icons.playlist_add
-                                : Icons.playlist_add_check,
-                            color: !addButtonClick ? Colors.black : Colors.red,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 const WhiteSpace10(),
                 SizedBox(
                   height: 200,
@@ -154,7 +131,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           ScrollCard(
                             songModel: MusicFile.playingSong,
                             // id: item,
-                            // id: widget.songModel[currentIndex].id,
+                            // id: MusicFile.playingSong[currentIndex].id,
                             id: item.data![index].id,
                             type: ArtworkType.AUDIO,
                           ),
@@ -174,25 +151,43 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     itemCount: item.data!.length,
                     itemSize: 150,
                     onItemFocus: (index) {
-                      widget.index.toDouble();
+                      print(index);
                     },
                     initialIndex: widget.index.toDouble(),
-                    // initialIndex: widget.songModel as double,
+
                     dynamicItemSize: true,
                     focusOnItemTap: true,
                   ),
                 ),
                 const WhiteSpace(),
-                ListTile(
-                  title: HeadingText(
-                    text: widget.songModel[currentIndex].displayNameWOExt,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 40,
+                    right: 40,
                   ),
-                  subtitle: SubTitle(
-                    titleText:
-                        widget.songModel[currentIndex].artist.toString() ==
-                                "<unknown>"
-                            ? "Unknown Artist"
-                            : widget.songModel[currentIndex].artist.toString(),
+                  child: Text(
+                    widget.songModel[currentIndex].displayNameWOExt,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 60, right: 60),
+                  child: Text(
+                    widget.songModel[currentIndex].artist.toString() ==
+                            "<unknown>"
+                        ? "Unknown Artist"
+                        : widget.songModel[currentIndex].artist.toString(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 Padding(
@@ -224,12 +219,23 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: () async {
-                                await MusicFile.audioPlayer.shuffle();
-                                await MusicFile.audioPlayer
-                                    .setShuffleModeEnabled(true);
+                              onPressed: () {
+                                // await MusicFile.audioPlayer.shuffle();
+                                setState(() {
+                                  if (shuffleOn) {
+                                    MusicFile.audioPlayer.shuffle();
+                                    MusicFile.audioPlayer
+                                        .setShuffleModeEnabled(true);
+                                  } else {
+                                    MusicFile.audioPlayer
+                                        .setShuffleModeEnabled(false);
+                                  }
+                                  shuffleOn = !shuffleOn;
+                                });
                               },
-                              icon: Icon(Icons.shuffle),
+                              icon: Icon(shuffleOn
+                                  ? Icons.shuffle
+                                  : Icons.shuffle_on_outlined),
                             ),
                             RawMaterialButton(
                               padding: const EdgeInsets.all(15),
@@ -271,12 +277,23 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                   },
                                 );
                               },
-                              child: Icon(
-                                _isPlaying
-                                    ? Icons.play_arrow_rounded
-                                    : Icons.pause,
-                                color: const Color.fromARGB(255, 185, 18, 18),
-                                size: 40,
+                              child: StreamBuilder<bool>(
+                                stream: MusicFile.audioPlayer.playingStream,
+                                builder: (context, snapshot) {
+                                  bool? playingStage = snapshot.data;
+                                  if (playingStage != null && playingStage) {
+                                    return const Icon(
+                                      Icons.pause_rounded,
+                                      color: Color.fromARGB(255, 185, 18, 18),
+                                      size: 45,
+                                    );
+                                  } else {
+                                    return const Icon(
+                                      Icons.play_arrow_rounded,
+                                      size: 45,
+                                    );
+                                  }
+                                },
                               ),
                             ),
                             RawMaterialButton(
@@ -301,12 +318,22 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () async {
-                                await MusicFile.audioPlayer
-                                    .setLoopMode(LoopMode.one);
+                              onPressed: () {
+                                setState(() {
+                                  if (repetOn) {
+                                    MusicFile.audioPlayer
+                                        .setLoopMode(LoopMode.one);
+                                  } else {
+                                    MusicFile.audioPlayer
+                                        .setLoopMode(LoopMode.off);
+                                  }
+                                  repetOn = !repetOn;
+                                });
                               },
                               icon: Icon(
-                                Icons.repeat,
+                                repetOn
+                                    ? Icons.repeat
+                                    : Icons.repeat_on_outlined,
                               ),
                             ),
                           ],
@@ -323,4 +350,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
       ),
     );
   }
+
+  bool repetOn = true;
+  bool shuffleOn = true;
 }

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
+import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/screens/select_playlist_screen.dart';
+import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/playlist_card.dart';
-import 'package:music_wave/widgets/playlist_song_card.dart';
-import 'package:music_wave/widgets/popup_card.dart';
+
+
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistScreen extends StatefulWidget {
-  PlaylistScreen({
+  const PlaylistScreen({
     super.key,
   });
 
@@ -37,7 +39,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         ),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
-            return SelectPlaylistScreen();
+            return const SelectPlaylistScreen();
           })));
         },
         child: const Icon(
@@ -94,33 +96,40 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   itemCount: music.length,
                   itemBuilder: (context, index) {
                     return PlaylistCard(
-                        title: music[index].title,
-                        subtitle: music[index].artist.toString() == "<unknown>"
-                            ? "Unknown Artist"
-                            : music[index].artist.toString(),
-                        traling: PopUpcard(
-                          onPress: () {
-                            setState(() {
-                              FavDb.removeFav(music[index].id);
-                            });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                margin: const EdgeInsets.all(10),
-                                behavior: SnackBarBehavior.floating,
-                                duration: const Duration(seconds: 1),
-                                shape: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                content: Text(
-                                  '${music[index].title} Unliked!',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            );
-                          },
+                      trailing: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            FavDb.removePlaylistMusic(music[index].id);
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.playlist_remove_outlined,
                         ),
-                        id: music[index].id,
-                        onTap: () {});
+                      ),
+                      title: music[index].title,
+                      subtitle: music[index].artist.toString() == "<unknown>"
+                          ? "Unknown Artist"
+                          : music[index].artist.toString(),
+                      id: music[index].id,
+                      onTap: () {
+                        MusicFile.audioPlayer.stop();
+                        MusicFile.audioPlayer.setAudioSource(
+                          MusicFile.createSongList(music),
+                          initialIndex: index,
+                        );
+                        MusicFile.audioPlayer.play();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: ((context) {
+                              return PlayerScreen(
+                                index: index,
+                                songModel: music,
+                              );
+                            }),
+                          ),
+                        );
+                      },
+                    );
                   },
                 );
               },
