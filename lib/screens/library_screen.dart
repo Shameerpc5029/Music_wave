@@ -3,6 +3,7 @@ import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/db/model/data_model.dart';
 import 'package:music_wave/screens/favorate_screen.dart';
 import 'package:music_wave/screens/playlist_screen.dart';
+import 'package:music_wave/screens/search_screen.dart';
 import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/remove_alert.dart';
 import 'package:music_wave/widgets/show_bottom_sheet.dart';
@@ -94,7 +95,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               CardTile(
                 //favorate
                 subText: '1 Songs',
-                tittleText: 'Favorate Songs',
+                tittleText: 'Favorite Songs',
                 icon: Icons.favorite,
                 iconColor: Colors.red,
                 tapAction: () {
@@ -123,10 +124,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
                               context: context,
                               builder: ((context) {
                                 return RemoveAlert(
+                                  title: 'Playlist',
+                                  contant:
+                                      'Do you want to remove this playlist?',
                                   yesPress: () {
                                     FavDb.removePlaylist(
-                                        playlist[index].playlistName);
+                                        playlist[currentIndex].playlistName);
                                     Navigator.pop(context);
+                                    setState(() {});
                                   },
                                 );
                               }),

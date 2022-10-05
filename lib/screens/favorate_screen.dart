@@ -20,6 +20,7 @@ class FavorateScreen extends StatefulWidget {
 
 class _FavorateScreenState extends State<FavorateScreen> {
   @override
+  
   void initState() {
     FavDb.getAllSongs();
 
@@ -120,7 +121,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
                               },
                             ),
                           );
-                        }));
+                        }),);
                   }),
                 ),
               ),

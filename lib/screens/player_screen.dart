@@ -1,11 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:music_wave/screens/home_screen.dart';
 import 'package:music_wave/widgets/box_fav_button.dart';
+import 'package:music_wave/widgets/fav_button.dart';
+import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/music_slider.dart';
-import 'package:music_wave/widgets/scroll_card.dart';
+
 import 'package:music_wave/widgets/white_space.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
@@ -27,7 +32,7 @@ class PlayerScreen extends StatefulWidget {
 
 class _PlayerScreenState extends State<PlayerScreen> {
   final _audioQuery = OnAudioQuery();
-  final int id = -1;
+
   Duration duration = const Duration();
   Duration position = const Duration();
 
@@ -93,73 +98,99 @@ class _PlayerScreenState extends State<PlayerScreen> {
           ),
         ),
       ),
-      body: Center(
-        child: FutureBuilder<List<SongModel>>(
-          future: _audioQuery.querySongs(
-            sortType: null,
-            orderType: OrderType.ASC_OR_SMALLER,
-            uriType: UriType.EXTERNAL,
-            ignoreCase: true,
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.white,
+                  Colors.blue,
+                  Colors.black,
+                ],
+              ),
+            ),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
           ),
-          builder: (context, item) {
-            if (item.data == null) {
-              return LoadingAnimationWidget.staggeredDotsWave(
-                color: Colors.black,
-                size: 40,
-              );
-            } else if (item.data!.isEmpty) {
-              return const SizedBox(
-                height: 200,
-                child: Center(
-                  child: Text(
-                    'No Songs Found',
-                  ),
-                ),
-              );
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const WhiteSpace10(),
-                SizedBox(
-                  height: 200,
-                  child: ScrollSnapList(
-                    itemBuilder: (BuildContext context, int index) {
-                      return Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        children: [
-                          ScrollCard(
-                            songModel: MusicFile.playingSong,
-                            // id: item,
-                            // id: MusicFile.playingSong[currentIndex].id,
-                            id: item.data![index].id,
-                            type: ArtworkType.AUDIO,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: SizedBox(
-                              width: 130,
-                              child: BoxFavButton(
-                                song: item.data![index],
+                Card(
+                  elevation: 12,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(
+                        10,
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Stack(
+                            alignment: AlignmentDirectional.topEnd,
+                            children: [
+                              QueryArtworkWidget(
+                                id: MusicFile.playingSong[currentIndex].id,
+                                // id:widget.id,
+                                type: ArtworkType.AUDIO,
+                                // type: widget.type,
+                                keepOldArtwork: true,
+
+                                artworkFit: BoxFit.fill,
+                                artworkBorder: const BorderRadius.only(
+                                    topLeft: Radius.circular(5),
+                                    topRight: Radius.circular(5)),
+                                artworkHeight: 200,
+                                artworkWidth: 200,
+                                nullArtworkWidget: Container(
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(5),
+                                        topRight: Radius.circular(5)),
+                                    color: Colors.blue,
+                                  ),
+                                  height: 200,
+                                  width: 200,
+                                  child: const Center(
+                                      child: Icon(
+                                    Icons.music_note,
+                                    color: Colors.white,
+                                    size: 50,
+                                  )),
+                                ),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.playlist_add),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5),
+                          child: SizedBox(
+                            height: 50,
+                            child: BoxFavButton(
+                              song: widget.songModel[currentIndex],
                             ),
                           ),
-                        ],
-                      );
-                    },
-                    // itemCount: 1,
-                    itemCount: item.data!.length,
-                    itemSize: 150,
-                    onItemFocus: (index) {
-                      print(index);
-                    },
-                    initialIndex: widget.index.toDouble(),
-
-                    dynamicItemSize: true,
-                    focusOnItemTap: true,
+                        )
+                      ],
+                    ),
                   ),
                 ),
-                const WhiteSpace(),
+                const WhiteSpace40(),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 40,
@@ -171,6 +202,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,
+                      color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -184,12 +216,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         : widget.songModel[currentIndex].artist.toString(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: Colors.black45,
+                      color: Colors.white60,
                       fontWeight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
+                const WhiteSpace40(),
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Row(
@@ -197,6 +230,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     children: [
                       Text(
                         position.toString().split(".")[0],
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                       Expanded(
                         child: MusicSlide(
@@ -205,7 +241,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           audioPlayer: MusicFile.audioPlayer,
                         ),
                       ),
-                      Text(duration.toString().split(".")[0]),
+                      Text(
+                        duration.toString().split(".")[0],
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -236,12 +277,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               icon: Icon(shuffleOn
                                   ? Icons.shuffle
                                   : Icons.shuffle_on_outlined),
+                              color: Colors.white,
                             ),
                             RawMaterialButton(
                               padding: const EdgeInsets.all(15),
                               shape: const CircleBorder(
                                 side: BorderSide(
-                                    color: Color.fromARGB(255, 185, 18, 18),
+                                    color: Colors.white,
+                                    // color: Color.fromARGB(255, 185, 18, 18),
                                     width: 3),
                               ),
                               onPressed: () async {
@@ -255,13 +298,15 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               child: const Icon(
                                 Icons.skip_previous_rounded,
                                 size: 20,
-                                color: Color.fromARGB(255, 185, 18, 18),
+                                // color: Color.fromARGB(255, 185, 18, 18),
+                                color: Colors.white,
                               ),
                             ),
                             RawMaterialButton(
                               shape: const CircleBorder(
                                 side: BorderSide(
-                                    color: Color.fromARGB(255, 185, 18, 18),
+                                    // color: Color.fromARGB(255, 185, 18, 18),
+                                    color: Colors.white,
                                     width: 3),
                               ),
                               padding: const EdgeInsets.all(15),
@@ -284,11 +329,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                   if (playingStage != null && playingStage) {
                                     return const Icon(
                                       Icons.pause_rounded,
-                                      color: Color.fromARGB(255, 185, 18, 18),
+                                      // color: Color.fromARGB(255, 185, 18, 18),
+                                      color: Colors.white,
                                       size: 45,
                                     );
                                   } else {
                                     return const Icon(
+                                      color: Colors.white,
                                       Icons.play_arrow_rounded,
                                       size: 45,
                                     );
@@ -300,7 +347,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               padding: const EdgeInsets.all(15),
                               shape: const CircleBorder(
                                 side: BorderSide(
-                                    color: Color.fromARGB(255, 185, 18, 18),
+                                    // color: Color.fromARGB(255, 185, 18, 18),
+                                    color: Colors.white,
                                     width: 3),
                               ),
                               onPressed: () async {
@@ -314,7 +362,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               child: const Icon(
                                 Icons.skip_next_rounded,
                                 size: 20,
-                                color: Color.fromARGB(255, 185, 18, 18),
+                                // color: Color.fromARGB(255, 185, 18, 18),
+                                color: Colors.white,
                               ),
                             ),
                             IconButton(
@@ -335,6 +384,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                     ? Icons.repeat
                                     : Icons.repeat_on_outlined,
                               ),
+                              color: Colors.white,
                             ),
                           ],
                         ),
@@ -344,9 +394,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ],
                 ),
               ],
-            );
-          },
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -36,6 +36,7 @@ dependencies:
   just_audio: ^0.9.29
   just_audio_background: ^0.0.1-beta.7
   loading_animation_widget: ^1.2.0+3
+  lottie: ^1.4.3
   on_audio_query: ^2.6.1
   permission_handler: ^10.0.0
   scroll_snap_list: ^0.9.1
@@ -59,6 +60,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/lottie/
+    - assets/lottie/73061-search-not-found.json
   #  - assets/images/25016806-removebg-preview.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

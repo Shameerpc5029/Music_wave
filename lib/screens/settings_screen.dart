@@ -3,6 +3,7 @@ import 'package:music_wave/screens/about_screen.dart';
 import 'package:music_wave/screens/privacy_screen.dart';
 import 'package:music_wave/screens/teams_screen.dart';
 import 'package:music_wave/widgets/card.dart';
+import 'package:music_wave/widgets/remove_alert.dart';
 import 'package:music_wave/widgets/text.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -71,13 +72,26 @@ class SettingsScreen extends StatelessWidget {
               CardTile2(
                 icon: Icons.restart_alt,
                 titleText: 'Reset App',
-                tapAction: () {},
+                tapAction: () {
+                  showDialog(
+                    context: context,
+                    builder: ((context) {
+                      return RemoveAlert(
+                        title: 'Reset App',
+                        contant: 'Do you want to reset this app?',
+                        yesPress: () {
+                          
+                        },
+                      );
+                    }),
+                  );
+                },
               ),
-              CardTile3(
-                icon: Icons.dark_mode_rounded,
-                titleText: 'Dark Mode',
-                tapAction: () {},
-              ),
+              // CardTile3(
+              //   icon: Icons.dark_mode_rounded,
+              //   titleText: 'Dark Mode',
+              //   tapAction: () {},
+              // ),
               const Spacer(),
               const Text(
                 'V 1.0.0',

@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 
 class RemoveAlert extends StatelessWidget {
+  final String title;
+  final String contant;
   final void Function() yesPress;
-  const RemoveAlert({super.key, required this.yesPress});
+  const RemoveAlert(
+      {super.key,
+      required this.yesPress,
+      required this.title,
+      required this.contant});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        'Remove?',
+      title: Text(
+        title,
+        style:const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      content: const Text(
-        'Do You Want to Remove Playlist?',
+      content: Text(
+        contant,
       ),
       actions: [
         TextButton(

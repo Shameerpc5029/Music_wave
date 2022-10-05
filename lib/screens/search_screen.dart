@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:lottie/lottie.dart';
 import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/music_file.dart';
 
-import 'package:music_wave/widgets/song_card.dart';
-import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -20,9 +17,11 @@ class SearchScreen extends StatefulWidget {
 }
 
 late List<SongModel> allSong;
+
 List<SongModel> song = [];
 final audioPlayer = AudioPlayer();
 final audioQuery = OnAudioQuery();
+int currentIndex = 0;
 
 class _SearchScreenState extends State<SearchScreen> {
   @override
@@ -35,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: SafeArea(
           child: Column(
             children: [
@@ -111,49 +110,49 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               const WhiteSpace10(),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 40,
-                ),
-                child: Row(
-                  children: const [
-                    HeadingText(
-                      text: 'History',
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(
-                      left: 40,
-                    ),
-                    child: Text(
-                      'One day',
-                    ),
-                  ),
-                  IconButton(
-                    splashRadius: 5,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.close,
-                      size: 10,
-                    ),
-                  ),
-                  const Text(
-                    'Ole melody',
-                  ),
-                  IconButton(
-                    splashRadius: 5,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.close,
-                      size: 10,
-                    ),
-                  ),
-                ],
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //     left: 40,
+              //   ),
+              //   child: Row(
+              //     children: const [
+              //       HeadingText(
+              //         text: 'History',
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Row(
+              //   children: [
+              //     const Padding(
+              //       padding: EdgeInsets.only(
+              //         left: 40,
+              //       ),
+              //       child: Text(
+              //         'One day',
+              //       ),
+              //     ),
+              //     IconButton(
+              //       splashRadius: 5,
+              //       onPressed: () {},
+              //       icon: const Icon(
+              //         Icons.close,
+              //         size: 10,
+              //       ),
+              //     ),
+              //     const Text(
+              //       'Ole melody',
+              //     ),
+              //     IconButton(
+              //       splashRadius: 5,
+              //       onPressed: () {},
+              //       icon: const Icon(
+              //         Icons.close,
+              //         size: 10,
+              //       ),
+              //     ),
+              //   ],
+              // ),
               song.isNotEmpty
                   ? ListView.builder(
                       physics: const ScrollPhysics(),
@@ -170,6 +169,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             maxLines: 1,
                           ),
                           leading: QueryArtworkWidget(
+                            artworkBorder: BorderRadius.circular(10),
                             id: song[index].id,
                             type: ArtworkType.AUDIO,
                             nullArtworkWidget: Container(
@@ -181,27 +181,33 @@ class _SearchScreenState extends State<SearchScreen> {
                               ),
                               child: const Icon(Icons.music_note),
                             ),
-                            
                           ),
-                        
                           onTap: () {
                             MusicFile.audioPlayer.setAudioSource(
                               MusicFile.createSongList(song),
                               initialIndex: index,
                             );
                             MusicFile.audioPlayer.play();
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: ((context) {
-                              return PlayerScreen(
-                                  songModel: song, index: index);
-                            })));
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: ((context) {
+                                  return PlayerScreen(
+                                    songModel: song,
+                                    index: currentIndex,
+                                  );
+                                }),
+                              ),
+                            );
                           },
                         );
                       }),
                     )
                   : Center(
-                      heightFactor: 20,
-                      child: Text('No Songs'),
+                      heightFactor: 1.5,
+                      child: LottieBuilder.asset(
+                        height: 300,
+                        'assets/lottie/73061-search-not-found.json',
+                      ),
                     ),
             ],
           ),

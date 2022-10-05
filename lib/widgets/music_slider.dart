@@ -21,7 +21,9 @@ class _MusicSlideState extends State<MusicSlide> {
   @override
   Widget build(BuildContext context) {
     return Slider(
-      activeColor: const Color.fromARGB(255, 174, 48, 39),
+      inactiveColor: Colors.white,
+      activeColor: Colors.red,
+      // activeColor: const Color.fromARGB(255, 174, 48, 39),
       onChanged: ((value) {
         setState(() {
           changeToSecond(value.toInt());

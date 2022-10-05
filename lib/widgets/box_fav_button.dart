@@ -18,28 +18,31 @@ class _BoxFavButtonState extends State<BoxFavButton> {
   bool buttonClick = false;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(iconColor),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10)),
-            side: BorderSide(
-              color: Color.fromARGB(255, 109, 182, 207),
+    return SizedBox(
+      width: 200,
+      child: ElevatedButton.icon(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all(iconColor),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10)),
+              side: BorderSide(
+                color: Color.fromARGB(255, 109, 182, 207),
+              ),
             ),
           ),
         ),
-      ),
-      onPressed: () {
-        buttonPressed();
-      },
-      icon: const Icon(Icons.favorite),
-      label: const Text(
-        'Favorate',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
+        onPressed: () {
+          buttonPressed();
+        },
+        icon: const Icon(Icons.favorite),
+        label: const Text(
+          'Favorite',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -59,7 +62,7 @@ class _BoxFavButtonState extends State<BoxFavButton> {
               duration: const Duration(seconds: 1),
               shape:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              content: const Text('Favorate Added!'),
+              content: const Text('Favorite Added!'),
             ),
           );
         },
