@@ -6,11 +6,11 @@ import 'package:on_audio_query/on_audio_query.dart';
 class PlaylistButton extends StatefulWidget {
   final SongModel songModel;
   final Widget leadingIcon;
-
+  final String folderName;
   const PlaylistButton({
     super.key,
     required this.songModel,
-    required this.leadingIcon,
+    required this.leadingIcon, required this.folderName,
   });
 
   @override
@@ -43,7 +43,7 @@ class _FavButtonState extends State<PlaylistButton> {
       setState(() {
         iconColor = Colors.red;
         buttonClick = true;
-        FavDb.addPlaylistMusic(widget.songModel);
+        FavDb.addPlaylistMusic(widget.songModel,widget.folderName);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             elevation: 5,

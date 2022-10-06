@@ -146,7 +146,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         tapAction: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: ((context) {
-                            return const PlaylistScreen();
+                            return PlaylistScreen(
+                              folderName: playlist[index].playlistName,
+                            );
                           })));
                         },
                       );

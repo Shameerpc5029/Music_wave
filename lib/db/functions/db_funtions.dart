@@ -38,7 +38,7 @@ class FavDb {
       version: 1,
       onCreate: (Database playlistMusicDb, int version) async {
         await playlistMusicDb.execute(
-            'CREATE TABLE IF NOT EXISTS playlistSong (id INTEGER PRIMARY KEY AUTOINCREMENT, _id INTEGER, _uri TEXT, _data TEXT, title TEXT, artist TEXT, _display_name_wo_ext TEXT)');
+            'CREATE TABLE IF NOT EXISTS playlistSong (id INTEGER PRIMARY KEY AUTOINCREMENT, _id INTEGER, _uri TEXT, _data TEXT, title TEXT, artist TEXT, _display_name_wo_ext TEXT, playlistName TEXT)');
       },
     );
   }
@@ -107,8 +107,9 @@ class FavDb {
   }
 
 //add playlist music
-  static Future<void> getAllPlaylistSongs() async {
-    final song = await playlistMusicDb.rawQuery('SELECT * FROM playlistSong');
+  static Future<void> getAllPlaylistSongs(String playlistName) async {
+    final song = await playlistMusicDb.rawQuery(
+        'SELECT * FROM playlistSong WHERE playlistName = ? ', [playlistName]);
     log(song.toString());
     playListMusicNotifier.value.clear();
     for (var map in song) {
@@ -117,28 +118,31 @@ class FavDb {
     }
   }
 
-  static Future<void> addPlaylistMusic(SongModel song) async {
+  static Future<void> addPlaylistMusic(
+      SongModel song, String playlistName) async {
     await playlistMusicDb.rawInsert(
-      'INSERT INTO playlistSong (_id,_uri,_data,title,artist,_display_name_wo_ext) VALUES (?,?,?,?,?,?)',
+      'INSERT INTO playlistSong (_id,_uri,_data,title,artist,_display_name_wo_ext,playlistName) VALUES (?,?,?,?,?,?,?)',
       [
         song.id,
         song.uri,
         song.data,
         song.title,
         song.artist,
-        song.displayNameWOExt
+        song.displayNameWOExt,
+        playlistName
       ],
     );
     playListMusicNotifier.value.add(song);
 
-    getAllPlaylistSongs();
+    getAllPlaylistSongs(playlistName);
 
     FavDb.playListMusicNotifier.notifyListeners();
   }
 
-  static Future<void> removePlaylistMusic(int id) async {
-    await playlistMusicDb.delete('playlistSong', where: '_id= ?', whereArgs: [id]);
-    getAllPlaylistSongs();
-    playListMusicNotifier.notifyListeners();
-  }
+  // static Future<void> removePlaylistMusic(int id) async {
+  //   await playlistMusicDb
+  //       .delete('playlistSong', where: '_id= ?', whereArgs: [id]);
+  //   getAllPlaylistSongs();
+  //   playListMusicNotifier.notifyListeners();
+  //}
 }

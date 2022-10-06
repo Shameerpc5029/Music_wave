@@ -13,6 +13,7 @@ class PlaylistSongCard extends StatefulWidget {
   final AsyncSnapshot<List<SongModel>> item;
   final AudioPlayer audioPlayer;
   final Widget leadingIcon;
+  final String folderName;
   final int index;
   // final void Function() onTap;
   final String titleText;
@@ -28,7 +29,7 @@ class PlaylistSongCard extends StatefulWidget {
     required this.item,
     required this.index,
     required this.audioPlayer,
-    required this.leadingIcon,
+    required this.leadingIcon, required this.folderName,
 
   });
 
@@ -94,6 +95,7 @@ class _PlaylistSongCardState extends State<PlaylistSongCard> {
         ),
       ),
       trailing: PlaylistButton(
+        folderName:widget.folderName ,
           songModel: widget.item.data![widget.index],
           leadingIcon: widget.leadingIcon),
       subtitle: Text(

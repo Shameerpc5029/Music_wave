@@ -6,12 +6,13 @@ import 'package:music_wave/screens/select_playlist_screen.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/playlist_card.dart';
 
-
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistScreen extends StatefulWidget {
+  final String folderName;
   const PlaylistScreen({
     super.key,
+    required this.folderName,
   });
 
   @override
@@ -21,7 +22,7 @@ class PlaylistScreen extends StatefulWidget {
 class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   void initState() {
-    FavDb.getAllPlaylistSongs();
+    FavDb.getAllPlaylistSongs(widget.folderName);
     super.initState();
   }
 
@@ -39,7 +40,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         ),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
-            return const SelectPlaylistScreen();
+            return SelectPlaylistScreen(
+              folderName: widget.folderName,
+            );
           })));
         },
         child: const Icon(
@@ -99,7 +102,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       trailing: IconButton(
                         onPressed: () {
                           setState(() {
-                            FavDb.removePlaylistMusic(music[index].id);
+                            // FavDb.removePlaylistMusic(music[index].id);
                           });
                         },
                         icon: const Icon(

@@ -7,8 +7,10 @@ import 'package:music_wave/widgets/text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SelectPlaylistScreen extends StatefulWidget {
+  final String folderName;
   const SelectPlaylistScreen({
-    super.key,
+
+    super.key, required this.folderName,
   });
 
   @override
@@ -73,6 +75,7 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
                     itemCount: item.data!.length,
                     itemBuilder: ((context, index) {
                       return PlaylistSongCard(
+                        folderName: widget.folderName,
                         titleText: item.data![index].displayNameWOExt,
                         subText:
                             item.data![index].artist.toString() == "<unknown>"
