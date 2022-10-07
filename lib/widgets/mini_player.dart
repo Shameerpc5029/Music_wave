@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:music_wave/screens/player_screen.dart';

@@ -1,19 +1,13 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:lottie/lottie.dart';
 import 'package:music_wave/screens/home_screen.dart';
 import 'package:music_wave/widgets/box_fav_button.dart';
-import 'package:music_wave/widgets/fav_button.dart';
-import 'package:music_wave/widgets/music_file.dart';
+
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/music_slider.dart';
 
 import 'package:music_wave/widgets/white_space.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:scroll_snap_list/scroll_snap_list.dart';
 
 class PlayerScreen extends StatefulWidget {
   // final AudioPlayer audioPlayer;
@@ -31,8 +25,6 @@ class PlayerScreen extends StatefulWidget {
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
-  final _audioQuery = OnAudioQuery();
-
   Duration duration = const Duration();
   Duration position = const Duration();
 
@@ -230,7 +222,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     children: [
                       Text(
                         position.toString().split(".")[0],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
@@ -243,7 +235,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       ),
                       Text(
                         duration.toString().split(".")[0],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),

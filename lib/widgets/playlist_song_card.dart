@@ -1,10 +1,7 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:music_wave/db/functions/db_funtions.dart';
-import 'package:music_wave/screens/player_screen.dart';
-import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/playlist_button.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
@@ -19,7 +16,6 @@ class PlaylistSongCard extends StatefulWidget {
   final String titleText;
   final String subText;
 
-
   final FontWeight fontWeight;
   const PlaylistSongCard({
     super.key,
@@ -29,8 +25,8 @@ class PlaylistSongCard extends StatefulWidget {
     required this.item,
     required this.index,
     required this.audioPlayer,
-    required this.leadingIcon, required this.folderName,
-
+    required this.leadingIcon,
+    required this.folderName,
   });
 
   @override
@@ -38,39 +34,39 @@ class PlaylistSongCard extends StatefulWidget {
 }
 
 class _PlaylistSongCardState extends State<PlaylistSongCard> {
-  playSong(String? uri) {
-    try {
-      widget.audioPlayer.setAudioSource(
-        AudioSource.uri(
-          Uri.parse(uri!),
-        ),
-      );
-      widget.audioPlayer.play();
-    } on Exception {
-      log("Error pasing song");
-    }
-  }
+  // playSong(String? uri) {
+  //   try {
+  //     widget.audioPlayer.setAudioSource(
+  //       AudioSource.uri(
+  //         Uri.parse(uri!),
+  //       ),
+  //     );
+  //     widget.audioPlayer.play();
+  //   } on Exception {
+  //     log("Error pasing song");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    FavDb.getAllSongs();
+    // FavDb.getAllSongs();
     return ListTile(
       onTap: (() {
-        MusicFile.audioPlayer.setAudioSource(
-            MusicFile.createSongList(widget.item.data!),
-            initialIndex: widget.index);
-        MusicFile.audioPlayer.play();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: ((context) {
-              return PlayerScreen(
-                songModel: widget.item.data!,
-                index: widget.index,
-              );
-            }),
-          ),
-        );
+        // MusicFile.audioPlayer.setAudioSource(
+        //     MusicFile.createSongList(widget.item.data!,),
+        //     initialIndex: widget.index,);
+        // MusicFile.audioPlayer.play();
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: ((context) {
+        //       return PlayerScreen(
+        //         songModel: widget.item.data!,
+        //         index: widget.index,
+        //       );
+        //     }),
+        //   ),
+        // );
       }),
       leading: QueryArtworkWidget(
         artworkBorder: BorderRadius.circular(10),
@@ -95,7 +91,7 @@ class _PlaylistSongCardState extends State<PlaylistSongCard> {
         ),
       ),
       trailing: PlaylistButton(
-        folderName:widget.folderName ,
+          folderName: widget.folderName,
           songModel: widget.item.data![widget.index],
           leadingIcon: widget.leadingIcon),
       subtitle: Text(

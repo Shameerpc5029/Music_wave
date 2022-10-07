@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -43,6 +45,13 @@ class FavDb {
     );
   }
 
+  static Future<int?> countFav() async {
+    final count =
+        Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT (*) FROM song'));
+    log(count.toString());
+    return count;
+  }
+
   //playlist
   static Future<void> addPlaylist(ListModel playlistmodel) async {
     await playlistDb.rawInsert('INSERT INTO playlist (playlistName) VALUES (?)',
@@ -62,7 +71,7 @@ class FavDb {
 
   static Future<void> getAllPlaylist() async {
     final playlistmodel = await playlistDb.rawQuery('SELECT * FROM playlist');
-    print(playlistmodel);
+
     playListNotifier.value.clear();
     for (var map in playlistmodel) {
       final playlist = ListModel.fromMap(map);
@@ -110,7 +119,7 @@ class FavDb {
   static Future<void> getAllPlaylistSongs(String playlistName) async {
     final song = await playlistMusicDb.rawQuery(
         'SELECT * FROM playlistSong WHERE playlistName = ? ', [playlistName]);
-    log(song.toString());
+    // log(song.toString());
     playListMusicNotifier.value.clear();
     for (var map in song) {
       final addsong = SongModel(map);
@@ -139,10 +148,19 @@ class FavDb {
     FavDb.playListMusicNotifier.notifyListeners();
   }
 
-  // static Future<void> removePlaylistMusic(int id) async {
-  //   await playlistMusicDb
-  //       .delete('playlistSong', where: '_id= ?', whereArgs: [id]);
-  //   getAllPlaylistSongs();
-  //   playListMusicNotifier.notifyListeners();
-  //}
+  static Future<int?> countplay(String playlistName) async {
+    final countplay = Sqflite.firstIntValue(
+        await playlistMusicDb.rawQuery('SELECT COUNT (*) FROM playlistSong'));
+    log(countplay.toString());
+    getAllPlaylistSongs(playlistName);
+    FavDb.playListMusicNotifier.notifyListeners();
+    return countplay;
+  }
+
+  static Future<void> removePlaylistMusic(int id, String playlistName) async {
+    await playlistMusicDb
+        .delete('playlistSong', where: '_id= ?', whereArgs: [id]);
+    getAllPlaylistSongs(playlistName);
+    playListMusicNotifier.notifyListeners();
+  }
 }

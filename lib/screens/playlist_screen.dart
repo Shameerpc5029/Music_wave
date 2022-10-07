@@ -50,8 +50,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         ),
       ),
       appBar: AppBar(
-        title: const Text(
-          'Playlist',
+        title: Text(
+          widget.folderName.toUpperCase(),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         leading: IconButton(
@@ -102,7 +103,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       trailing: IconButton(
                         onPressed: () {
                           setState(() {
-                            // FavDb.removePlaylistMusic(music[index].id);
+                            FavDb.removePlaylistMusic(
+                                music[index].id, widget.folderName);
                           });
                         },
                         icon: const Icon(

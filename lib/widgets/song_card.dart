@@ -1,13 +1,11 @@
 import 'dart:developer';
 
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
 
 import 'package:music_wave/widgets/fav_button.dart';
 import 'package:music_wave/widgets/music_file.dart';
-
 
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -28,7 +26,6 @@ class SongCard extends StatefulWidget {
     required this.fontWeight,
     required this.item,
     required this.index,
-
     required this.leadingIcon,
     required this.onTap,
   });
@@ -38,7 +35,6 @@ class SongCard extends StatefulWidget {
 }
 
 class _SongCardState extends State<SongCard> {
-
   playSong(String? uri) {
     try {
       MusicFile.audioPlayer.setAudioSource(
@@ -57,7 +53,6 @@ class _SongCardState extends State<SongCard> {
     FavDb.getAllSongs();
     return ListTile(
       onTap: widget.onTap,
-
       leading: QueryArtworkWidget(
         artworkBorder: BorderRadius.circular(10),
         quality: 100,

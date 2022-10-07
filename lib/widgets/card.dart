@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:music_wave/widgets/switch_button.dart';
 
 class CardTile extends StatelessWidget {
@@ -20,41 +21,44 @@ class CardTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      // color: Colors.white,
-      elevation: 1,
-      child: ListTile(
-        onTap: () {
-          tapAction();
-        },
-        leading: CircleAvatar(
-          backgroundColor: Colors.white10,
-          child: Icon(
-            icon,
-            color: iconColor,
-            size: 30,
+  Widget build(BuildContext context) => SizedBox(
+        // height: 100,
+        child: Card(
+          // color: Colors.white,
+          elevation: 1,
+          child: ListTile(
+            onTap: () {
+              tapAction();
+            },
+            leading: CircleAvatar(
+              backgroundColor: Colors.white10,
+              // child: LottieBuilder.asset('assets/lottie/99403-love.json'
+              //     // height: 200,
+              //     ),
+              child: Icon(
+                icon,
+                color: iconColor,
+                size: 30,
+              ),
+            ),
+            title: Text(
+              tittleText,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              subText,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            trailing: trailingIcon,
           ),
         ),
-        title: Text(
-          tittleText,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(
-            top: 5.0,
-          ),
-          child: Text(
-            subText,
-          ),
-        ),
-        trailing: trailingIcon,
-      ),
-    );
-  }
+      );
 }
 
 class CardTile2 extends StatelessWidget {

@@ -10,7 +10,8 @@ class PlaylistButton extends StatefulWidget {
   const PlaylistButton({
     super.key,
     required this.songModel,
-    required this.leadingIcon, required this.folderName,
+    required this.leadingIcon,
+    required this.folderName,
   });
 
   @override
@@ -18,11 +19,16 @@ class PlaylistButton extends StatefulWidget {
 }
 
 class _FavButtonState extends State<PlaylistButton> {
+  @override
+  void initState() {
+    FavDb.getAllSongs();
+    super.initState();
+  }
+
   Color iconColor = Colors.black38;
   bool buttonClick = false;
   @override
   Widget build(BuildContext context) {
-    FavDb.getAllSongs();
     return ValueListenableBuilder(
       valueListenable: FavDb.musicListNotifier,
       builder:
@@ -43,7 +49,7 @@ class _FavButtonState extends State<PlaylistButton> {
       setState(() {
         iconColor = Colors.red;
         buttonClick = true;
-        FavDb.addPlaylistMusic(widget.songModel,widget.folderName);
+        FavDb.addPlaylistMusic(widget.songModel, widget.folderName);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             elevation: 5,

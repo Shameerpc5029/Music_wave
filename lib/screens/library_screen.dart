@@ -26,7 +26,26 @@ class _LibraryScreenState extends State<LibraryScreen> {
   void initState() {
     super.initState();
     FavDb.getAllPlaylist();
+    // playlistCount();
+    totalcount();
   }
+
+  int counter = 0;
+
+  void totalcount() async {
+    int? count = await FavDb.countFav();
+    setState(() {
+      counter = count!;
+    });
+  }
+
+  // int playlistCounter = 0;
+  // void playlistCount() async {
+  //   int? countplay = await FavDb.countplay();
+  //   setState(() {
+  //     playlistCounter = countplay!;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +113,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ),
               CardTile(
                 //favorate
-                subText: '1 Songs',
+                subText: '$counter Songs'.toString(),
                 tittleText: 'Favorite Songs',
                 icon: Icons.favorite,
+
                 iconColor: Colors.red,
                 tapAction: () {
                   Navigator.of(context).push(
@@ -116,7 +136,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     shrinkWrap: true,
                     itemBuilder: ((context, index) {
                       return CardTile(
-                        subText: '$index Songs',
+                        subText: '',
                         tittleText: playlist[index].playlistName,
                         trailingIcon: IconButton(
                           onPressed: () {
@@ -138,7 +158,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             );
                           },
                           icon: const Icon(
-                            Icons.playlist_remove,
+                            Icons.delete_sweep_outlined,
+                            color: Colors.red,
                           ),
                         ),
                         icon: Icons.playlist_play,
