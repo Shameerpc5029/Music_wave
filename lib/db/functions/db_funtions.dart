@@ -68,6 +68,8 @@ class FavDb {
     await playlistDb.delete('playlist',
         where: 'playlistName= ?', whereArgs: [playlistName]);
     getAllPlaylist();
+
+    playlistMusicDb.delete('playlistSong');
     playListNotifier.notifyListeners();
   }
 
@@ -150,12 +152,12 @@ class FavDb {
     FavDb.playListMusicNotifier.notifyListeners();
   }
 
-  static Future<int?> countplay(String playlistName) async {
+  static Future<int?> countplay(int id, String playlistName) async {
     final countplay = Sqflite.firstIntValue(
-        await playlistMusicDb.rawQuery('SELECT COUNT (*) FROM playlistSong'));
-    log(countplay.toString());
+        await playlistMusicDb.rawQuery('SELECT * FROM _id'));
+    print('playCount $countplay');
     getAllPlaylistSongs(playlistName);
-    FavDb.playListMusicNotifier.notifyListeners();
+    // FavDb.playListMusicNotifier.notifyListeners();
     return countplay;
   }
 
@@ -164,5 +166,17 @@ class FavDb {
         .delete('playlistSong', where: '_id= ?', whereArgs: [id]);
     getAllPlaylistSongs(playlistName);
     playListMusicNotifier.notifyListeners();
+  }
+
+  static Future<void> resetAll() async {
+    await db.delete('song');
+    await playlistDb.delete('playlist');
+    await playlistMusicDb.delete('playlistSong');
+  }
+
+  Future dbClose() async {
+    await db.close();
+    await playlistDb.close();
+    await playlistMusicDb.close();
   }
 }

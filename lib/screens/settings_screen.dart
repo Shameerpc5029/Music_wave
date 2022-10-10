@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/screens/about_screen.dart';
 import 'package:music_wave/screens/privacy_screen.dart';
+import 'package:music_wave/screens/splash_screen.dart';
 import 'package:music_wave/screens/teams_screen.dart';
 import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/remove_alert.dart';
@@ -80,7 +82,11 @@ class SettingsScreen extends StatelessWidget {
                         title: 'Reset App',
                         contant: 'Do you want to reset this app?',
                         yesPress: () {
-                          
+                          FavDb.resetAll();
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: ((context) {
+                            return const SplashScreen();
+                          })));
                         },
                       );
                     }),

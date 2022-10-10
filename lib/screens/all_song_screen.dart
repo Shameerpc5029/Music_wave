@@ -37,7 +37,7 @@ class _AllSongState extends State<AllSong> {
   }
 
   final _audioQuery = OnAudioQuery();
-  // final audioPlayer = AudioPlayer();
+
   playSong(String? uri) {
     try {
       MusicFile.audioPlayer.setAudioSource(

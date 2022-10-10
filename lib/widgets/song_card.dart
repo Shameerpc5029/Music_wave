@@ -35,22 +35,8 @@ class SongCard extends StatefulWidget {
 }
 
 class _SongCardState extends State<SongCard> {
-  playSong(String? uri) {
-    try {
-      MusicFile.audioPlayer.setAudioSource(
-        AudioSource.uri(
-          Uri.parse(uri!),
-        ),
-      );
-      MusicFile.audioPlayer.play();
-    } on Exception {
-      log("Error pasing song");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    FavDb.getAllSongs();
     return ListTile(
       onTap: widget.onTap,
       leading: QueryArtworkWidget(
