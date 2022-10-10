@@ -81,9 +81,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return const HomeScreen();
-            }));
+            Navigator.pop(context);
           }),
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -123,50 +121,35 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(5),
-                          child: Stack(
-                            alignment: AlignmentDirectional.topEnd,
-                            children: [
-                              QueryArtworkWidget(
-                                id: MusicFile.playingSong[currentIndex].id,
-                                // id:widget.id,
-                                type: ArtworkType.AUDIO,
-                                // type: widget.type,
-                                keepOldArtwork: true,
+                          child: QueryArtworkWidget(
+                            id: MusicFile.playingSong[currentIndex].id,
+                            // id:widget.id,
+                            type: ArtworkType.AUDIO,
+                            // type: widget.type,
+                            keepOldArtwork: true,
 
-                                artworkFit: BoxFit.fill,
-                                artworkBorder: const BorderRadius.only(
+                            artworkFit: BoxFit.fill,
+                            artworkBorder: const BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5)),
+                            artworkHeight: 200,
+                            artworkWidth: 200,
+                            nullArtworkWidget: Container(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(5),
                                     topRight: Radius.circular(5)),
-                                artworkHeight: 200,
-                                artworkWidth: 200,
-                                nullArtworkWidget: Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(5),
-                                        topRight: Radius.circular(5)),
-                                    color: Colors.blue,
-                                  ),
-                                  height: 200,
-                                  width: 200,
-                                  child: const Center(
-                                      child: Icon(
-                                    Icons.music_note,
-                                    color: Colors.white,
-                                    size: 50,
-                                  )),
-                                ),
+                                color: Colors.blue,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.playlist_add),
-                                  ),
-                                ),
-                              ),
-                            ],
+                              height: 200,
+                              width: 200,
+                              child: const Center(
+                                  child: Icon(
+                                Icons.music_note,
+                                color: Colors.white,
+                                size: 50,
+                              )),
+                            ),
                           ),
                         ),
                         Padding(
@@ -344,12 +327,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                     width: 3),
                               ),
                               onPressed: () async {
-                                if (MusicFile.audioPlayer.hasPrevious) {
-                                  await MusicFile.audioPlayer.seekToNext();
-                                  await MusicFile.audioPlayer.play();
-                                } else {
-                                  await MusicFile.audioPlayer.play();
-                                }
+                                await MusicFile.audioPlayer.seekToNext();
+                                await MusicFile.audioPlayer.play();
+                                //   if (MusicFile.audioPlayer.hasPrevious) {
+                                //     await MusicFile.audioPlayer.seekToNext();
+                                //     await MusicFile.audioPlayer.play();
+                                //   } else {
+                                //     await MusicFile.audioPlayer.play();
+                                //   }
                               },
                               child: const Icon(
                                 Icons.skip_next_rounded,

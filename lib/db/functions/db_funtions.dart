@@ -49,6 +49,8 @@ class FavDb {
     final count =
         Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT (*) FROM song'));
     log(count.toString());
+
+    musicListNotifier.notifyListeners();
     return count;
   }
 

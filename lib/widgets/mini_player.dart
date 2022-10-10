@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:music_wave/screens/player_screen.dart';
@@ -129,14 +128,10 @@ class _MiniPlayerState extends State<MiniPlayer> {
                   ),
                   IconButton(
                     onPressed: () async {
-                      if (MusicFile.audioPlayer.hasPrevious) {
-                        await MusicFile.audioPlayer.seekToNext();
-                        await MusicFile.audioPlayer.play();
-                        setState(() {});
-                      } else {
-                        await MusicFile.audioPlayer.play();
-                        setState(() {});
-                      }
+                      await MusicFile.audioPlayer.seekToNext();
+
+                      setState(() {});
+                      await MusicFile.audioPlayer.play();
                     },
                     icon: const Icon(
                       Icons.skip_next_rounded,

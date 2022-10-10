@@ -17,11 +17,17 @@ class FavButton extends StatefulWidget {
 }
 
 class _FavButtonState extends State<FavButton> {
+  // @override
+  // void initState() {
+  //   FavDb.getAllSongs();
+  //   super.initState();
+  // }
+
   Color iconColor = Colors.black38;
   bool buttonClick = false;
   @override
   Widget build(BuildContext context) {
-    FavDb.getAllSongs();
+    // FavDb.getAllSongs();
     return ValueListenableBuilder(
       valueListenable: FavDb.musicListNotifier,
       builder:
@@ -43,31 +49,12 @@ class _FavButtonState extends State<FavButton> {
         iconColor = Colors.red;
         buttonClick = true;
         FavDb.addFav(widget.songModel);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            elevation: 5,
-            backgroundColor: const Color.fromARGB(255, 174, 48, 39),
-            margin: const EdgeInsets.only(bottom: 5, right: 30, left: 30),
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 1),
-            shape: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(color: Colors.transparent)),
-            content: const Text(
-              'Favorite Added!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        );
       });
     } else {
       setState(() {
         iconColor = Colors.black38;
         buttonClick = false;
+        FavDb.removeFav(widget.songModel.id);
       });
     }
   }

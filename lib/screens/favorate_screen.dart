@@ -6,7 +6,6 @@ import 'package:music_wave/screens/player_screen.dart';
 
 import 'package:music_wave/widgets/fav_card.dart';
 import 'package:music_wave/widgets/music_file.dart';
-import 'package:music_wave/widgets/popup_card.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -97,9 +96,9 @@ class _FavorateScreenState extends State<FavorateScreen> {
                               music[index].artist.toString() == "<unknown>"
                                   ? "Unknown Artist"
                                   : music[index].artist.toString(),
-                          traling: PopUpcard(
-                            onPress: () {
-                              setState(() => FavDb.removeFav(music[index].id));
+                          traling: IconButton(
+                            onPressed: () {
+                              FavDb.removeFav(music[index].id);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   margin: const EdgeInsets.all(10),
@@ -115,6 +114,10 @@ class _FavorateScreenState extends State<FavorateScreen> {
                                 ),
                               );
                             },
+                            icon: Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ),
                           ),
                         );
                       }),

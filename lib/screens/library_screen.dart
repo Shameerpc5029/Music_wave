@@ -27,7 +27,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
     super.initState();
     FavDb.getAllPlaylist();
     // playlistCount();
-    totalcount();
+    setState(() {
+      totalcount();
+    });
   }
 
   int counter = 0;
