@@ -31,6 +31,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_gradient_colors: ^2.1.1
   google_fonts: ^3.0.1
   google_nav_bar: ^5.0.6
   just_audio: ^0.9.29

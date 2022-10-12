@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:music_wave/db/model/data_model.dart';
+import 'package:music_wave/screens/search_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -45,15 +46,6 @@ class FavDb {
     );
   }
 
-  static Future<int?> countFav() async {
-    final count =
-        Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT (*) FROM song'));
-    log(count.toString());
-
-    musicListNotifier.notifyListeners();
-    return count;
-  }
-
   //playlist
   static Future<void> addPlaylist(ListModel playlistmodel) async {
     await playlistDb.rawInsert('INSERT INTO playlist (playlistName) VALUES (?)',
@@ -82,41 +74,6 @@ class FavDb {
       playListNotifier.notifyListeners();
       playListNotifier.value.add(playlist);
     }
-  }
-
-  //Song Fav
-  static Future<void> addFav(SongModel song) async {
-    await db.rawInsert(
-        'INSERT INTO song (_id,_uri,_data,title,artist,_display_name_wo_ext) VALUES (?,?,?,?,?,?)',
-        [
-          song.id,
-          song.uri,
-          song.data,
-          song.title,
-          song.artist,
-          song.displayNameWOExt
-        ]);
-    musicListNotifier.value.add(song);
-
-    getAllSongs();
-
-    FavDb.musicListNotifier.notifyListeners();
-  }
-
-  static Future<void> getAllSongs() async {
-    final song = await db.rawQuery('SELECT * FROM song');
-    log(song.toString());
-    musicListNotifier.value.clear();
-    for (var map in song) {
-      final addsong = SongModel(map);
-      musicListNotifier.value.add(addsong);
-    }
-  }
-
-  static Future<void> removeFav(int id) async {
-    await db.delete('song', where: '_id= ?', whereArgs: [id]);
-    getAllSongs();
-    musicListNotifier.notifyListeners();
   }
 
 //add playlist music
@@ -152,20 +109,57 @@ class FavDb {
     FavDb.playListMusicNotifier.notifyListeners();
   }
 
-  static Future<int?> countplay(int id, String playlistName) async {
-    final countplay = Sqflite.firstIntValue(
-        await playlistMusicDb.rawQuery('SELECT * FROM _id'));
-    print('playCount $countplay');
-    getAllPlaylistSongs(playlistName);
-    // FavDb.playListMusicNotifier.notifyListeners();
-    return countplay;
-  }
-
   static Future<void> removePlaylistMusic(int id, String playlistName) async {
     await playlistMusicDb
         .delete('playlistSong', where: '_id= ?', whereArgs: [id]);
     getAllPlaylistSongs(playlistName);
     playListMusicNotifier.notifyListeners();
+  }
+
+  //Song Fav
+  static Future<void> addFav(SongModel song) async {
+    await db.rawInsert(
+        'INSERT INTO song (_id,_uri,_data,title,artist,_display_name_wo_ext) VALUES (?,?,?,?,?,?)',
+        [
+          song.id,
+          song.uri,
+          song.data,
+          song.title,
+          song.artist,
+          song.displayNameWOExt
+        ]);
+    musicListNotifier.value.add(song);
+
+    getAllSongs();
+
+    FavDb.musicListNotifier.notifyListeners();
+  }
+
+  static Future<void> getAllSongs() async {
+    final song = await db.rawQuery('SELECT * FROM song');
+    log(song.toString());
+    musicListNotifier.value.clear();
+    for (var map in song) {
+      final addsong = SongModel(map);
+      musicListNotifier.value.add(addsong);
+    }
+  }
+
+  
+
+  static Future<void> removeFav(int id) async {
+    await db.delete('song', where: '_id= ?', whereArgs: [id]);
+    getAllSongs();
+    musicListNotifier.notifyListeners();
+  }
+
+  static Future<int?> countFav() async {
+    final count =
+        Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT (*) FROM song'));
+    log(count.toString());
+
+    musicListNotifier.notifyListeners();
+    return count;
   }
 
   static Future<void> resetAll() async {
@@ -174,7 +168,7 @@ class FavDb {
     await playlistMusicDb.delete('playlistSong');
   }
 
-  Future dbClose() async {
+  static Future<void> dbClose() async {
     await db.close();
     await playlistDb.close();
     await playlistMusicDb.close();

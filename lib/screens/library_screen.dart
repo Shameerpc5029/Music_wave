@@ -137,43 +137,45 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     physics: const ScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: ((context, index) {
-                      return CardTile(
-                        subText: '',
-                        tittleText: playlist[index].playlistName,
-                        trailingIcon: IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: ((context) {
-                                return RemoveAlert(
-                                  title: 'Playlist',
-                                  contant:
-                                      'Do you want to remove this playlist?',
-                                  yesPress: () {
-                                    FavDb.removePlaylist(
-                                        playlist[currentIndex].playlistName);
-                                    Navigator.pop(context);
-                                    setState(() {});
-                                  },
-                                );
-                              }),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.delete_sweep_outlined,
-                            color: Colors.red,
+                      return SizedBox(
+                        height: 70,
+                        child: Card(
+                          color: const Color.fromARGB(255, 225, 236, 246),
+                          child: InkWell(
+                            onLongPress: () {
+                              showDialog(
+                                context: context,
+                                builder: ((context) {
+                                  return RemoveAlert(
+                                    title: 'Playlist',
+                                    contant:
+                                        'Do you want to remove this playlist?',
+                                    yesPress: () {
+                                      FavDb.removePlaylist(
+                                          playlist[currentIndex].playlistName);
+                                      Navigator.pop(context);
+                                      setState(() {});
+                                    },
+                                  );
+                                }),
+                              );
+                            },
+                            child: Center(
+                              child: CardTile2(
+                                  icon: Icons.playlist_play_rounded,
+                                  titleText: playlist[index].playlistName,
+                                  tapAction: (() {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(builder: ((context) {
+                                      return PlaylistScreen(
+                                        folderName:
+                                            playlist[index].playlistName,
+                                      );
+                                    })));
+                                  })),
+                            ),
                           ),
                         ),
-                        icon: Icons.playlist_play,
-                        iconColor: Colors.black,
-                        tapAction: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: ((context) {
-                            return PlaylistScreen(
-                              folderName: playlist[index].playlistName,
-                            );
-                          })));
-                        },
                       );
                     }),
                     itemCount: playlist.length,

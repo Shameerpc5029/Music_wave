@@ -5,6 +5,7 @@ import 'package:music_wave/screens/privacy_screen.dart';
 import 'package:music_wave/screens/splash_screen.dart';
 import 'package:music_wave/screens/teams_screen.dart';
 import 'package:music_wave/widgets/card.dart';
+import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/remove_alert.dart';
 import 'package:music_wave/widgets/text.dart';
 
@@ -83,6 +84,7 @@ class SettingsScreen extends StatelessWidget {
                         contant: 'Do you want to reset this app?',
                         yesPress: () {
                           FavDb.resetAll();
+                          MusicFile.audioPlayer.stop();
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: ((context) {
                             return const SplashScreen();

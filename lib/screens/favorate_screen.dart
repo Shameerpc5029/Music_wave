@@ -114,7 +114,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
                                 ),
                               );
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.favorite,
                               color: Colors.red,
                             ),

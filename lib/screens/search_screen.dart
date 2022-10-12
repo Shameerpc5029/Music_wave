@@ -223,7 +223,9 @@ class _SearchScreenState extends State<SearchScreen> {
       uriType: UriType.EXTERNAL,
       ignoreCase: true,
     );
-    song = allSong;
+    setState(() {
+      song = allSong;
+    });
   }
 
   void search(String keybord) {

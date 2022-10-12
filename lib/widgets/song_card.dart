@@ -1,11 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:music_wave/db/functions/db_funtions.dart';
 
 import 'package:music_wave/widgets/fav_button.dart';
-import 'package:music_wave/widgets/music_file.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 

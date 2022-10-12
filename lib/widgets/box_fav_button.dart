@@ -72,6 +72,7 @@ class _BoxFavButtonState extends State<BoxFavButton> {
         () {
           iconColor = Colors.blue;
           buttonClick = false;
+          FavDb.removeFav(widget.song.id);
         },
       );
     }
