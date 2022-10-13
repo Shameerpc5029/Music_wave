@@ -57,18 +57,17 @@ class _SearchScreenState extends State<SearchScreen> {
                     fontWeight: FontWeight.normal,
                   ),
                   decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.mic_none_rounded,
-                          color: Color.fromARGB(
-                            255,
-                            174,
-                            48,
-                            39,
-                          ),
-                        )),
-                    hintText: 'All Songs',
+                    // suffixIcon: IconButton(
+                    //     onPressed: () {},
+                    //     icon: const Icon(
+                    //       Icons.mic_none_rounded,
+                    //       color: Color.fromARGB(
+                    //         255,
+                    //         174,
+                    //         48,
+                    //         39,
+                    //       ),
+                    //     )),
                     hintStyle: const TextStyle(
                       color: Color.fromARGB(
                         255,
@@ -110,49 +109,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               const WhiteSpace10(),
-              // Padding(
-              //   padding: const EdgeInsets.only(
-              //     left: 40,
-              //   ),
-              //   child: Row(
-              //     children: const [
-              //       HeadingText(
-              //         text: 'History',
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Row(
-              //   children: [
-              //     const Padding(
-              //       padding: EdgeInsets.only(
-              //         left: 40,
-              //       ),
-              //       child: Text(
-              //         'One day',
-              //       ),
-              //     ),
-              //     IconButton(
-              //       splashRadius: 5,
-              //       onPressed: () {},
-              //       icon: const Icon(
-              //         Icons.close,
-              //         size: 10,
-              //       ),
-              //     ),
-              //     const Text(
-              //       'Ole melody',
-              //     ),
-              //     IconButton(
-              //       splashRadius: 5,
-              //       onPressed: () {},
-              //       icon: const Icon(
-              //         Icons.close,
-              //         size: 10,
-              //       ),
-              //     ),
-              //   ],
-              // ),
               song.isNotEmpty
                   ? ListView.builder(
                       physics: const ScrollPhysics(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
-import 'package:music_wave/widgets/box_fav_button.dart';
+import 'package:music_wave/widgets/fav_button.dart';
 
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/music_slider.dart';
@@ -155,9 +155,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5),
                           child: SizedBox(
-                            height: 50,
-                            child: BoxFavButton(
-                              song: widget.songModel[currentIndex],
+                            height: 40,
+                            child: FavButton(
+                              songModel: widget.songModel[widget.index],
+                              icon: Icons.favorite,
                             ),
                           ),
                         )

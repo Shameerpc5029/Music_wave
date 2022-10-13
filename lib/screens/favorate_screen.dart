@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
+import 'package:music_wave/screens/all_song_screen.dart';
 import 'package:music_wave/screens/player_screen.dart';
 
 import 'package:music_wave/widgets/fav_card.dart';
@@ -28,6 +29,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    FocusManager.instance.primaryFocus?.unfocus();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -40,7 +42,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
-            Navigator.pop(context);
+            Navigator.maybePop(context);
           }),
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -70,12 +72,21 @@ class _FavorateScreenState extends State<FavorateScreen> {
                       shrinkWrap: true,
                       itemCount: music.length,
                       itemBuilder: ((BuildContext context, int index) {
+                        // if (music.isEmpty) {
+                        //   Navigator.push(context,
+                        //       MaterialPageRoute(builder: ((context) {
+                        //     return AllSong();
+                        //   })));
+                        // }
                         return FavCard(
                           id: music[index].id,
                           onTap: () {
+                            List<SongModel> favList = [...music];
+
+                            setState(() {});
                             MusicFile.audioPlayer.stop();
                             MusicFile.audioPlayer.setAudioSource(
-                              MusicFile.createSongList(music),
+                              MusicFile.createSongList(favList),
                               initialIndex: index,
                             );
                             MusicFile.audioPlayer.play();
@@ -99,6 +110,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
                           traling: IconButton(
                             onPressed: () {
                               FavDb.removeFav(music[index].id);
+                              // MusicFile.audioPlayer.seekToNext();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   margin: const EdgeInsets.all(10),

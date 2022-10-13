@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
+import 'package:music_wave/db/model/data_model.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
 
-class ShowBottomSheet extends StatelessWidget {
-  final void Function() savePress;
-  final void Function() closePress;
+class ShowBottomSheet extends StatefulWidget {
+  const ShowBottomSheet({
+    super.key,
+  });
 
-  final TextEditingController controller;
-  const ShowBottomSheet(
-      {super.key,
-      required this.controller,
-      required this.savePress,
-      required this.closePress});
+  @override
+  State<ShowBottomSheet> createState() => _ShowBottomSheetState();
+}
 
+class _ShowBottomSheetState extends State<ShowBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,10 +36,14 @@ class ShowBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                    onPressed: closePress,
-                    icon: const Icon(
-                      Icons.close_rounded,
-                    ))
+                  onPressed: () {
+                    playlistNameController.clear();
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.close_rounded,
+                  ),
+                )
               ],
             ),
             Padding(
@@ -52,21 +57,30 @@ class ShowBottomSheet extends StatelessWidget {
               ),
             ),
             const WhiteSpace(),
-            TextFormField(
-              controller: controller,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.fromLTRB(
-                  20.0,
-                  10.0,
-                  20.0,
-                  10.0,
-                ),
-                labelText: 'Playlist Name',
-                hintText: 'Enter Playlist Name',
-                hintStyle: const TextStyle(fontSize: 14),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    20,
+            Form(
+              key: fromKey,
+              child: TextFormField(
+                validator: ((value) {
+                  if (value!.isEmpty) {
+                    return "Playlist Title Can't Be Empty";
+                  } else {
+                    return null;
+                  }
+                }),
+                controller: playlistNameController,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.fromLTRB(
+                    20.0,
+                    10.0,
+                    20.0,
+                    10.0,
+                  ),
+                  labelText: 'Enter Playlist Name',
+                  hintStyle: const TextStyle(fontSize: 14),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      20,
+                    ),
                   ),
                 ),
               ),
@@ -96,7 +110,15 @@ class ShowBottomSheet extends StatelessWidget {
                           ),
                         ),
                       ),
-                      onPressed: savePress,
+                      onPressed: () {
+                        if (fromKey.currentState!.validate()) {
+                          addplaylistCliked();
+                        } else {
+                          return;
+                        }
+                        playlistNameController.clear();
+                        Navigator.pop(context);
+                      },
                       icon: const Icon(Icons.save),
                       label: const Text('Save Playlist'))
                 ],
@@ -107,4 +129,38 @@ class ShowBottomSheet extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> addplaylistCliked() async {
+    final add = playlistNameController.text.trim();
+
+    if (add.isEmpty) {
+    } else {
+      final playAdd = ListModel(playlistName: add);
+      FavDb.addPlaylist(playAdd);
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        duration: Duration(
+          seconds: 1,
+        ),
+        backgroundColor: Color.fromARGB(
+          255,
+          34,
+          104,
+          12,
+        ),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(bottom: 80, left: 10, right: 10),
+        content: Text(
+          'Playlist Added',
+          style: TextStyle(
+            fontSize: 10,
+          ),
+        ),
+      ),
+    );
+  }
+
+  GlobalKey<FormState> fromKey = GlobalKey();
+  final playlistNameController = TextEditingController();
 }

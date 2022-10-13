@@ -5,12 +5,11 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistButton extends StatefulWidget {
   final SongModel songModel;
-  final Widget leadingIcon;
+
   final String folderName;
   const PlaylistButton({
     super.key,
     required this.songModel,
-    required this.leadingIcon,
     required this.folderName,
   });
 
@@ -26,6 +25,7 @@ class _FavButtonState extends State<PlaylistButton> {
   }
 
   Color iconColor = Colors.black38;
+  IconData icon = Icons.radio_button_off;
   bool buttonClick = false;
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _FavButtonState extends State<PlaylistButton> {
           onPressed: (() {
             buttonPressed();
           }),
-          icon: widget.leadingIcon,
+          icon: Icon(icon),
         );
       },
     );
@@ -47,7 +47,8 @@ class _FavButtonState extends State<PlaylistButton> {
   void buttonPressed() {
     if (!buttonClick) {
       setState(() {
-        iconColor = Colors.red;
+        iconColor = Colors.grey;
+        icon = Icons.circle_rounded;
         buttonClick = true;
         FavDb.addPlaylistMusic(widget.songModel, widget.folderName);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -73,6 +74,8 @@ class _FavButtonState extends State<PlaylistButton> {
       });
     } else {
       setState(() {
+        icon = Icons.radio_button_off;
+        FavDb.removePlaylistMusic(widget.songModel.id, widget.folderName);
         iconColor = Colors.black38;
         buttonClick = false;
       });

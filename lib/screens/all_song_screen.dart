@@ -104,6 +104,7 @@ class _AllSongState extends State<AllSong> {
                       itemCount: item.data!.length,
                       itemBuilder: ((context, index) {
                         return SongCard(
+                          icon: Icons.favorite,
                           onTap: () {
                             MusicFile.audioPlayer.setAudioSource(
                               MusicFile.createSongList(item.data!),

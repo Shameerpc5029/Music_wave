@@ -4,7 +4,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:music_wave/db/model/data_model.dart';
-import 'package:music_wave/screens/search_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -145,8 +144,6 @@ class FavDb {
     }
   }
 
-  
-
   static Future<void> removeFav(int id) async {
     await db.delete('song', where: '_id= ?', whereArgs: [id]);
     getAllSongs();
@@ -160,6 +157,15 @@ class FavDb {
 
     musicListNotifier.notifyListeners();
     return count;
+  }
+
+  static Future<bool> isFav(dynamic id) async {
+    final song = await db.rawQuery('SELECT * FROM song WHERE _id = ?', [id]);
+    print("song+ ${song.length}");
+    // musicListNotifier.notifyListeners();
+
+    musicListNotifier.notifyListeners();
+    return song.isNotEmpty;
   }
 
   static Future<void> resetAll() async {

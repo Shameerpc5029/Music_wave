@@ -41,6 +41,7 @@ dependencies:
   on_audio_query: ^2.6.1
   permission_handler: ^10.0.0
   scroll_snap_list: ^0.9.1
+  shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
   sqflite: ^2.1.0
 

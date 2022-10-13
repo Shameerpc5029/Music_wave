@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_wave/widgets/playlist_button.dart';
@@ -9,7 +7,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 class PlaylistSongCard extends StatefulWidget {
   final AsyncSnapshot<List<SongModel>> item;
   final AudioPlayer audioPlayer;
-  final Widget leadingIcon;
+  // final Widget leadingIcon;
   final String folderName;
   final int index;
   // final void Function() onTap;
@@ -25,7 +23,7 @@ class PlaylistSongCard extends StatefulWidget {
     required this.item,
     required this.index,
     required this.audioPlayer,
-    required this.leadingIcon,
+    // required this.leadingIcon,
     required this.folderName,
   });
 
@@ -91,9 +89,9 @@ class _PlaylistSongCardState extends State<PlaylistSongCard> {
         ),
       ),
       trailing: PlaylistButton(
-          folderName: widget.folderName,
-          songModel: widget.item.data![widget.index],
-          leadingIcon: widget.leadingIcon),
+        folderName: widget.folderName,
+        songModel: widget.item.data![widget.index],
+      ),
       subtitle: Text(
         widget.subText,
         style: const TextStyle(

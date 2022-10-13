@@ -65,19 +65,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             backgroundColor: Colors.transparent,
             context: context,
             builder: ((context) {
-              return ShowBottomSheet(
-                closePress: () {
-                  playlistNameController.clear();
-                  Navigator.pop(context);
-                },
-                savePress: () {
-                  addplaylistCliked();
-
-                  Navigator.pop(context);
-                  playlistNameController.clear();
-                },
-                controller: playlistNameController,
-              );
+              return const ShowBottomSheet();
             }),
           );
         },

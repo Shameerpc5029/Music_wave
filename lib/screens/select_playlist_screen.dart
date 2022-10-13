@@ -85,11 +85,13 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
                           item: item,
                           index: index,
                           audioPlayer: MusicFile.audioPlayer,
-                          leadingIcon: Icon(
-                            addButtonClick
-                                ? Icons.playlist_add
-                                : Icons.playlist_add_check,
-                          ),
+                          // leadingIcon: Icon(
+                          //   // addButtonClick
+                          //   // ?
+                          //   //  Icons.playlist_add
+                          //   //  :
+                          //   Icons.colors,
+                          // ),
                         );
                       }),
                     );
