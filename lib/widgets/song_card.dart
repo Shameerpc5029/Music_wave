@@ -6,7 +6,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class SongCard extends StatefulWidget {
   final AsyncSnapshot<List<SongModel>> item;
-final IconData icon;
+  final IconData icon;
   final Widget leadingIcon;
   final int index;
   final void Function() onTap;
@@ -22,7 +22,8 @@ final IconData icon;
     required this.item,
     required this.index,
     required this.leadingIcon,
-    required this.onTap, required this.icon,
+    required this.onTap,
+    required this.icon,
   });
 
   @override
@@ -57,8 +58,6 @@ class _SongCardState extends State<SongCard> {
         ),
       ),
       trailing: FavButton(
-        icon: widget.icon,
-        // leadingIcon: widget.leadingIcon,
         songModel: widget.item.data![widget.index],
       ),
       subtitle: Text(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:music_wave/widgets/switch_button.dart';
-
 class CardTile extends StatelessWidget {
   final String tittleText;
   final dynamic icon;
@@ -23,7 +21,7 @@ class CardTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Card(
         // color: Colors.white,
-        elevation: 1,
+        elevation: 3,
         child: ListTile(
           onTap: () {
             tapAction();
@@ -95,43 +93,43 @@ class CardTile2 extends StatelessWidget {
   }
 }
 
-class CardTile3 extends StatelessWidget {
-  final dynamic icon;
-  final String titleText;
-  final Function() tapAction;
+// class CardTile3 extends StatelessWidget {
+//   final dynamic icon;
+//   final String titleText;
+//   final Function() tapAction;
 
-  const CardTile3({
-    super.key,
-    required this.icon,
-    required this.titleText,
-    required this.tapAction,
-  });
+//   const CardTile3({
+//     super.key,
+//     required this.icon,
+//     required this.titleText,
+//     required this.tapAction,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(
-        0,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              leading: Icon(
-                icon,
-                size: 28,
-              ),
-              title: Text(
-                titleText,
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-          ),
-          const SwitchButton(),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.all(
+//         0,
+//       ),
+//       child: Row(
+//         children: [
+//           Expanded(
+//             child: ListTile(
+//               leading: Icon(
+//                 icon,
+//                 size: 28,
+//               ),
+//               title: Text(
+//                 titleText,
+//                 style: const TextStyle(
+//                   fontSize: 20,
+//                 ),
+//               ),
+//             ),
+//           ),
+//           const SwitchButton(),
+//         ],
+//       ),
+//     );
+//   }
+// }

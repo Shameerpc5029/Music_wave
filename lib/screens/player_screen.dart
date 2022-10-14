@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
 
-import 'package:music_wave/widgets/fav_button.dart';
+import 'package:music_wave/widgets/box_fav_button.dart';
 
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/music_slider.dart';
@@ -10,11 +11,9 @@ import 'package:music_wave/widgets/white_space.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayerScreen extends StatefulWidget {
-  // final AudioPlayer audioPlayer;
   final int index;
   const PlayerScreen({
     super.key,
-    // required this.audioPlayer,
     required this.songModel,
     required this.index,
   });
@@ -38,9 +37,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
         setState(() {
           currentIndex = index;
         });
+        MusicFile.currentIndes = index;
       }
     });
     super.initState();
+
     playSongs();
   }
 
@@ -64,8 +65,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
       },
     );
   }
-
-  bool addButtonClick = false;
 
   @override
   Widget build(BuildContext context) {
@@ -123,11 +122,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           padding: const EdgeInsets.all(5),
                           child: QueryArtworkWidget(
                             id: MusicFile.playingSong[currentIndex].id,
-                            // id:widget.id,
                             type: ArtworkType.AUDIO,
-                            // type: widget.type,
                             keepOldArtwork: true,
-
                             artworkFit: BoxFit.fill,
                             artworkBorder: const BorderRadius.only(
                                 topLeft: Radius.circular(5),
@@ -156,10 +152,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           padding: const EdgeInsets.only(bottom: 5),
                           child: SizedBox(
                             height: 40,
-                            child: FavButton(
-                              songModel: widget.songModel[widget.index],
-                              icon: Icons.favorite,
+                            child: BoxFavButton(
+                              song: widget.songModel[widget.index],
                             ),
+                            // child: FavButton(
+                            //   songModel: widget.songModel[currentIndex],
+                            //   icon: Icons.favorite,
+                            // ),
                           ),
                         )
                       ],
@@ -229,7 +228,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 const WhiteSpace(),
                 Stack(
                   children: [
-                    // WaveClipper(),
                     Column(
                       children: [
                         Row(
@@ -237,7 +235,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                // await MusicFile.audioPlayer.shuffle();
                                 setState(() {
                                   if (shuffleOn) {
                                     MusicFile.audioPlayer.shuffle();
@@ -258,12 +255,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             RawMaterialButton(
                               padding: const EdgeInsets.all(15),
                               shape: const CircleBorder(
-                                side: BorderSide(
-                                    color: Colors.white,
-                                    // color: Color.fromARGB(255, 185, 18, 18),
-                                    width: 3),
+                                side: BorderSide(color: Colors.white, width: 3),
                               ),
                               onPressed: () async {
+                                setState(() {});
                                 if (MusicFile.audioPlayer.hasPrevious) {
                                   await MusicFile.audioPlayer.seekToPrevious();
                                   await MusicFile.audioPlayer.play();
@@ -274,16 +269,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               child: const Icon(
                                 Icons.skip_previous_rounded,
                                 size: 20,
-                                // color: Color.fromARGB(255, 185, 18, 18),
                                 color: Colors.white,
                               ),
                             ),
                             RawMaterialButton(
                               shape: const CircleBorder(
-                                side: BorderSide(
-                                    // color: Color.fromARGB(255, 185, 18, 18),
-                                    color: Colors.white,
-                                    width: 3),
+                                side: BorderSide(color: Colors.white, width: 3),
                               ),
                               padding: const EdgeInsets.all(15),
                               onPressed: () {
@@ -305,7 +296,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                   if (playingStage != null && playingStage) {
                                     return const Icon(
                                       Icons.pause_rounded,
-                                      // color: Color.fromARGB(255, 185, 18, 18),
                                       color: Colors.white,
                                       size: 45,
                                     );
@@ -322,25 +312,15 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             RawMaterialButton(
                               padding: const EdgeInsets.all(15),
                               shape: const CircleBorder(
-                                side: BorderSide(
-                                    // color: Color.fromARGB(255, 185, 18, 18),
-                                    color: Colors.white,
-                                    width: 3),
+                                side: BorderSide(color: Colors.white, width: 3),
                               ),
                               onPressed: () async {
                                 await MusicFile.audioPlayer.seekToNext();
                                 await MusicFile.audioPlayer.play();
-                                //   if (MusicFile.audioPlayer.hasPrevious) {
-                                //     await MusicFile.audioPlayer.seekToNext();
-                                //     await MusicFile.audioPlayer.play();
-                                //   } else {
-                                //     await MusicFile.audioPlayer.play();
-                                //   }
                               },
                               child: const Icon(
                                 Icons.skip_next_rounded,
                                 size: 20,
-                                // color: Color.fromARGB(255, 185, 18, 18),
                                 color: Colors.white,
                               ),
                             ),

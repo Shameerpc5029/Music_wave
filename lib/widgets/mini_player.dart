@@ -13,7 +13,15 @@ class MiniPlayer extends StatefulWidget {
 }
 
 class _MiniPlayerState extends State<MiniPlayer> {
-  bool _isPlaying = false;
+  @override
+  void initState() {
+    MusicFile.audioPlayer.currentIndexStream.listen((index) {
+      if (index != null && mounted) {
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,17 +102,14 @@ class _MiniPlayerState extends State<MiniPlayer> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      setState(
-                        () {
-                          if (!_isPlaying) {
-                            MusicFile.audioPlayer.pause();
-                          } else {
-                            MusicFile.audioPlayer.play();
-                          }
-                          _isPlaying = !_isPlaying;
-                        },
-                      );
+                    onPressed: () async {
+                      if (MusicFile.audioPlayer.playing) {
+                        await MusicFile.audioPlayer.pause();
+                        setState(() {});
+                      } else {
+                        await MusicFile.audioPlayer.play();
+                        setState(() {});
+                      }
                     },
                     icon: StreamBuilder<bool>(
                       stream: MusicFile.audioPlayer.playingStream,

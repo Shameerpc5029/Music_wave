@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -14,24 +15,6 @@ class GridCarousal extends StatefulWidget {
 }
 
 class _GridCarousalState extends State<GridCarousal> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   requestPermission();
-  // }
-
-  // void requestPermission() async {
-  //   if (!kIsWeb) {
-  //     bool permissionStatus = await _audioQuery.permissionsStatus();
-  //     if (!permissionStatus) {
-  //       await _audioQuery.permissionsRequest();
-  //     }
-  //     setState(() {});
-  //   }
-  // }
-
-  // final _audioQuery = OnAudioQuery();
-
   final audioQuery = OnAudioQuery();
 
   @override
@@ -45,7 +28,7 @@ class _GridCarousalState extends State<GridCarousal> {
           ignoreCase: true,
         ),
         builder: (context, item) {
-          if (item.data == null) {
+          if (item.connectionState == ConnectionState.waiting) {
             return LoadingAnimationWidget.staggeredDotsWave(
               color: Colors.black,
               size: 40,

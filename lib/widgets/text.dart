@@ -15,7 +15,7 @@ class HeadingText extends StatelessWidget {
       text,
       style: const TextStyle(
         overflow: TextOverflow.ellipsis,
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
     );

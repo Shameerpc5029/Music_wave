@@ -15,6 +15,14 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white10,
+        title: Text(
+          'Settings',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(
@@ -22,18 +30,6 @@ class SettingsScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(
-                  8.0,
-                ),
-                child: Row(
-                  children: const [
-                    HeadingText(
-                      text: 'Settings',
-                    ),
-                  ],
-                ),
-              ),
               CardTile2(
                 icon: Icons.info_outline,
                 titleText: 'About Music Wave',
@@ -85,21 +81,17 @@ class SettingsScreen extends StatelessWidget {
                         yesPress: () {
                           FavDb.resetAll();
                           MusicFile.audioPlayer.stop();
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: ((context) {
+
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: ((context) {
                             return const SplashScreen();
-                          })));
+                          })), (route) => false);
                         },
                       );
                     }),
                   );
                 },
               ),
-              // CardTile3(
-              //   icon: Icons.dark_mode_rounded,
-              //   titleText: 'Dark Mode',
-              //   tapAction: () {},
-              // ),
               const Spacer(),
               const Text(
                 'V 1.0.0',

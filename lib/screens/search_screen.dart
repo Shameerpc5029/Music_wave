@@ -33,81 +33,37 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: TextFormField(
+          
+          onChanged: (value) => search(value),
+          style: const TextStyle(
+            fontWeight: FontWeight.normal,
+          ),
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.fromLTRB(
+              30.0,
+              10.0,
+              20.0,
+              10.0,
+            ),
+            prefixIcon: const Icon(
+              Icons.search,
+            ),
+            labelText: 'Search Now...',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                30,
+              ),
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: SafeArea(
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 20,
-                  bottom: 5,
-                ),
-                child: TextFormField(
-                  onChanged: (value) => search(value),
-                  cursorColor: const Color.fromARGB(
-                    255,
-                    174,
-                    48,
-                    39,
-                  ),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.normal,
-                  ),
-                  decoration: InputDecoration(
-                    // suffixIcon: IconButton(
-                    //     onPressed: () {},
-                    //     icon: const Icon(
-                    //       Icons.mic_none_rounded,
-                    //       color: Color.fromARGB(
-                    //         255,
-                    //         174,
-                    //         48,
-                    //         39,
-                    //       ),
-                    //     )),
-                    hintStyle: const TextStyle(
-                      color: Color.fromARGB(
-                        255,
-                        174,
-                        48,
-                        39,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.fromLTRB(
-                      20.0,
-                      10.0,
-                      20.0,
-                      10.0,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      color: Color.fromARGB(
-                        255,
-                        174,
-                        48,
-                        39,
-                      ),
-                    ),
-                    labelText: 'Search Now...',
-                    labelStyle: const TextStyle(
-                      color: Color.fromARGB(
-                        255,
-                        174,
-                        48,
-                        39,
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        30,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
               const WhiteSpace10(),
               song.isNotEmpty
                   ? ListView.builder(
@@ -149,7 +105,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 builder: ((context) {
                                   return PlayerScreen(
                                     songModel: song,
-                                    index: currentIndex,
+                                    index: index,
                                   );
                                 }),
                               ),

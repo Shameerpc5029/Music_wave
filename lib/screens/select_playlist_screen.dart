@@ -20,7 +20,7 @@ class SelectPlaylistScreen extends StatefulWidget {
 class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
   bool addButtonClick = false;
   final _audioQuery = OnAudioQuery();
-  // final audioPlayer = AudioPlayer();
+
   Color iconColor = Colors.black38;
   bool buttonClick = false;
   @override
@@ -85,13 +85,7 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
                           item: item,
                           index: index,
                           audioPlayer: MusicFile.audioPlayer,
-                          // leadingIcon: Icon(
-                          //   // addButtonClick
-                          //   // ?
-                          //   //  Icons.playlist_add
-                          //   //  :
-                          //   Icons.colors,
-                          // ),
+                   
                         );
                       }),
                     );

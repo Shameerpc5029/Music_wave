@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/screens/all_song_screen.dart';
 
 import 'package:music_wave/screens/library_screen.dart';
@@ -48,9 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
               if (MusicFile.audioPlayer.currentIndex != null)
                 Column(
                   children: [
-                    MiniPlayer(index: MusicFile.audioPlayer.currentIndex!)
+                    MiniPlayer(
+                      index: MusicFile.audioPlayer.currentIndex!,
+                    )
                   ],
-                ),
+                )
+              else
+                SizedBox(),
               GNav(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 15,
@@ -68,7 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 selectedIndex: selectedIndex,
                 onTabChange: (index) {
-                  navBottonBar(index);
+                  setState(() {
+                    navBottonBar(index);
+                  });
                 },
                 tabs: const [
                   GButton(

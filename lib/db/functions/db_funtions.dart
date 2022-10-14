@@ -1,7 +1,3 @@
-// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:music_wave/db/model/data_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -12,9 +8,11 @@ class FavDb {
   static ValueNotifier<List<ListModel>> playListNotifier = ValueNotifier([]);
   static ValueNotifier<List<SongModel>> playListMusicNotifier =
       ValueNotifier([]);
+
   static late Database db;
   static late Database playlistDb;
   static late Database playlistMusicDb;
+
   //fav
   static Future<void> initializeDatabase() async {
     db = await openDatabase(
@@ -136,7 +134,7 @@ class FavDb {
 
   static Future<void> getAllSongs() async {
     final song = await db.rawQuery('SELECT * FROM song');
-    log(song.toString());
+
     musicListNotifier.value.clear();
     for (var map in song) {
       final addsong = SongModel(map);
@@ -153,7 +151,6 @@ class FavDb {
   static Future<int?> countFav() async {
     final count =
         Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT (*) FROM song'));
-    log(count.toString());
 
     musicListNotifier.notifyListeners();
     return count;
@@ -161,8 +158,6 @@ class FavDb {
 
   static Future<bool> isFav(dynamic id) async {
     final song = await db.rawQuery('SELECT * FROM song WHERE _id = ?', [id]);
-    print("song+ ${song.length}");
-    // musicListNotifier.notifyListeners();
 
     musicListNotifier.notifyListeners();
     return song.isNotEmpty;

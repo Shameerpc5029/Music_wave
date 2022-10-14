@@ -4,11 +4,11 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class FavButton extends StatefulWidget {
   final SongModel songModel;
-  final IconData icon;
+
   const FavButton({
     super.key,
     required this.songModel,
-    required this.icon,
+
   });
 
   @override
@@ -34,22 +34,17 @@ class _FavButtonState extends State<FavButton> {
           (BuildContext context, List<SongModel> musiclist, Widget? child) {
         return IconButton(
           icon: Icon(
-            widget.icon,
+            icon,
             color: iconColor,
           ),
-          onPressed: (() {
-            setState(
-              () {
-                if (!buttonClick) {
-                  FavDb.addFav(widget.songModel);
-                  buttonClick = true;
-                } else {
-                  FavDb.removeFav(widget.songModel.id);
-                  buttonClick = false;
-                }
-                buttonPressed();
-              },
-            );
+          onPressed: (() async {
+            bool isFav = await FavDb.isFav(widget.songModel.id);
+            if (!isFav) {
+              FavDb.addFav(widget.songModel);
+            } else {
+              FavDb.removeFav(widget.songModel.id);
+            }
+            buttonPressed();
           }),
         );
       },
@@ -78,8 +73,10 @@ class _FavButtonState extends State<FavButton> {
 
   void buttonPressed() async {
     bool isFav = await FavDb.isFav(widget.songModel.id);
+
     print(isFav);
-    // icon = isFav ? Icons.favorite : Icons.favorite_border_outlined;
+    icon = isFav ? Icons.favorite : Icons.favorite_border_outlined;
+
     iconColor = isFav ? Colors.red : Colors.black38;
   }
 }

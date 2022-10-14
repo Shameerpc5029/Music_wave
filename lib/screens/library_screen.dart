@@ -9,6 +9,7 @@ import 'package:music_wave/widgets/remove_alert.dart';
 import 'package:music_wave/widgets/show_bottom_sheet.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({
@@ -27,9 +28,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
     super.initState();
     FavDb.getAllPlaylist();
     // playlistCount();
-    setState(() {
-      totalcount();
-    });
+
+    totalcount();
   }
 
   int counter = 0;
@@ -52,6 +52,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white10,
+        title: Text(
+          'Playlists',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: const Color.fromARGB(
           255,
@@ -88,19 +96,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(
-                  5,
-                ),
-                child: Row(
-                  children: const [
-                    HeadingText(
-                      //playlist heading
-                      text: 'Playlists',
-                    ),
-                  ],
-                ),
-              ),
               CardTile(
                 //favorate
                 subText: '$counter Songs'.toString(),
@@ -128,39 +123,57 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       return SizedBox(
                         height: 70,
                         child: Card(
-                          color: const Color.fromARGB(255, 225, 236, 246),
-                          child: InkWell(
-                            onLongPress: () {
-                              showDialog(
-                                context: context,
-                                builder: ((context) {
-                                  return RemoveAlert(
-                                    title: 'Playlist',
-                                    contant:
-                                        'Do you want to remove this playlist?',
-                                    yesPress: () {
-                                      FavDb.removePlaylist(
-                                          playlist[currentIndex].playlistName);
-                                      Navigator.pop(context);
-                                      setState(() {});
-                                    },
+                          elevation: 5,
+                          child: Center(
+                            child: ListTile(
+                              leading: const Icon(
+                                Icons.playlist_play_rounded,
+                                // color: Colors.red,
+                                size: 40,
+                              ),
+                              title: Text(
+                                playlist[index].playlistName,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              trailing: IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: ((context) {
+                                      return RemoveAlert(
+                                        title: 'Playlist',
+                                        contant:
+                                            'Do you want to remove this playlist?',
+                                        yesPress: () {
+                                          FavDb.removePlaylist(
+                                              playlist[index].playlistName);
+                                          Navigator.pop(context);
+                                          setState(() {});
+                                        },
+                                      );
+                                    }),
                                   );
-                                }),
-                              );
-                            },
-                            child: Center(
-                              child: CardTile2(
-                                  icon: Icons.playlist_play_rounded,
-                                  titleText: playlist[index].playlistName,
-                                  tapAction: (() {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(builder: ((context) {
+                                },
+                                icon: const Icon(
+                                  Icons.delete_sweep_outlined,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: ((context) {
                                       return PlaylistScreen(
                                         folderName:
                                             playlist[index].playlistName,
                                       );
-                                    })));
-                                  })),
+                                    }),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),

@@ -1,9 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
-import 'package:music_wave/screens/all_song_screen.dart';
+import 'package:music_wave/screens/library_screen.dart';
+
 import 'package:music_wave/screens/player_screen.dart';
+import 'package:music_wave/screens/search_screen.dart';
 
 import 'package:music_wave/widgets/fav_card.dart';
 import 'package:music_wave/widgets/music_file.dart';
@@ -42,7 +45,10 @@ class _FavorateScreenState extends State<FavorateScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
-            Navigator.maybePop(context);
+            setState(() {
+              Navigator.pop(context);
+              FavDb.musicListNotifier.notifyListeners();
+            });
           }),
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -50,17 +56,8 @@ class _FavorateScreenState extends State<FavorateScreen> {
         ),
       ),
       body: SafeArea(
-        child: FavDb.musicListNotifier.value.isEmpty
-            ? const Center(
-                heightFactor: 30,
-                child: Text(
-                  'No Songs Found!',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              )
-            : SingleChildScrollView(
+        child: FavDb.musicListNotifier.value.isNotEmpty
+            ? SingleChildScrollView(
                 padding: const EdgeInsets.all(10),
                 physics: const ScrollPhysics(),
                 child: ValueListenableBuilder(
@@ -72,12 +69,6 @@ class _FavorateScreenState extends State<FavorateScreen> {
                       shrinkWrap: true,
                       itemCount: music.length,
                       itemBuilder: ((BuildContext context, int index) {
-                        // if (music.isEmpty) {
-                        //   Navigator.push(context,
-                        //       MaterialPageRoute(builder: ((context) {
-                        //     return AllSong();
-                        //   })));
-                        // }
                         return FavCard(
                           id: music[index].id,
                           onTap: () {
@@ -95,7 +86,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
                                 builder: ((context) {
                                   return PlayerScreen(
                                     index: index,
-                                    songModel: music,
+                                    songModel: favList,
                                   );
                                 }),
                               ),
@@ -135,6 +126,13 @@ class _FavorateScreenState extends State<FavorateScreen> {
                       }),
                     );
                   }),
+                ),
+              )
+            : Center(
+                heightFactor: 2,
+                child: LottieBuilder.asset(
+                  height: 300,
+                  'assets/lottie/116469-no-item-in-box.json',
                 ),
               ),
       ),
