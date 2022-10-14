@@ -1,15 +1,15 @@
-import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
+
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/screens/search_screen.dart';
 
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/song_card.dart';
-import 'package:music_wave/widgets/text.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 
 class AllSong extends StatefulWidget {
@@ -40,20 +40,20 @@ class _AllSongState extends State<AllSong> {
 
   final _audioQuery = OnAudioQuery();
 
-  playSong(String? uri) {
-    try {
-      MusicFile.audioPlayer.setAudioSource(
-        AudioSource.uri(
-          Uri.parse(uri!),
-        ),
-      );
-      MusicFile.audioPlayer.play();
-    } on Exception {
-      log(
-        "Error pasing song",
-      );
-    }
-  }
+  // playSong(String? uri) {
+  //   try {
+  //     MusicFile.audioPlayer.setAudioSource(
+  //       AudioSource.uri(
+  //         Uri.parse(uri!),
+  //       ),
+  //     );
+  //     MusicFile.audioPlayer.play();
+  //   } on Exception {
+  //     log(
+  //       "Error pasing song",
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

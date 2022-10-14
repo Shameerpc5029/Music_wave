@@ -174,4 +174,7 @@ class FavDb {
     await playlistDb.close();
     await playlistMusicDb.close();
   }
+
+
 }
+

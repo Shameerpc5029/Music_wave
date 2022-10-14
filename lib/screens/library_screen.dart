@@ -9,7 +9,7 @@ import 'package:music_wave/widgets/remove_alert.dart';
 import 'package:music_wave/widgets/show_bottom_sheet.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
-import 'package:on_audio_query/on_audio_query.dart';
+
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({
@@ -27,7 +27,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
   void initState() {
     super.initState();
     FavDb.getAllPlaylist();
-    // playlistCount();
 
     totalcount();
   }
@@ -41,20 +40,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
     });
   }
 
-  // int playlistCounter = 0;
-  // void playlistCount() async {
-  //   int? countplay = await FavDb.countplay();
-  //   setState(() {
-  //     playlistCounter = countplay!;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white10,
-        title: Text(
+        title: const Text(
           'Playlists',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),

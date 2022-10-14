@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:music_wave/db/functions/db_funtions.dart';
 
+import 'package:just_audio/just_audio.dart';
+import 'package:marquee/marquee.dart';
+import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/widgets/box_fav_button.dart';
 
 import 'package:music_wave/widgets/music_file.dart';
@@ -9,6 +10,7 @@ import 'package:music_wave/widgets/music_slider.dart';
 
 import 'package:music_wave/widgets/white_space.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 class PlayerScreen extends StatefulWidget {
   final int index;
@@ -26,7 +28,7 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   Duration duration = const Duration();
   Duration position = const Duration();
-
+  bool isFav = false;
   int currentIndex = 0;
   bool _isPlaying = false;
 
@@ -37,12 +39,18 @@ class _PlayerScreenState extends State<PlayerScreen> {
         setState(() {
           currentIndex = index;
         });
+        cheakFav();
         MusicFile.currentIndes = index;
       }
     });
     super.initState();
 
     playSongs();
+  }
+
+  void cheakFav() async {
+    isFav = await FavDb.isFav(widget.songModel[currentIndex].id);
+    setState(() {});
   }
 
   void playSongs() {
@@ -80,6 +88,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
+            setState(() {});
             Navigator.pop(context);
           }),
           icon: const Icon(
@@ -150,17 +159,22 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5),
-                          child: SizedBox(
-                            height: 40,
-                            child: BoxFavButton(
-                              song: widget.songModel[widget.index],
-                            ),
-                            // child: FavButton(
-                            //   songModel: widget.songModel[currentIndex],
-                            //   icon: Icons.favorite,
-                            // ),
+                          child: BoxFavButton(
+                            song: widget.songModel[currentIndex],
+                            onTap: () async {
+                              if (isFav) {
+                                FavDb.removeFav(
+                                    widget.songModel[currentIndex].id);
+                              } else {
+                                FavDb.addFav(widget.songModel[currentIndex]);
+                              }
+                              cheakFav();
+                            },
+                            icon: Icons.favorite,
+                            color: isFav ? Colors.red : Colors.blue,
                           ),
-                        )
+                        ),
+                        //  )
                       ],
                     ),
                   ),
@@ -171,7 +185,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     left: 40,
                     right: 40,
                   ),
-                  child: Text(
+                  child: TextScroll(
+                    velocity: const Velocity(pixelsPerSecond: Offset(50, 50)),
                     widget.songModel[currentIndex].displayNameWOExt,
                     style: const TextStyle(
                       fontSize: 22,
@@ -179,7 +194,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       overflow: TextOverflow.ellipsis,
                       color: Colors.white,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(

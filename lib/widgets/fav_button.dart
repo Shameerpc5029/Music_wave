@@ -8,7 +8,6 @@ class FavButton extends StatefulWidget {
   const FavButton({
     super.key,
     required this.songModel,
-
   });
 
   @override
@@ -25,7 +24,7 @@ class _FavButtonState extends State<FavButton> {
 
   IconData icon = Icons.favorite_border_outlined;
   Color iconColor = Colors.black38;
-  bool buttonClick = false;
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -45,6 +44,7 @@ class _FavButtonState extends State<FavButton> {
               FavDb.removeFav(widget.songModel.id);
             }
             buttonPressed();
+            FavDb.musicListNotifier.notifyListeners();
           }),
         );
       },

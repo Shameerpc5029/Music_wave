@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/db/model/data_model.dart';
 import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class ShowBottomSheet extends StatefulWidget {
   const ShowBottomSheet({
@@ -14,6 +17,7 @@ class ShowBottomSheet extends StatefulWidget {
 }
 
 class _ShowBottomSheetState extends State<ShowBottomSheet> {
+  List<ListModel> list = [];
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,11 +65,16 @@ class _ShowBottomSheetState extends State<ShowBottomSheet> {
               key: fromKey,
               child: TextFormField(
                 validator: ((value) {
+                  final data = list.map((e) => e.playlistName).toList();
                   if (value!.isEmpty) {
                     return "Playlist Title Can't Be Empty";
-                  } else {
-                    return null;
+                  } else if (data.contains(
+                      playlistNameController.text.trim().toLowerCase())) {
+                    log('hsj');
+                    return "ok";
                   }
+
+                  return null;
                 }),
                 controller: playlistNameController,
                 decoration: InputDecoration(
@@ -131,10 +140,9 @@ class _ShowBottomSheetState extends State<ShowBottomSheet> {
   }
 
   Future<void> addplaylistCliked() async {
-    final add = playlistNameController.text.trim();
+    final add = playlistNameController.text.trim().toLowerCase();
 
-    if (add.isEmpty) {
-    } else {
+    if (add.isNotEmpty) {
       final playAdd = ListModel(playlistName: add);
       FavDb.addPlaylist(playAdd);
     }
