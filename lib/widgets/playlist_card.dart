@@ -22,7 +22,9 @@ class PlaylistCard extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       leading: QueryArtworkWidget(
-        artworkBorder: BorderRadius.circular(10),
+        artworkBorder: BorderRadius.circular(
+          10,
+        ),
         id: id,
         type: ArtworkType.AUDIO,
         keepOldArtwork: true,
@@ -30,10 +32,14 @@ class PlaylistCard extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(
+              10,
+            ),
             color: Colors.amber,
           ),
-          child: const Icon(Icons.music_note),
+          child: const Icon(
+            Icons.music_note,
+          ),
         ),
       ),
       title: Text(
@@ -50,7 +56,7 @@ class PlaylistCard extends StatelessWidget {
           color: Colors.black38,
         ),
       ),
-    trailing: trailing,
+      trailing: trailing,
     );
   }
 }

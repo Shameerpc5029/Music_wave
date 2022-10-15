@@ -5,7 +5,6 @@ import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/screens/select_playlist_screen.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/playlist_card.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistScreen extends StatefulWidget {
@@ -53,7 +52,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       appBar: AppBar(
         title: Text(
           widget.folderName.toUpperCase(),
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
         leading: IconButton(
@@ -104,11 +105,13 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                             onPressed: () {
                               setState(() {
                                 FavDb.removePlaylistMusic(
-                                    music[index].id, widget.folderName);
+                                  music[index].id,
+                                  widget.folderName,
+                                );
                               });
                             },
                             icon: const Icon(
-                              Icons.playlist_remove_outlined,
+                              Icons.delete_sweep_outlined,
                             ),
                           ),
                           title: music[index].title,
@@ -120,7 +123,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                           onTap: () {
                             MusicFile.audioPlayer.stop();
                             MusicFile.audioPlayer.setAudioSource(
-                              MusicFile.createSongList(music),
+                              MusicFile.createSongList(
+                                music,
+                              ),
                               initialIndex: index,
                             );
                             MusicFile.audioPlayer.play();

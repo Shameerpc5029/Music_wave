@@ -1,14 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/screens/search_screen.dart';
-
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/song_card.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
 
 class AllSong extends StatefulWidget {
@@ -143,7 +140,6 @@ class _AllSongState extends State<AllSong> {
                         autoPlayInterval: const Duration(
                           seconds: 3,
                         ),
-                        // aspectRatio: 100,
                         height: 200,
                         autoPlay: true,
                         enlargeCenterPage: true,
@@ -184,7 +180,9 @@ class _AllSongState extends State<AllSong> {
                           icon: Icons.favorite,
                           onTap: () {
                             MusicFile.audioPlayer.setAudioSource(
-                              MusicFile.createSongList(item.data!),
+                              MusicFile.createSongList(
+                                item.data!,
+                              ),
                               initialIndex: index,
                             );
                             MusicFile.audioPlayer.play();
@@ -220,6 +218,4 @@ class _AllSongState extends State<AllSong> {
       ),
     );
   }
-
-  bool iconButtonClick = false;
 }

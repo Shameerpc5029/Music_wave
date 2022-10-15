@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-
 import 'package:music_wave/screens/all_song_screen.dart';
-
 import 'package:music_wave/screens/library_screen.dart';
 import 'package:music_wave/screens/search_screen.dart';
 import 'package:music_wave/screens/settings_screen.dart';
@@ -35,7 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 10, top: 5, left: 20, right: 20),
+        padding: const EdgeInsets.only(
+          bottom: 10,
+          top: 5,
+          left: 20,
+          right: 20,
+        ),
         child: SingleChildScrollView(
           physics: const ScrollPhysics(),
           child: Column(
@@ -53,7 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   horizontal: 15,
                   vertical: 5,
                 ),
-                tabActiveBorder: Border.all(width: 1.5, color: Colors.black),
+                tabActiveBorder: Border.all(
+                  width: 1.5,
+                  color: Colors.black,
+                ),
                 tabBorderRadius: 10,
                 gap: 10,
                 haptic: true,
@@ -66,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 selectedIndex: selectedIndex,
                 onTabChange: (index) {
                   setState(() {
-                    navBottonBar(index);
+                    navBottonBar(
+                      index,
+                    );
                   });
                 },
                 tabs: const [

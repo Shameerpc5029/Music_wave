@@ -45,33 +45,42 @@ class _MiniPlayerState extends State<MiniPlayer> {
             shape: const OutlineInputBorder(
               borderSide: BorderSide(width: 0),
             ),
-            tileColor: Colors.amber,
+            tileColor: Colors.blueGrey,
             leading: QueryArtworkWidget(
               artworkBorder: BorderRadius.circular(10),
               quality: 100,
               id: MusicFile.playingSong[MusicFile.audioPlayer.currentIndex!].id,
               type: ArtworkType.AUDIO,
               nullArtworkWidget: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber,
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    10,
                   ),
-                  child: const Icon(Icons.music_note)),
-            ),
-            subtitle: Text(
-              '${MusicFile.playingSong[MusicFile.audioPlayer.currentIndex!].artist}',
-              style: const TextStyle(
-                color: Colors.black,
-                overflow: TextOverflow.ellipsis,
+                  color: Colors.amber,
+                ),
+                child: const Icon(
+                  Icons.music_note,
+                ),
               ),
-              maxLines: 1,
             ),
             title: Text(
               MusicFile.playingSong[MusicFile.audioPlayer.currentIndex!]
                   .displayNameWOExt,
               style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              maxLines: 1,
+            ),
+            subtitle: Text(
+              '${MusicFile.playingSong[MusicFile.audioPlayer.currentIndex!].artist}' ==
+                      "<unknown>"
+                  ? "Unknown Artist"
+                  : '${MusicFile.playingSong[MusicFile.audioPlayer.currentIndex!].artist}',
+              style: const TextStyle(
+                color: Colors.white70,
                 fontWeight: FontWeight.bold,
               ),
               maxLines: 1,
@@ -94,7 +103,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                     icon: const Icon(
                       Icons.skip_previous_rounded,
                       size: 20,
-                      color: Color.fromARGB(255, 185, 18, 18),
+                      color: Colors.white,
                     ),
                   ),
                   IconButton(
@@ -114,13 +123,13 @@ class _MiniPlayerState extends State<MiniPlayer> {
                         if (playingStage != null && playingStage) {
                           return const Icon(
                             Icons.pause_rounded,
-                            color: Color.fromARGB(255, 185, 18, 18),
+                            color: Colors.white,
                             size: 20,
                           );
                         } else {
                           return const Icon(
                             Icons.play_arrow_rounded,
-                            color: Color.fromARGB(255, 185, 18, 18),
+                            color: Colors.white,
                             size: 20,
                           );
                         }
@@ -137,7 +146,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                     icon: const Icon(
                       Icons.skip_next_rounded,
                       size: 20,
-                      color: Color.fromARGB(255, 185, 18, 18),
+                      color: Colors.white,
                     ),
                   ),
                 ],

@@ -18,7 +18,6 @@ class _FavButtonState extends State<FavButton> {
   @override
   void initState() {
     super.initState();
-
     buttonPressed();
   }
 
@@ -37,14 +36,16 @@ class _FavButtonState extends State<FavButton> {
             color: iconColor,
           ),
           onPressed: (() async {
-            bool isFav = await FavDb.isFav(widget.songModel.id);
+            bool isFav = await FavDb.isFav(
+              widget.songModel.id,
+            );
             if (!isFav) {
               FavDb.addFav(widget.songModel);
             } else {
               FavDb.removeFav(widget.songModel.id);
             }
             buttonPressed();
-            FavDb.musicListNotifier.notifyListeners();
+
           }),
         );
       },
@@ -53,9 +54,7 @@ class _FavButtonState extends State<FavButton> {
 
   void buttonPressed() async {
     bool isFav = await FavDb.isFav(widget.songModel.id);
-
     icon = isFav ? Icons.favorite : Icons.favorite_border_outlined;
-
     iconColor = isFav ? Colors.red : Colors.black38;
   }
 }

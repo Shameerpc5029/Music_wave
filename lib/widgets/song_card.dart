@@ -32,7 +32,7 @@ class _SongCardState extends State<SongCard> {
     return ListTile(
       onTap: widget.onTap,
       leading: QueryArtworkWidget(
-        artworkBorder: BorderRadius.circular(10),
+        artworkBorder: BorderRadius.circular(10,),
         quality: 100,
         id: widget.item.data![widget.index].id,
         type: ArtworkType.AUDIO,
@@ -40,10 +40,10 @@ class _SongCardState extends State<SongCard> {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10,),
               color: Colors.amber,
             ),
-            child: const Icon(Icons.music_note)),
+            child: const Icon(Icons.music_note,),),
       ),
       title: Text(
         widget.titleText,

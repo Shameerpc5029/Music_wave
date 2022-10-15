@@ -44,7 +44,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
   }
 
   void cheakFav() async {
-    isFav = await FavDb.isFav(widget.songModel[currentIndex].id);
+    isFav = await FavDb.isFav(
+      widget.songModel[currentIndex].id,
+    );
     setState(() {});
   }
 
@@ -130,15 +132,25 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             keepOldArtwork: true,
                             artworkFit: BoxFit.fill,
                             artworkBorder: const BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                topRight: Radius.circular(5)),
+                              topLeft: Radius.circular(
+                                5,
+                              ),
+                              topRight: Radius.circular(
+                                5,
+                              ),
+                            ),
                             artworkHeight: 200,
                             artworkWidth: 200,
                             nullArtworkWidget: Container(
                               decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(5),
-                                    topRight: Radius.circular(5)),
+                                  topLeft: Radius.circular(
+                                    5,
+                                  ),
+                                  topRight: Radius.circular(
+                                    5,
+                                  ),
+                                ),
                                 color: Colors.blue,
                               ),
                               height: 200,
@@ -153,15 +165,20 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
+                          padding: const EdgeInsets.only(
+                            bottom: 5,
+                          ),
                           child: BoxFavButton(
                             song: widget.songModel[currentIndex],
                             onTap: () async {
                               if (isFav) {
                                 FavDb.removeFav(
-                                    widget.songModel[currentIndex].id);
+                                  widget.songModel[currentIndex].id,
+                                );
                               } else {
-                                FavDb.addFav(widget.songModel[currentIndex]);
+                                FavDb.addFav(
+                                  widget.songModel[currentIndex],
+                                );
                               }
                               cheakFav();
                             },
@@ -169,7 +186,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             color: isFav ? Colors.red : Colors.blue,
                           ),
                         ),
-                        //  )
                       ],
                     ),
                   ),
@@ -181,7 +197,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     right: 40,
                   ),
                   child: TextScroll(
-                    velocity: const Velocity(pixelsPerSecond: Offset(50, 50)),
+                    velocity: const Velocity(
+                      pixelsPerSecond: Offset(
+                        50,
+                        50,
+                      ),
+                    ),
                     widget.songModel[currentIndex].displayNameWOExt,
                     style: const TextStyle(
                       fontSize: 22,
@@ -192,7 +213,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 60, right: 60),
+                  padding: const EdgeInsets.only(
+                    left: 60,
+                    right: 60,
+                  ),
                   child: Text(
                     widget.songModel[currentIndex].artist.toString() ==
                             "<unknown>"
@@ -208,7 +232,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 ),
                 const WhiteSpace40(),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

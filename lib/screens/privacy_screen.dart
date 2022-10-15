@@ -20,7 +20,7 @@ class PrivacyScreen extends StatelessWidget {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10,),
             child: Center(
               child: Column(
                 children: [
@@ -38,7 +38,7 @@ class PrivacyScreen extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

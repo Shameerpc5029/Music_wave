@@ -11,6 +11,8 @@ class MusicController extends StatefulWidget {
 }
 
 class _MusicControllerState extends State<MusicController> {
+  bool repetOn = true;
+  bool shuffleOn = true;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,20 +25,31 @@ class _MusicControllerState extends State<MusicController> {
                 setState(() {
                   if (shuffleOn) {
                     MusicFile.audioPlayer.shuffle();
-                    MusicFile.audioPlayer.setShuffleModeEnabled(true);
+                    MusicFile.audioPlayer.setShuffleModeEnabled(
+                      true,
+                    );
                   } else {
-                    MusicFile.audioPlayer.setShuffleModeEnabled(false);
+                    MusicFile.audioPlayer.setShuffleModeEnabled(
+                      false,
+                    );
                   }
                   shuffleOn = !shuffleOn;
                 });
               },
-              icon: Icon(shuffleOn ? Icons.shuffle : Icons.shuffle_on_outlined),
+              icon: Icon(
+                shuffleOn ? Icons.shuffle : Icons.shuffle_on_outlined,
+              ),
               color: Colors.white,
             ),
             RawMaterialButton(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(
+                15,
+              ),
               shape: const CircleBorder(
-                side: BorderSide(color: Colors.white, width: 3),
+                side: BorderSide(
+                  color: Colors.white,
+                  width: 3,
+                ),
               ),
               onPressed: () async {
                 setState(() {});
@@ -55,9 +68,14 @@ class _MusicControllerState extends State<MusicController> {
             ),
             RawMaterialButton(
               shape: const CircleBorder(
-                side: BorderSide(color: Colors.white, width: 3),
+                side: BorderSide(
+                  color: Colors.white,
+                  width: 3,
+                ),
               ),
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(
+                15,
+              ),
               onPressed: () async {
                 if (MusicFile.audioPlayer.playing) {
                   await MusicFile.audioPlayer.pause();
@@ -90,7 +108,10 @@ class _MusicControllerState extends State<MusicController> {
             RawMaterialButton(
               padding: const EdgeInsets.all(15),
               shape: const CircleBorder(
-                side: BorderSide(color: Colors.white, width: 3),
+                side: BorderSide(
+                  color: Colors.white,
+                  width: 3,
+                ),
               ),
               onPressed: () async {
                 await MusicFile.audioPlayer.seekToNext();
@@ -106,9 +127,13 @@ class _MusicControllerState extends State<MusicController> {
               onPressed: () {
                 setState(() {
                   if (repetOn) {
-                    MusicFile.audioPlayer.setLoopMode(LoopMode.one);
+                    MusicFile.audioPlayer.setLoopMode(
+                      LoopMode.one,
+                    );
                   } else {
-                    MusicFile.audioPlayer.setLoopMode(LoopMode.off);
+                    MusicFile.audioPlayer.setLoopMode(
+                      LoopMode.off,
+                    );
                   }
                   repetOn = !repetOn;
                 });
@@ -124,7 +149,4 @@ class _MusicControllerState extends State<MusicController> {
       ],
     );
   }
-
-  bool repetOn = true;
-  bool shuffleOn = true;
 }

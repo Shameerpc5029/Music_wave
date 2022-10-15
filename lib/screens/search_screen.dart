@@ -33,8 +33,12 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
+        backgroundColor: Colors.white12,
         title: TextFormField(
-          onChanged: (value) => search(value),
+          onChanged: (value) => search(
+            value,
+          ),
           style: const TextStyle(
             fontWeight: FontWeight.normal,
           ),
@@ -73,24 +77,32 @@ class _SearchScreenState extends State<SearchScreen> {
                           title: Text(
                             song[index].displayNameWOExt,
                             maxLines: 1,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           subtitle: Text(
                             '${song[index].artist}' == "<unknown>"
                                 ? "Unknown Artist"
                                 : '${song[index].artist}',
                             maxLines: 1,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           leading: QueryArtworkWidget(
-                            artworkBorder: BorderRadius.circular(10),
+                            artworkBorder: BorderRadius.circular(
+                              10,
+                            ),
                             id: song[index].id,
                             type: ArtworkType.AUDIO,
                             nullArtworkWidget: Container(
                               width: 50,
                               height: 50,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(
+                                  10,
+                                ),
                                 color: Colors.amber,
                               ),
                               child: const Icon(Icons.music_note),
@@ -98,7 +110,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           onTap: () {
                             MusicFile.audioPlayer.setAudioSource(
-                              MusicFile.createSongList(song),
+                              MusicFile.createSongList(
+                                song,
+                              ),
                               initialIndex: index,
                             );
                             MusicFile.audioPlayer.play();

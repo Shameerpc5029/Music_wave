@@ -22,14 +22,15 @@ class AboutText extends StatelessWidget {
                     style: DefaultTextStyle.of(context).style,
                     children: const [
                       TextSpan(
-                          text: '''
+                        text: '''
 
 Welcome to Music Wave,
                     
 ''',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          )),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       TextSpan(
                         text:
                             '''Your number one source for all things Music App. We're dedicated to giving you the best of Music App, focusing on rich UI, custom playlists, and a new animation player.
@@ -48,10 +49,11 @@ Sincerely,
                         ),
                       ),
                       TextSpan(
-                          text: 'Shameer PC.',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ))
+                        text: 'Shameer PC.',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
                     ],
                   ),
                 ),

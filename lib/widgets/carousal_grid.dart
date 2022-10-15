@@ -48,7 +48,9 @@ class _GridCarousalState extends State<GridCarousal> {
               return GestureDetector(
                 onTap: () {
                   MusicFile.audioPlayer.setAudioSource(
-                      MusicFile.createSongList(item.data!),
+                      MusicFile.createSongList(
+                        item.data!,
+                      ),
                       initialIndex: index);
                   MusicFile.audioPlayer.play();
                   Navigator.push(
@@ -65,19 +67,25 @@ class _GridCarousalState extends State<GridCarousal> {
                 },
                 child: Card(
                   elevation: 10,
-                  margin: const EdgeInsets.symmetric(horizontal: 12),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                  ),
                   child: QueryArtworkWidget(
                     id: item.data![index].id,
                     type: ArtworkType.AUDIO,
                     keepOldArtwork: true,
                     quality: 100,
                     artworkFit: BoxFit.cover,
-                    artworkBorder: BorderRadius.circular(10),
+                    artworkBorder: BorderRadius.circular(
+                      10,
+                    ),
                     artworkHeight: 142,
                     artworkWidth: 500,
                     nullArtworkWidget: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(
+                          10,
+                        ),
                         color: Colors.blue,
                       ),
                       height: 142,
@@ -96,6 +104,7 @@ class _GridCarousalState extends State<GridCarousal> {
             options: CarouselOptions(
               viewportFraction: 0.3,
               enableInfiniteScroll: true,
+              pauseAutoPlayInFiniteScroll: true,
               autoPlayCurve: Curves.fastLinearToSlowEaseIn,
               height: 200,
               autoPlay: true,

@@ -8,7 +8,6 @@ import 'package:music_wave/widgets/remove_alert.dart';
 import 'package:music_wave/widgets/show_bottom_sheet.dart';
 import 'package:music_wave/widgets/white_space.dart';
 
-
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({
     Key? key,
@@ -45,7 +44,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
         backgroundColor: Colors.white10,
         title: const Text(
           'Playlists',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
@@ -117,7 +118,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             child: ListTile(
                               leading: const Icon(
                                 Icons.playlist_play_rounded,
-
                                 size: 40,
                               ),
                               title: Text(
@@ -138,8 +138,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                             'Do you want to remove this playlist?',
                                         yesPress: () {
                                           FavDb.removePlaylist(
-                                              playlist[index].playlistName);
-                                          Navigator.pop(context);
+                                            playlist[index].playlistName,
+                                          );
+                                          Navigator.pop(
+                                            context,
+                                          );
                                           setState(() {});
                                         },
                                       );
@@ -171,7 +174,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     itemCount: playlist.length,
                   );
                 },
-              )
+              ),
             ],
           ),
         ),
@@ -186,8 +189,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
       return;
     } else {
       setState(() {
-        final playAdd = ListModel(playlistName: add);
-        FavDb.addPlaylist(playAdd);
+        final playAdd = ListModel(
+          playlistName: add,
+        );
+        FavDb.addPlaylist(
+          playAdd,
+        );
       });
     }
     ScaffoldMessenger.of(context).showSnackBar(
@@ -202,7 +209,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
           12,
         ),
         behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.only(bottom: 80, left: 10, right: 10),
+        margin: EdgeInsets.only(
+          bottom: 80,
+          left: 10,
+          right: 10,
+        ),
         content: Text(
           'Playlist Added',
           style: TextStyle(

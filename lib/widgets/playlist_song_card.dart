@@ -32,17 +32,23 @@ class _PlaylistSongCardState extends State<PlaylistSongCard> {
   Widget build(BuildContext context) {
     return ListTile(
       leading: QueryArtworkWidget(
-        artworkBorder: BorderRadius.circular(10),
+        artworkBorder: BorderRadius.circular(
+          10,
+        ),
         id: widget.item.data![widget.index].id,
         type: ArtworkType.AUDIO,
         nullArtworkWidget: Container(
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(
+              10,
+            ),
             color: Colors.amber,
           ),
-          child: const Icon(Icons.music_note),
+          child: const Icon(
+            Icons.music_note,
+          ),
         ),
       ),
       title: Text(

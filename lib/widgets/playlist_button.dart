@@ -50,17 +50,36 @@ class _FavButtonState extends State<PlaylistButton> {
         iconColor = Colors.grey;
         icon = Icons.circle_rounded;
         buttonClick = true;
-        FavDb.addPlaylistMusic(widget.songModel, widget.folderName);
+        FavDb.addPlaylistMusic(
+          widget.songModel,
+          widget.folderName,
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             elevation: 5,
-            backgroundColor: const Color.fromARGB(255, 174, 48, 39),
-            margin: const EdgeInsets.only(bottom: 5, right: 30, left: 30),
+            backgroundColor: const Color.fromARGB(
+              255,
+              174,
+              48,
+              39,
+            ),
+            margin: const EdgeInsets.only(
+              bottom: 5,
+              right: 30,
+              left: 30,
+            ),
             behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 1),
+            duration: const Duration(
+              seconds: 1,
+            ),
             shape: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(color: Colors.transparent)),
+              borderRadius: BorderRadius.circular(
+                15,
+              ),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              ),
+            ),
             content: const Text(
               'Song Added!',
               textAlign: TextAlign.center,
@@ -75,7 +94,10 @@ class _FavButtonState extends State<PlaylistButton> {
     } else {
       setState(() {
         icon = Icons.radio_button_off;
-        FavDb.removePlaylistMusic(widget.songModel.id, widget.folderName);
+        FavDb.removePlaylistMusic(
+          widget.songModel.id,
+          widget.folderName,
+        );
         iconColor = Colors.black38;
         buttonClick = false;
       });

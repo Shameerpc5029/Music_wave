@@ -10,16 +10,20 @@ class TermsScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(
+                context,
+              );
             },
             icon: const Icon(
               Icons.arrow_back_ios_new_outlined,
-            )),
+            ),),
       ),
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(
+              10,
+            ),
             child: Center(
               child: Column(
                 children: [

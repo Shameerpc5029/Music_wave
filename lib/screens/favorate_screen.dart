@@ -52,7 +52,9 @@ class _FavorateScreenState extends State<FavorateScreen> {
       body: SafeArea(
         child: FavDb.musicListNotifier.value.isNotEmpty
             ? SingleChildScrollView(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(
+                  10,
+                ),
                 physics: const ScrollPhysics(),
                 child: ValueListenableBuilder(
                   valueListenable: FavDb.musicListNotifier,
@@ -71,7 +73,9 @@ class _FavorateScreenState extends State<FavorateScreen> {
                             setState(() {});
                             MusicFile.audioPlayer.stop();
                             MusicFile.audioPlayer.setAudioSource(
-                              MusicFile.createSongList(favList),
+                              MusicFile.createSongList(
+                                favList,
+                              ),
                               initialIndex: index,
                             );
                             MusicFile.audioPlayer.play();
@@ -100,13 +104,19 @@ class _FavorateScreenState extends State<FavorateScreen> {
                                 SnackBar(
                                   margin: const EdgeInsets.all(10),
                                   behavior: SnackBarBehavior.floating,
-                                  duration: const Duration(seconds: 1),
+                                  duration: const Duration(
+                                    seconds: 1,
+                                  ),
                                   shape: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                  ),
                                   content: Text(
                                     '${music[index].title} Unliked!',
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               );
