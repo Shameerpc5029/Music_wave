@@ -101,7 +101,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.white,
+                  Colors.white10,
                   Colors.blue,
                   Colors.black,
                 ],

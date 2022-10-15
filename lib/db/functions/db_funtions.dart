@@ -106,6 +106,7 @@ class FavDb {
         addsong,
       );
     }
+    playListMusicNotifier.notifyListeners();
   }
 
   static Future<void> addPlaylistMusic(
@@ -212,6 +213,7 @@ class FavDb {
     musicListNotifier.notifyListeners();
     return song.isNotEmpty;
   }
+
   //reset App
   static Future<void> resetAll() async {
     await db.delete(
@@ -224,7 +226,7 @@ class FavDb {
       'playlistSong',
     );
   }
-  
+
   static Future<void> dbClose() async {
     await db.close();
     await playlistDb.close();

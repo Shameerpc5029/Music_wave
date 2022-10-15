@@ -15,7 +15,7 @@ class RemoveAlert extends StatelessWidget {
     return AlertDialog(
       title: Text(
         title,
-        style:const TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -23,7 +23,18 @@ class RemoveAlert extends StatelessWidget {
         contant,
       ),
       actions: [
-        TextButton(
+        ElevatedButton(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(Colors.white),
+            backgroundColor: MaterialStateProperty.all(
+              const Color.fromARGB(
+                255,
+                174,
+                48,
+                39,
+              ),
+            ),
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -31,7 +42,18 @@ class RemoveAlert extends StatelessWidget {
             'No',
           ),
         ),
-        TextButton(
+        ElevatedButton(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(Colors.white),
+            backgroundColor: MaterialStateProperty.all(
+              const Color.fromARGB(
+                255,
+                174,
+                48,
+                39,
+              ),
+            ),
+          ),
           onPressed: yesPress,
           child: const Text(
             'Yes',

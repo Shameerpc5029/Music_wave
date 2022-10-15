@@ -21,9 +21,10 @@ class PlaylistScreen extends StatefulWidget {
 class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   void initState() {
-    FavDb.getAllPlaylistSongs(widget.folderName);
     super.initState();
-    setState(() {});
+    setState(() {
+      FavDb.getAllPlaylistSongs(widget.folderName);
+    });
   }
 
   final _audioQuery = OnAudioQuery();
@@ -39,11 +40,15 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           39,
         ),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
-            return SelectPlaylistScreen(
-              folderName: widget.folderName,
-            );
-          })));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: ((context) {
+                return SelectPlaylistScreen(
+                  folderName: widget.folderName,
+                );
+              }),
+            ),
+          );
         },
         child: const Icon(
           Icons.add,
@@ -56,7 +61,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
         leading: IconButton(
           onPressed: (() {
             Navigator.pop(context);
@@ -121,10 +125,11 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                   : music[index].artist.toString(),
                           id: music[index].id,
                           onTap: () {
+                            List<SongModel> playList = [...music];
                             MusicFile.audioPlayer.stop();
                             MusicFile.audioPlayer.setAudioSource(
                               MusicFile.createSongList(
-                                music,
+                                playList,
                               ),
                               initialIndex: index,
                             );
@@ -134,7 +139,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                 builder: ((context) {
                                   return PlayerScreen(
                                     index: index,
-                                    songModel: music,
+                                    songModel: playList,
                                   );
                                 }),
                               ),

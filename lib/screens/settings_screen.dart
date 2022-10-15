@@ -7,6 +7,7 @@ import 'package:music_wave/screens/teams_screen.dart';
 import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/remove_alert.dart';
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -14,12 +15,10 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white10,
         title: const Text(
           'Settings',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
       ),
       body: SafeArea(
         child: Container(

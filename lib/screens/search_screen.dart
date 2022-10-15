@@ -34,7 +34,6 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: Colors.white12,
         title: TextFormField(
           onChanged: (value) => search(
             value,

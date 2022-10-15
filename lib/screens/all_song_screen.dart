@@ -40,12 +40,10 @@ class _AllSongState extends State<AllSong> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white10,
         title: const Text(
           'All Songs',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
