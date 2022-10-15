@@ -47,24 +47,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      // backgroundColor: const Color.fromARGB(
-      //   255,
-      //   174,
-      //   48,
-      //   39,
-      //   ),
-      //   onPressed: () {},
-      //   label: const Text(
-      //     "Add Playlist",
-      //     style: TextStyle(
-      //       fontWeight: FontWeight.bold,
-      //     ),
-      //   ),
-      //   icon: const Icon(
-      //     Icons.playlist_add,
-      //   ),
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const ScrollPhysics(),
@@ -72,7 +54,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
             10,
           ),
           child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CardTile(
                 //favorate
@@ -92,28 +73,19 @@ class _LibraryScreenState extends State<LibraryScreen> {
               const WhiteSpace10(),
               Padding(
                 padding: const EdgeInsets.only(
-                  right: 10.0,
+                  right: 5.0,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton.icon(
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all(Colors.white),
-                        backgroundColor: MaterialStateProperty.all(
-                          const Color.fromARGB(
-                            255,
-                            174,
-                            48,
-                            39,
-                          ),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.red,
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
                       onPressed: () {
@@ -130,10 +102,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         Icons.add,
                       ),
                       label: const Text(
-                        'Add Playlist',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        "Add Playlist",
                       ),
                     )
                   ],
