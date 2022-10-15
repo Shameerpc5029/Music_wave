@@ -3,11 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
-import 'package:music_wave/screens/library_screen.dart';
-
 import 'package:music_wave/screens/player_screen.dart';
-import 'package:music_wave/screens/search_screen.dart';
-
 import 'package:music_wave/widgets/fav_card.dart';
 import 'package:music_wave/widgets/music_file.dart';
 
@@ -17,7 +13,7 @@ class FavorateScreen extends StatefulWidget {
   const FavorateScreen({
     super.key,
   });
-  // static List<SongModel> song = [];
+
   @override
   State<FavorateScreen> createState() => _FavorateScreenState();
 }
@@ -26,7 +22,6 @@ class _FavorateScreenState extends State<FavorateScreen> {
   @override
   void initState() {
     FavDb.getAllSongs();
-
     super.initState();
   }
 
@@ -47,7 +42,6 @@ class _FavorateScreenState extends State<FavorateScreen> {
           onPressed: (() {
             setState(() {
               Navigator.pop(context);
-              FavDb.musicListNotifier.notifyListeners();
             });
           }),
           icon: const Icon(
@@ -101,7 +95,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
                           traling: IconButton(
                             onPressed: () {
                               FavDb.removeFav(music[index].id);
-                              // MusicFile.audioPlayer.seekToNext();
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   margin: const EdgeInsets.all(10),

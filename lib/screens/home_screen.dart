@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:music_wave/db/functions/db_funtions.dart';
+
 import 'package:music_wave/screens/all_song_screen.dart';
 
 import 'package:music_wave/screens/library_screen.dart';
@@ -35,13 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(
-            // horizontal: 20,
-            // vertical: 5,
-            bottom: 10,
-            top: 5,
-            left: 20,
-            right: 20),
+        padding: const EdgeInsets.only(bottom: 10, top: 5, left: 20, right: 20),
         child: SingleChildScrollView(
           physics: const ScrollPhysics(),
           child: Column(
@@ -53,9 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       index: MusicFile.audioPlayer.currentIndex!,
                     )
                   ],
-                )
-              else
-                SizedBox(),
+                ),
               GNav(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 15,

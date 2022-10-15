@@ -92,13 +92,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  fading_edge_scrollview:
-    dependency: transitive
-    description:
-      name: fading_edge_scrollview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -132,13 +125,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
-  flutter_gradient_colors:
-    dependency: "direct main"
-    description:
-      name: flutter_gradient_colors
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -156,13 +142,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  google_fonts:
-    dependency: "direct main"
-    description:
-      name: google_fonts
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
   google_nav_bar:
     dependency: "direct main"
     description:
@@ -247,13 +226,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.3"
-  marquee:
-    dependency: "direct main"
-    description:
-      name: marquee
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.3"
   matcher:
     dependency: transitive
     description:

@@ -23,7 +23,6 @@ class _MusicSlideState extends State<MusicSlide> {
     return Slider(
       inactiveColor: Colors.white,
       activeColor: Colors.red,
-      // activeColor: const Color.fromARGB(255, 174, 48, 39),
       onChanged: ((value) {
         setState(() {
           changeToSecond(value.toInt());

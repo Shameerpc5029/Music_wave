@@ -31,14 +31,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  flutter_gradient_colors: ^2.1.1
-  google_fonts: ^3.0.1
+
   google_nav_bar: ^5.0.6
   just_audio: ^0.9.29
   just_audio_background: ^0.0.1-beta.7
   loading_animation_widget: ^1.2.0+3
   lottie: ^1.4.3
-  marquee: ^2.2.3
   on_audio_query: ^2.6.1
   permission_handler: ^10.0.0
   smooth_page_indicator: ^1.0.0+2

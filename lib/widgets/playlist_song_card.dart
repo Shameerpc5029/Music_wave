@@ -7,13 +7,10 @@ import 'package:on_audio_query/on_audio_query.dart';
 class PlaylistSongCard extends StatefulWidget {
   final AsyncSnapshot<List<SongModel>> item;
   final AudioPlayer audioPlayer;
-  // final Widget leadingIcon;
   final String folderName;
   final int index;
-  // final void Function() onTap;
   final String titleText;
   final String subText;
-
   final FontWeight fontWeight;
   const PlaylistSongCard({
     super.key,
@@ -23,7 +20,6 @@ class PlaylistSongCard extends StatefulWidget {
     required this.item,
     required this.index,
     required this.audioPlayer,
-    // required this.leadingIcon,
     required this.folderName,
   });
 
@@ -32,40 +28,9 @@ class PlaylistSongCard extends StatefulWidget {
 }
 
 class _PlaylistSongCardState extends State<PlaylistSongCard> {
-  // playSong(String? uri) {
-  //   try {
-  //     widget.audioPlayer.setAudioSource(
-  //       AudioSource.uri(
-  //         Uri.parse(uri!),
-  //       ),
-  //     );
-  //     widget.audioPlayer.play();
-  //   } on Exception {
-  //     log("Error pasing song");
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // FavDb.getAllSongs();
     return ListTile(
-      onTap: (() {
-        // MusicFile.audioPlayer.setAudioSource(
-        //     MusicFile.createSongList(widget.item.data!,),
-        //     initialIndex: widget.index,);
-        // MusicFile.audioPlayer.play();
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: ((context) {
-        //       return PlayerScreen(
-        //         songModel: widget.item.data!,
-        //         index: widget.index,
-        //       );
-        //     }),
-        //   ),
-        // );
-      }),
       leading: QueryArtworkWidget(
         artworkBorder: BorderRadius.circular(10),
         id: widget.item.data![widget.index].id,
@@ -95,7 +60,9 @@ class _PlaylistSongCardState extends State<PlaylistSongCard> {
       subtitle: Text(
         widget.subText,
         style: const TextStyle(
-            fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+          fontWeight: FontWeight.bold,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }

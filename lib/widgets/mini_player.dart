@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -46,7 +45,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
             shape: const OutlineInputBorder(
               borderSide: BorderSide(width: 0),
             ),
-            tileColor: Colors.grey,
+            tileColor: Colors.amber,
             leading: QueryArtworkWidget(
               artworkBorder: BorderRadius.circular(10),
               quality: 100,
@@ -64,8 +63,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
             subtitle: Text(
               '${MusicFile.playingSong[MusicFile.audioPlayer.currentIndex!].artist}',
               style: const TextStyle(
-                // fontSize: 16,
-                // fontWeight: FontWeight.bold,
                 color: Colors.black,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -76,7 +73,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
                   .displayNameWOExt,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                // overflow: TextOverflow.ellipsis,
               ),
               maxLines: 1,
             ),

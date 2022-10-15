@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,27 +39,12 @@ class _AllSongState extends State<AllSong> {
 
   final _audioQuery = OnAudioQuery();
 
-  // playSong(String? uri) {
-  //   try {
-  //     MusicFile.audioPlayer.setAudioSource(
-  //       AudioSource.uri(
-  //         Uri.parse(uri!),
-  //       ),
-  //     );
-  //     MusicFile.audioPlayer.play();
-  //   } on Exception {
-  //     log(
-  //       "Error pasing song",
-  //     );
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white10,
-        title: Text(
+        title: const Text(
           'All Songs',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -71,15 +55,6 @@ class _AllSongState extends State<AllSong> {
           physics: const ScrollPhysics(),
           child: Column(
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: const [
-              //     HeadingText(
-              //       text: 'All Songs',
-              //     ),
-              //   ],
-              // ),
-              // // const GridCarousal(),
               Center(
                 child: FutureBuilder<List<SongModel>>(
                   future: audioQuery.querySongs(
@@ -233,7 +208,6 @@ class _AllSongState extends State<AllSong> {
                               item.data![index].artist.toString() == "<unknown>"
                                   ? "Unknown Artist"
                                   : item.data![index].artist.toString(),
-                          fontWeight: FontWeight.bold,
                         );
                       }),
                     );

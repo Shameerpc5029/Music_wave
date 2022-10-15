@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+
 import 'package:flutter/material.dart';
 import 'package:music_wave/db/model/data_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -49,6 +51,7 @@ class FavDb {
         [playlistmodel.playlistName]);
 
     getAllPlaylist();
+
 
     FavDb.playListNotifier.notifyListeners();
   }

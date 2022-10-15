@@ -1,6 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/screens/player_screen.dart';
@@ -47,49 +45,47 @@ class _GridCarousalState extends State<GridCarousal> {
           return CarouselSlider.builder(
             itemCount: item.data!.length,
             itemBuilder: (context, index, realIndex) {
-              return Center(
+              return GestureDetector(
+                onTap: () {
+                  MusicFile.audioPlayer.setAudioSource(
+                      MusicFile.createSongList(item.data!),
+                      initialIndex: index);
+                  MusicFile.audioPlayer.play();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) {
+                        return PlayerScreen(
+                          songModel: item.data!,
+                          index: index,
+                        );
+                      }),
+                    ),
+                  );
+                },
                 child: Card(
                   elevation: 10,
                   margin: const EdgeInsets.symmetric(horizontal: 12),
-                  child: InkWell(
-                    onTap: () {
-                      MusicFile.audioPlayer.setAudioSource(
-                          MusicFile.createSongList(item.data!),
-                          initialIndex: index);
-                      MusicFile.audioPlayer.play();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) {
-                            return PlayerScreen(
-                              songModel: item.data!,
-                              index: index,
-                            );
-                          }),
-                        ),
-                      );
-                    },
-                    child: QueryArtworkWidget(
-                      id: item.data![index].id,
-                      type: ArtworkType.AUDIO,
-                      keepOldArtwork: true,
-                      quality: 100,
-                      artworkFit: BoxFit.cover,
-                      artworkBorder: BorderRadius.circular(10),
-                      artworkHeight: 142,
-                      artworkWidth: 500,
-                      nullArtworkWidget: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.blue,
-                        ),
-                        height: 142,
-                        child: const Center(
-                          child: Icon(
-                            Icons.music_note,
-                            color: Colors.white,
-                            size: 50,
-                          ),
+                  child: QueryArtworkWidget(
+                    id: item.data![index].id,
+                    type: ArtworkType.AUDIO,
+                    keepOldArtwork: true,
+                    quality: 100,
+                    artworkFit: BoxFit.cover,
+                    artworkBorder: BorderRadius.circular(10),
+                    artworkHeight: 142,
+                    artworkWidth: 500,
+                    nullArtworkWidget: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.blue,
+                      ),
+                      height: 142,
+                      child: const Center(
+                        child: Icon(
+                          Icons.music_note,
+                          color: Colors.white,
+                          size: 50,
                         ),
                       ),
                     ),
@@ -100,14 +96,7 @@ class _GridCarousalState extends State<GridCarousal> {
             options: CarouselOptions(
               viewportFraction: 0.3,
               enableInfiniteScroll: true,
-              disableCenter: true,
-              autoPlayAnimationDuration: const Duration(
-                seconds: 3,
-              ),
-              autoPlayInterval: const Duration(
-                seconds: 3,
-              ),
-              // aspectRatio: 100,
+              autoPlayCurve: Curves.fastLinearToSlowEaseIn,
               height: 200,
               autoPlay: true,
               enlargeCenterPage: true,

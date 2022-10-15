@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class HeadingText extends StatelessWidget {
   final String text;
@@ -44,22 +44,3 @@ class SubTitle extends StatelessWidget {
   }
 }
 
-class HeadingTextthin extends StatelessWidget {
-  final String titleText;
-  const HeadingTextthin({
-    super.key,
-    required this.titleText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      titleText,
-      style: GoogleFonts.sarala(
-        fontSize: 16,
-        fontWeight: FontWeight.w300,
-        color: Colors.white,
-      ),
-    );
-  }
-}

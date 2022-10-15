@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/playlist_song_card.dart';
@@ -18,11 +17,8 @@ class SelectPlaylistScreen extends StatefulWidget {
 }
 
 class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
-  bool addButtonClick = false;
   final _audioQuery = OnAudioQuery();
 
-  Color iconColor = Colors.black38;
-  bool buttonClick = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +81,6 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
                           item: item,
                           index: index,
                           audioPlayer: MusicFile.audioPlayer,
-                   
                         );
                       }),
                     );

@@ -20,7 +20,6 @@ class CardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
-        // color: Colors.white,
         elevation: 3,
         child: ListTile(
           onTap: () {
@@ -28,9 +27,6 @@ class CardTile extends StatelessWidget {
           },
           leading: CircleAvatar(
             backgroundColor: Colors.white10,
-            // child: LottieBuilder.asset('assets/lottie/99403-love.json'
-            //     // height: 200,
-            //     ),
             child: Icon(
               icon,
               color: iconColor,
@@ -92,44 +88,3 @@ class CardTile2 extends StatelessWidget {
     );
   }
 }
-
-// class CardTile3 extends StatelessWidget {
-//   final dynamic icon;
-//   final String titleText;
-//   final Function() tapAction;
-
-//   const CardTile3({
-//     super.key,
-//     required this.icon,
-//     required this.titleText,
-//     required this.tapAction,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: const EdgeInsets.all(
-//         0,
-//       ),
-//       child: Row(
-//         children: [
-//           Expanded(
-//             child: ListTile(
-//               leading: Icon(
-//                 icon,
-//                 size: 28,
-//               ),
-//               title: Text(
-//                 titleText,
-//                 style: const TextStyle(
-//                   fontSize: 20,
-//                 ),
-//               ),
-//             ),
-//           ),
-//           const SwitchButton(),
-//         ],
-//       ),
-//     );
-//   }
-// }

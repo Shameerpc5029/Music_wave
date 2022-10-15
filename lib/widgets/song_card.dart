@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:music_wave/widgets/fav_button.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SongCard extends StatefulWidget {
@@ -13,12 +11,10 @@ class SongCard extends StatefulWidget {
   final String titleText;
   final String subText;
 
-  final FontWeight fontWeight;
   const SongCard({
     super.key,
     required this.titleText,
     required this.subText,
-    required this.fontWeight,
     required this.item,
     required this.index,
     required this.leadingIcon,
@@ -51,9 +47,9 @@ class _SongCardState extends State<SongCard> {
       ),
       title: Text(
         widget.titleText,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
-          fontWeight: widget.fontWeight,
+          fontWeight: FontWeight.bold,
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -63,7 +59,9 @@ class _SongCardState extends State<SongCard> {
       subtitle: Text(
         widget.subText,
         style: const TextStyle(
-            fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+          fontWeight: FontWeight.bold,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }

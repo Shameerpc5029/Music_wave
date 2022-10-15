@@ -3,7 +3,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:lottie/lottie.dart';
 import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/music_file.dart';
-
 import 'package:music_wave/widgets/white_space.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -35,7 +34,6 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: TextFormField(
-          
           onChanged: (value) => search(value),
           style: const TextStyle(
             fontWeight: FontWeight.normal,
@@ -75,10 +73,14 @@ class _SearchScreenState extends State<SearchScreen> {
                           title: Text(
                             song[index].displayNameWOExt,
                             maxLines: 1,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text(
-                            '${song[index].artist}',
+                            '${song[index].artist}' == "<unknown>"
+                                ? "Unknown Artist"
+                                : '${song[index].artist}',
                             maxLines: 1,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           leading: QueryArtworkWidget(
                             artworkBorder: BorderRadius.circular(10),

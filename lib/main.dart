@@ -24,8 +24,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         useMaterial3: true,
-        // hintColor: Colors.red,
-        // indicatorColor: Colors.red,
       ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),

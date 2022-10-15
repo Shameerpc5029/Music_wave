@@ -3,11 +3,9 @@ import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/db/model/data_model.dart';
 import 'package:music_wave/screens/favorate_screen.dart';
 import 'package:music_wave/screens/playlist_screen.dart';
-import 'package:music_wave/screens/search_screen.dart';
 import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/remove_alert.dart';
 import 'package:music_wave/widgets/show_bottom_sheet.dart';
-import 'package:music_wave/widgets/text.dart';
 import 'package:music_wave/widgets/white_space.dart';
 
 
@@ -119,7 +117,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             child: ListTile(
                               leading: const Icon(
                                 Icons.playlist_play_rounded,
-                                // color: Colors.red,
+
                                 size: 40,
                               ),
                               title: Text(
