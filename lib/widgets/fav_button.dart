@@ -45,7 +45,6 @@ class _FavButtonState extends State<FavButton> {
               FavDb.removeFav(widget.songModel.id);
             }
             buttonPressed();
-
           }),
         );
       },
