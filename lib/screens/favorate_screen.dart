@@ -41,7 +41,9 @@ class _FavorateScreenState extends State<FavorateScreen> {
         leading: IconButton(
           onPressed: (() {
             setState(() {
-              Navigator.pop(context);
+              Navigator.pop(
+                context,
+              );
             });
           }),
           icon: const Icon(

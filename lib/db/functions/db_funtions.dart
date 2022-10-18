@@ -164,7 +164,7 @@ class FavDb {
 
     getAllSongs();
 
-    FavDb.musicListNotifier.notifyListeners();
+    musicListNotifier.notifyListeners();
   }
 
   static Future<void> getAllSongs() async {
@@ -181,6 +181,7 @@ class FavDb {
         addsong,
       );
     }
+    musicListNotifier.notifyListeners();
   }
 
   static Future<void> removeFav(int id) async {

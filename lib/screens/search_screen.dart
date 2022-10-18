@@ -1,5 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
+
 import 'package:lottie/lottie.dart';
 import 'package:music_wave/screens/player_screen.dart';
 import 'package:music_wave/widgets/music_file.dart';
@@ -18,9 +20,8 @@ class SearchScreen extends StatefulWidget {
 late List<SongModel> allSong;
 
 List<SongModel> song = [];
-final audioPlayer = AudioPlayer();
+
 final audioQuery = OnAudioQuery();
-int currentIndex = 0;
 
 class _SearchScreenState extends State<SearchScreen> {
   @override
@@ -31,6 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log("searv");
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
@@ -161,9 +163,11 @@ class _SearchScreenState extends State<SearchScreen> {
       results = allSong;
     } else {
       results = allSong
-          .where((element) => element.displayNameWOExt
-              .toLowerCase()
-              .contains(keybord.toLowerCase()))
+          .where(
+            (element) => element.displayNameWOExt.toLowerCase().contains(
+                  keybord.toLowerCase(),
+                ),
+          )
           .toList();
     }
     setState(() {

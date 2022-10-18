@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/db/model/data_model.dart';
@@ -38,6 +40,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log("libr");
     return Scaffold(
       appBar: AppBar(
         title: const Text(

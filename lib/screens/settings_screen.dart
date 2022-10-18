@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:music_wave/db/functions/db_funtions.dart';
 import 'package:music_wave/screens/about_screen.dart';
@@ -13,6 +15,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("set");
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -80,9 +83,11 @@ class SettingsScreen extends StatelessWidget {
                           MusicFile.audioPlayer.stop();
 
                           Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: ((context) {
-                            return const SplashScreen();
-                          })), (route) => false);
+                              MaterialPageRoute(
+                            builder: ((context) {
+                              return const SplashScreen();
+                            }),
+                          ), (route) => false);
                         },
                       );
                     }),

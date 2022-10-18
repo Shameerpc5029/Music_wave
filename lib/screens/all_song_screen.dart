@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,7 @@ class _AllSongState extends State<AllSong> {
 
   @override
   Widget build(BuildContext context) {
+    log('message');
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -194,9 +197,10 @@ class _AllSongState extends State<AllSong> {
                                   );
                                 }),
                               ),
-                            );
+                            ).then((value) {
+                              setState(() {});
+                            });
                           },
-                          leadingIcon: const Icon(Icons.favorite),
                           item: item,
                           index: index,
                           titleText: item.data![index].displayNameWOExt,

@@ -34,8 +34,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
         setState(() {
           currentIndex = index;
         });
-        cheakFav();
+
         MusicFile.currentIndes = index;
+        setState(() {
+          cheakFav();
+        });
       }
     });
     super.initState();
@@ -180,7 +183,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                   widget.songModel[currentIndex],
                                 );
                               }
-                              cheakFav();
+
+                              setState(() {
+                                cheakFav();
+                              });
                             },
                             icon: Icons.favorite,
                             color: isFav ? Colors.red : Colors.blue,

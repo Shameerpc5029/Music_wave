@@ -18,7 +18,9 @@ class _FavButtonState extends State<FavButton> {
   @override
   void initState() {
     super.initState();
-    buttonPressed();
+    setState(() {
+      buttonPressed();
+    });
   }
 
   IconData icon = Icons.favorite_border_outlined;
@@ -36,9 +38,8 @@ class _FavButtonState extends State<FavButton> {
             color: iconColor,
           ),
           onPressed: (() async {
-            bool isFav = await FavDb.isFav(
-              widget.songModel.id,
-            );
+            setState(() {});
+            bool isFav = await FavDb.isFav(widget.songModel.id);
             if (!isFav) {
               FavDb.addFav(widget.songModel);
             } else {
