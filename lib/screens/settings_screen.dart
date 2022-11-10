@@ -9,6 +9,7 @@ import 'package:music_wave/screens/teams_screen.dart';
 import 'package:music_wave/widgets/card.dart';
 import 'package:music_wave/widgets/music_file.dart';
 import 'package:music_wave/widgets/remove_alert.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -66,7 +67,10 @@ class SettingsScreen extends StatelessWidget {
               CardTile2(
                 icon: Icons.share,
                 titleText: 'Share Music Wave',
-                tapAction: () {},
+                tapAction: () {
+                  Share.share(
+                      'https://play.google.com/store/apps/details?id=in.shameer.music_wave');
+                },
               ),
               CardTile2(
                 icon: Icons.restart_alt,

@@ -16,14 +16,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
+  Widget screen = pages[0];
   void navBottonBar(int index) {
     setState(() {
       selectedIndex = index;
     });
   }
 
-  List<Widget> pages = [
-    
+  static List<Widget> pages = [
     const AllSong(),
     const LibraryScreen(),
     const SearchScreen(),

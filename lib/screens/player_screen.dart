@@ -88,8 +88,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
-            setState(() {});
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           }),
           icon: const Icon(
             Icons.arrow_back_ios,

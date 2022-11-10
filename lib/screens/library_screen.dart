@@ -173,7 +173,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                       );
                                     }),
                                   ),
-                                );
+                                ).then((value) {
+                                  setState(() {
+                                    print("helo");
+                                  });
+                                });
                               },
                             ),
                           ),

@@ -23,6 +23,7 @@ class _AllSongState extends State<AllSong> {
   @override
   void initState() {
     super.initState();
+    setState(() {});
     requestPermission();
   }
 
@@ -180,25 +181,28 @@ class _AllSongState extends State<AllSong> {
                         return SongCard(
                           icon: Icons.favorite,
                           onTap: () {
-                            MusicFile.audioPlayer.setAudioSource(
-                              MusicFile.createSongList(
-                                item.data!,
-                              ),
-                              initialIndex: index,
-                            );
-                            MusicFile.audioPlayer.play();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: ((context) {
-                                  return PlayerScreen(
-                                    songModel: item.data!,
-                                    index: index,
-                                  );
-                                }),
-                              ),
-                            ).then((value) {
-                              setState(() {});
+                            setState(() {
+                              MusicFile.audioPlayer.setAudioSource(
+                                MusicFile.createSongList(
+                                  item.data!,
+                                ),
+                                initialIndex: index,
+                              );
+                              MusicFile.audioPlayer.play();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: ((context) {
+                                    return PlayerScreen(
+                                      songModel: item.data!,
+                                      index: index,
+                                    );
+                                  }),
+                                ),
+                              ).whenComplete(() {
+                                setState(() {});
+                              });
+                              log('hai');
                             });
                           },
                           item: item,

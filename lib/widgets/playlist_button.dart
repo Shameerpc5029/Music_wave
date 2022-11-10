@@ -38,7 +38,9 @@ class _FavButtonState extends State<PlaylistButton> {
           onPressed: (() {
             buttonPressed();
           }),
-          icon: Icon(icon),
+          icon: Icon(
+            icon,
+          ),
         );
       },
     );
