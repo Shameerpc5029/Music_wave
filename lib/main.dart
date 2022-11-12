@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:music_wave/db/functions/db_funtions.dart';
-import 'package:music_wave/screens/splash_screen.dart';
+import 'package:music_wave/Model/functions/db_funtions.dart';
+import 'package:music_wave/View/Splash%20Screen/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
