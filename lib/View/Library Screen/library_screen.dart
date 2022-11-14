@@ -9,37 +9,21 @@ import 'package:music_wave/View/widgets/card.dart';
 import 'package:music_wave/View/widgets/remove_alert.dart';
 import 'package:music_wave/View/Library%20Screen/Playlist/Widgets/show_bottom_sheet.dart';
 import 'package:music_wave/View/widgets/white_space.dart';
+import 'package:provider/provider.dart';
 
-class LibraryScreen extends StatefulWidget {
-  const LibraryScreen({
+class LibraryScreen extends StatelessWidget {
+  LibraryScreen({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<LibraryScreen> createState() => _LibraryScreenState();
-}
-
-class _LibraryScreenState extends State<LibraryScreen> {
   final playlistNameController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    FavDb.getAllPlaylist();
-    totalcount();
-  }
-
-  int counter = 0;
-
-  void totalcount() async {
-    int? count = await FavDb.countFav();
-    setState(() {
-      counter = count!;
-    });
-  }
-
+  // @override
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<FavDb>(context,listen: false).getAllPlaylist();
+    });
     log("libr");
     return Scaffold(
       appBar: AppBar(
@@ -60,7 +44,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             children: [
               CardTile(
                 //favorate
-                subText: '$counter Songs'.toString(),
+                subText: 'counter Songs'.toString(),
                 tittleText: 'Favorite Songs',
                 icon: Icons.favorite,
 
@@ -111,10 +95,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   ],
                 ),
               ),
-              ValueListenableBuilder(
-                valueListenable: FavDb.playListNotifier,
-                builder: (BuildContext context, List<ListModel> playlist,
-                    Widget? child) {
+              Consumer<FavDb>(
+                builder: (context, value, child) {
                   return ListView.builder(
                     physics: const ScrollPhysics(),
                     shrinkWrap: true,
@@ -130,7 +112,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                 size: 40,
                               ),
                               title: Text(
-                                playlist[index].playlistName,
+                                value.playlistModel[index].playlistName,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -146,13 +128,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                         contant:
                                             'Do you want to remove this playlist?',
                                         yesPress: () {
-                                          FavDb.removePlaylist(
-                                            playlist[index].playlistName,
-                                          );
-                                          Navigator.pop(
-                                            context,
-                                          );
-                                          setState(() {});
+                                          // FavDb.removePlaylist(
+                                          //   playlist[index].playlistName,
+                                          // );
+                                          value.removePlaylist(value
+                                              .playlistModel[index]
+                                              .playlistName);
+                                          Navigator.pop(context);
                                         },
                                       );
                                     }),
@@ -168,15 +150,15 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                   MaterialPageRoute(
                                     builder: ((context) {
                                       return PlaylistScreen(
-                                        folderName:
-                                            playlist[index].playlistName,
+                                        folderName: value
+                                            .playlistModel[index].playlistName,
                                       );
                                     }),
                                   ),
                                 ).then((value) {
-                                  setState(() {
-                                    print("helo");
-                                  });
+                                  // setState(() {
+                                  print("helo");
+                                  //    });
                                 });
                               },
                             ),
@@ -184,7 +166,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         ),
                       );
                     }),
-                    itemCount: playlist.length,
+                    itemCount: value.playlistModel.length,
                   );
                 },
               ),
@@ -195,20 +177,21 @@ class _LibraryScreenState extends State<LibraryScreen> {
     );
   }
 
-  Future<void> addplaylistCliked() async {
+  Future<void> addplaylistCliked(context) async {
     final add = playlistNameController.text.trim();
 
     if (add.isEmpty) {
       return;
     } else {
-      setState(() {
-        final playAdd = ListModel(
-          playlistName: add,
-        );
-        FavDb.addPlaylist(
-          playAdd,
-        );
-      });
+      //setState(() {
+      final playAdd = ListModel(
+        playlistName: add,
+      );
+      // FavDb.addPlaylist(
+      //   playAdd,
+      // );
+      Provider.of<FavDb>(context, listen: false).addPlaylist(playAdd);
+      //  });
     }
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(

@@ -1,36 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:music_wave/Model/functions/db_funtions.dart';
 import 'package:music_wave/View/Player%20Screen/player_screen.dart';
 import 'package:music_wave/View/Library%20Screen/Playlist/select_playlist_screen.dart';
 import 'package:music_wave/View/widgets/music_file.dart';
 import 'package:music_wave/View/Library%20Screen/Playlist/Widgets/playlist_card.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 
-class PlaylistScreen extends StatefulWidget {
+class PlaylistScreen extends StatelessWidget {
   final String folderName;
-  const PlaylistScreen({
+  PlaylistScreen({
     super.key,
     required this.folderName,
   });
 
-  @override
-  State<PlaylistScreen> createState() => _PlaylistScreenState();
-}
-
-class _PlaylistScreenState extends State<PlaylistScreen> {
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      FavDb.getAllPlaylistSongs(widget.folderName);
-    });
-  }
-
+//  @override
   final _audioQuery = OnAudioQuery();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<FavDb>(context, listen: false)
+          .getAllPlaylistSongs(folderName);
+    });
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(
@@ -44,7 +38,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             MaterialPageRoute(
               builder: ((context) {
                 return SelectPlaylistScreen(
-                  folderName: widget.folderName,
+                  folderName: folderName,
                 );
               }),
             ),
@@ -56,7 +50,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       ),
       appBar: AppBar(
         title: Text(
-          widget.folderName.toUpperCase(),
+          folderName.toUpperCase(),
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -95,37 +89,36 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   ),
                 );
               } else {
-                return ValueListenableBuilder(
-                  valueListenable: FavDb.playListMusicNotifier,
-                  builder: (BuildContext context, List<SongModel> music,
-                      Widget? child) {
+                return Consumer<FavDb>(
+                  builder: (context, value, child) {
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const ScrollPhysics(),
-                      itemCount: music.length,
+                      itemCount: value.songsPlaylist.length,
                       itemBuilder: (context, index) {
                         return PlaylistCard(
                           trailing: IconButton(
                             onPressed: () {
-                              setState(() {
-                                FavDb.removePlaylistMusic(
-                                  music[index].id,
-                                  widget.folderName,
-                                );
-                              });
+                              // FavDb.removePlaylistMusic(
+                              //   music[index].id,
+                              //   folderName,
+                              // );
+                              value.removePlaylistMusic(
+                                  value.songsPlaylist[index].id, folderName);
                             },
                             icon: const Icon(
                               Icons.delete_sweep_outlined,
                             ),
                           ),
-                          title: music[index].title,
-                          subtitle:
-                              music[index].artist.toString() == "<unknown>"
-                                  ? "Unknown Artist"
-                                  : music[index].artist.toString(),
-                          id: music[index].id,
+                          title: value.songsPlaylist[index].title,
+                          subtitle: value.songsPlaylist[index].artist
+                                      .toString() ==
+                                  "<unknown>"
+                              ? "Unknown Artist"
+                              : value.songsPlaylist[index].artist.toString(),
+                          id: value.songsPlaylist[index].id,
                           onTap: () {
-                            List<SongModel> playList = [...music];
+                            List<SongModel> playList = [...value.songsPlaylist];
                             MusicFile.audioPlayer.stop();
                             MusicFile.audioPlayer.setAudioSource(
                               MusicFile.createSongList(

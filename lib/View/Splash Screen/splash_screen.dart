@@ -23,39 +23,40 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Center(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 200,
-            ),
-            Container(
-              width: 200,
-              height: 200,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/logo.png',
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 200,
+              ),
+              Container(
+                width: 200,
+                height: 200,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/logo.png',
+                    ),
                   ),
                 ),
               ),
-            ),
-            const WhiteSpace(),
-            const Text(
-              "Music Wave",
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+              const WhiteSpace(),
+              const Text(
+                "Music Wave",
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const Spacer(),
-            LoadingAnimationWidget.staggeredDotsWave(
-              color: Colors.black,
-              size: 40,
-            )
-          ],
+              const Spacer(),
+              LoadingAnimationWidget.staggeredDotsWave(
+                color: Colors.black,
+                size: 40,
+              )
+            ],
+          ),
         ),
-      ),),
+      ),
     );
   }
 
@@ -64,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 3),
       (() => Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: ((context) =>  HomeScreen()),
+              builder: ((context) => HomeScreen()),
             ),
           )),
     );

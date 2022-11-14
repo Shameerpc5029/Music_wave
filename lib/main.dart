@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:music_wave/Controller/home_provider.dart';
+import 'package:music_wave/Controller/provider/home_provider.dart';
+import 'package:music_wave/Controller/provider/miniplayer_provider.dart';
+import 'package:music_wave/Controller/provider/music_screen_provider.dart';
+import 'package:music_wave/Controller/provider/player_provider.dart';
+import 'package:music_wave/Controller/provider/splash_provider.dart';
 import 'package:music_wave/Model/functions/db_funtions.dart';
 import 'package:music_wave/View/Splash%20Screen/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +31,22 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => HomeProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SplashProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MusicScreenProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FavDb(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PlayerProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MiniPlayerProvider(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(

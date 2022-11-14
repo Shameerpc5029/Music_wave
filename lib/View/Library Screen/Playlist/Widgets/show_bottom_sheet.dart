@@ -3,6 +3,7 @@ import 'package:music_wave/Model/functions/db_funtions.dart';
 import 'package:music_wave/Model/model/data_model.dart';
 import 'package:music_wave/View/widgets/text.dart';
 import 'package:music_wave/View/widgets/white_space.dart';
+import 'package:provider/provider.dart';
 
 class ShowBottomSheet extends StatefulWidget {
   const ShowBottomSheet({
@@ -70,41 +71,45 @@ class _ShowBottomSheetState extends State<ShowBottomSheet> {
             const WhiteSpace(),
             Form(
               key: fromKey,
-              child: TextFormField(
-                validator: ((value) {
-                  if (value!.isEmpty) {
-                    return "Please Enter Playlist Name";
-                  }
-                  final data = FavDb.playListNotifier.value
-                      .map(
-                        (e) => e.playlistName.trim(),
-                      )
-                      .toList();
-                  if (data.contains(
-                    playlistNameController.text.trim(),
-                  )) {
-                    return 'Playlist Name Already Exists';
-                  }
-                  return null;
-                }),
-                controller: playlistNameController,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.fromLTRB(
-                    20.0,
-                    10.0,
-                    20.0,
-                    10.0,
-                  ),
-                  labelText: 'Enter Playlist Name',
-                  hintStyle: const TextStyle(
-                    fontSize: 14,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                      20,
+              child: Consumer<FavDb>(
+                builder: (context, consumer, child) {
+                  return TextFormField(
+                    validator: ((value) {
+                      if (value!.isEmpty) {
+                        return "Please Enter Playlist Name";
+                      }
+                      final data = consumer.playlistModel
+                          .map(
+                            (e) => e.playlistName.trim(),
+                          )
+                          .toList();
+                      if (data.contains(
+                        playlistNameController.text.trim(),
+                      )) {
+                        return 'Playlist Name Already Exists';
+                      }
+                      return null;
+                    }),
+                    controller: playlistNameController,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.fromLTRB(
+                        20.0,
+                        10.0,
+                        20.0,
+                        10.0,
+                      ),
+                      labelText: 'Enter Playlist Name',
+                      hintStyle: const TextStyle(
+                        fontSize: 14,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          20,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             ),
             const WhiteSpace10(),
@@ -166,9 +171,10 @@ class _ShowBottomSheetState extends State<ShowBottomSheet> {
       final playAdd = ListModel(
         playlistName: add,
       );
-      FavDb.addPlaylist(
-        playAdd,
-      );
+      // FavDb.addPlaylist(
+      //   playAdd,
+      // );
+      Provider.of<FavDb>(context, listen: false).addPlaylist(playAdd);
     }
   }
 }

@@ -22,6 +22,9 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('All Songs'),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(
@@ -29,19 +32,6 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
           ),
           child: Column(
             children: [
-              Row(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 10.0,
-                      left: 10,
-                    ),
-                    child: HeadingText(
-                      text: 'All Songs',
-                    ),
-                  ),
-                ],
-              ),
               FutureBuilder<List<SongModel>>(
                 future: _audioQuery.querySongs(
                   sortType: null,

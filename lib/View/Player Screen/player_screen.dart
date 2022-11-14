@@ -28,29 +28,29 @@ class _PlayerScreenState extends State<PlayerScreen> {
   int currentIndex = 0;
 
   @override
-  void initState() {
-    MusicFile.audioPlayer.currentIndexStream.listen((index) {
-      if (index != null && mounted) {
-        setState(() {
-          currentIndex = index;
-        });
+  // void initState() {
+  //   MusicFile.audioPlayer.currentIndexStream.listen((index) {
+  //     if (index != null && mounted) {
+  //       setState(() {
+  //         currentIndex = index;
+  //       });
 
-        MusicFile.currentIndes = index;
-        setState(() {
-          cheakFav();
-        });
-      }
-    });
-    super.initState();
+  //       MusicFile.currentIndes = index;
+  //       // setState(() {
+  //         cheakFav();
+  //       // });
+  //     }
+  //   });
+  //   super.initState();
 
-    playSongs();
-  }
+  //   playSongs();
+  // }
 
   void cheakFav() async {
-    isFav = await FavDb.isFav(
-      widget.songModel[currentIndex].id,
-    );
-    setState(() {});
+    // isFav = await FavDb.isFav(
+    //   widget.songModel[currentIndex].id,
+    // );
+    // setState(() {});
   }
 
   void playSongs() {
@@ -174,13 +174,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             song: widget.songModel[currentIndex],
                             onTap: () async {
                               if (isFav) {
-                                FavDb.removeFav(
-                                  widget.songModel[currentIndex].id,
-                                );
+                                // FavDb.removeFav(
+                                //   widget.songModel[currentIndex].id,
+                                // );
                               } else {
-                                FavDb.addFav(
-                                  widget.songModel[currentIndex],
-                                );
+                                // FavDb.addFav(
+                                //   widget.songModel[currentIndex],
+                                // );
                               }
 
                               setState(() {

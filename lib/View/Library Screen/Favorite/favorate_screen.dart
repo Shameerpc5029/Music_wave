@@ -8,25 +8,19 @@ import 'package:music_wave/View/Library%20Screen/Favorite/Widgets/fav_card.dart'
 import 'package:music_wave/View/widgets/music_file.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 
-class FavorateScreen extends StatefulWidget {
+class FavorateScreen extends StatelessWidget {
   const FavorateScreen({
     super.key,
   });
 
-  @override
-  State<FavorateScreen> createState() => _FavorateScreenState();
-}
-
-class _FavorateScreenState extends State<FavorateScreen> {
-  @override
-  void initState() {
-    FavDb.getAllSongs();
-    super.initState();
-  }
-
+  // @override
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<FavDb>(context, listen: false).getAllSongs();
+    });
     FocusManager.instance.primaryFocus?.unfocus();
     return Scaffold(
       appBar: AppBar(
@@ -40,39 +34,37 @@ class _FavorateScreenState extends State<FavorateScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
-            setState(() {
-              Navigator.pop(
-                context,
-              );
-            });
+            // setState(() {
+            Navigator.pop(
+              context,
+            );
+            //   });
           }),
           icon: const Icon(
             Icons.arrow_back_ios,
           ),
         ),
       ),
-      body: SafeArea(
-        child: FavDb.musicListNotifier.value.isNotEmpty
-            ? SingleChildScrollView(
-                padding: const EdgeInsets.all(
-                  10,
-                ),
-                physics: const ScrollPhysics(),
-                child: ValueListenableBuilder(
-                  valueListenable: FavDb.musicListNotifier,
-                  builder: ((BuildContext context, List<SongModel> music,
-                      Widget? child) {
-                    return ListView.builder(
+      body: Consumer<FavDb>(
+        builder: (context, value, child) {
+          return SafeArea(
+            child: value.favSongModel.isNotEmpty
+                ? SingleChildScrollView(
+                    padding: const EdgeInsets.all(
+                      10,
+                    ),
+                    physics: const ScrollPhysics(),
+                    child: ListView.builder(
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: music.length,
+                      itemCount: value.favSongModel.length,
                       itemBuilder: ((BuildContext context, int index) {
                         return FavCard(
-                          id: music[index].id,
+                          id: value.favSongModel[index].id,
                           onTap: () {
-                            List<SongModel> favList = [...music];
+                            List<SongModel> favList = [...value.favSongModel];
 
-                            setState(() {});
+                            // setState(() {});
                             MusicFile.audioPlayer.stop();
                             MusicFile.audioPlayer.setAudioSource(
                               MusicFile.createSongList(
@@ -93,14 +85,16 @@ class _FavorateScreenState extends State<FavorateScreen> {
                             );
                             log('Song Played');
                           },
-                          title: music[index].title,
+                          title: value.favSongModel[index].title,
                           subtitle:
-                              music[index].artist.toString() == "<unknown>"
+                              value.favSongModel[index].artist.toString() ==
+                                      "<unknown>"
                                   ? "Unknown Artist"
-                                  : music[index].artist.toString(),
+                                  : value.favSongModel[index].artist.toString(),
                           traling: IconButton(
                             onPressed: () {
-                              FavDb.removeFav(music[index].id);
+                              // FavDb.removeFav(music[index].id);
+                              value.removeFav(value.favSongModel[index].id);
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -115,7 +109,7 @@ class _FavorateScreenState extends State<FavorateScreen> {
                                     ),
                                   ),
                                   content: Text(
-                                    '${music[index].title} Unliked!',
+                                    '${value.favSongModel[index].title} Unliked!',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -130,17 +124,17 @@ class _FavorateScreenState extends State<FavorateScreen> {
                           ),
                         );
                       }),
-                    );
-                  }),
-                ),
-              )
-            : Center(
-                heightFactor: 2,
-                child: LottieBuilder.asset(
-                  height: 300,
-                  'assets/lottie/116469-no-item-in-box.json',
-                ),
-              ),
+                    ),
+                  )
+                : Center(
+                    heightFactor: 2,
+                    child: LottieBuilder.asset(
+                      height: 300,
+                      'assets/lottie/116469-no-item-in-box.json',
+                    ),
+                  ),
+          );
+        },
       ),
     );
   }

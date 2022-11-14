@@ -1,46 +1,30 @@
 import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:music_wave/Controller/provider/music_screen_provider.dart';
 import 'package:music_wave/View/Player%20Screen/player_screen.dart';
 import 'package:music_wave/View/Search%20Screen/search_screen.dart';
 import 'package:music_wave/View/widgets/music_file.dart';
 import 'package:music_wave/View/Music%20Screen/Widgets/song_card.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 
-class AllSong extends StatefulWidget {
-  const AllSong({
+class AllSong extends StatelessWidget {
+  AllSong({
     Key? key,
   }) : super(key: key);
-  static List<SongModel> playSong = [];
-  @override
-  State<AllSong> createState() => _AllSongState();
-}
-
-class _AllSongState extends State<AllSong> {
-  @override
-  void initState() {
-    super.initState();
-    setState(() {});
-    requestPermission();
-  }
-
-  void requestPermission() async {
-    if (!kIsWeb) {
-      bool permissionStatus = await _audioQuery.permissionsStatus();
-      if (!permissionStatus) {
-        await _audioQuery.permissionsRequest();
-      }
-      setState(() {});
-    }
-  }
-
+  // @override
   final _audioQuery = OnAudioQuery();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      return Provider.of<MusicScreenProvider>(context, listen: false)
+          .requestPermission();
+    });
     log('message');
     return Scaffold(
       appBar: AppBar(
@@ -181,29 +165,25 @@ class _AllSongState extends State<AllSong> {
                         return SongCard(
                           icon: Icons.favorite,
                           onTap: () {
-                            setState(() {
-                              MusicFile.audioPlayer.setAudioSource(
-                                MusicFile.createSongList(
-                                  item.data!,
-                                ),
-                                initialIndex: index,
-                              );
-                              MusicFile.audioPlayer.play();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: ((context) {
-                                    return PlayerScreen(
-                                      songModel: item.data!,
-                                      index: index,
-                                    );
-                                  }),
-                                ),
-                              ).whenComplete(() {
-                                setState(() {});
-                              });
-                              log('hai');
-                            });
+                            //setState(() {
+                            MusicFile.audioPlayer.setAudioSource(
+                              MusicFile.createSongList(
+                                item.data!,
+                              ),
+                              initialIndex: index,
+                            );
+                            MusicFile.audioPlayer.play();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) {
+                                  return PlayerScreen(
+                                    songModel: item.data!,
+                                    index: index,
+                                  );
+                                }),
+                              ),
+                            );
                           },
                           item: item,
                           index: index,

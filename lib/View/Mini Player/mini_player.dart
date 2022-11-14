@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:music_wave/Controller/provider/miniplayer_provider.dart';
 import 'package:music_wave/View/Player%20Screen/player_screen.dart';
 import 'package:music_wave/View/widgets/music_file.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 
-class MiniPlayer extends StatefulWidget {
+class MiniPlayer extends StatelessWidget {
   const MiniPlayer({super.key, required this.index});
   final int index;
 
   @override
-  State<MiniPlayer> createState() => _MiniPlayerState();
-}
-
-class _MiniPlayerState extends State<MiniPlayer> {
-  @override
-  void initState() {
-    MusicFile.audioPlayer.currentIndexStream.listen((index) {
-      if (index != null && mounted) {
-        setState(() {});
-      }
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      return Provider.of<MiniPlayerProvider>(context, listen: false)
+          .miniplayer();
+    });
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: Column(
@@ -36,7 +27,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                   builder: ((context) {
                     return PlayerScreen(
                       songModel: MusicFile.playingSong,
-                      index: widget.index,
+                      index: index,
                     );
                   }),
                 ),
@@ -94,10 +85,10 @@ class _MiniPlayerState extends State<MiniPlayer> {
                       if (MusicFile.audioPlayer.hasPrevious) {
                         await MusicFile.audioPlayer.seekToPrevious();
                         await MusicFile.audioPlayer.play();
-                        setState(() {});
+                        // setState(() {});
                       } else {
                         await MusicFile.audioPlayer.play();
-                        setState(() {});
+                        // setState(() {});
                       }
                     },
                     icon: const Icon(
@@ -110,10 +101,10 @@ class _MiniPlayerState extends State<MiniPlayer> {
                     onPressed: () async {
                       if (MusicFile.audioPlayer.playing) {
                         await MusicFile.audioPlayer.pause();
-                        setState(() {});
+                        // setState(() {});
                       } else {
                         await MusicFile.audioPlayer.play();
-                        setState(() {});
+                        // setState(() {});
                       }
                     },
                     icon: StreamBuilder<bool>(
@@ -136,18 +127,22 @@ class _MiniPlayerState extends State<MiniPlayer> {
                       },
                     ),
                   ),
-                  IconButton(
-                    onPressed: () async {
-                      await MusicFile.audioPlayer.seekToNext();
+                  Consumer<MiniPlayerProvider>(
+                    builder: (context, value, child) {
+                      return IconButton(
+                        onPressed: () async {
+                          await MusicFile.audioPlayer.seekToNext();
 
-                      setState(() {});
-                      await MusicFile.audioPlayer.play();
+                          // setState(() {});
+                          await MusicFile.audioPlayer.play();
+                        },
+                        icon: const Icon(
+                          Icons.skip_next_rounded,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      );
                     },
-                    icon: const Icon(
-                      Icons.skip_next_rounded,
-                      size: 20,
-                      color: Colors.white,
-                    ),
                   ),
                 ],
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:music_wave/Controller/home_provider.dart';
+import 'package:music_wave/Controller/provider/home_provider.dart';
 import 'package:music_wave/View/Music%20Screen/all_song_screen.dart';
 import 'package:music_wave/View/Library%20Screen/library_screen.dart';
 import 'package:music_wave/View/Search%20Screen/search_screen.dart';
@@ -15,8 +15,8 @@ class HomeScreen extends StatelessWidget {
   Widget screen = pages[0];
 
   static List<Widget> pages = [
-    const AllSong(),
-    const LibraryScreen(),
+     AllSong(),
+     LibraryScreen(),
     const SearchScreen(),
     const SettingsScreen(),
   ];

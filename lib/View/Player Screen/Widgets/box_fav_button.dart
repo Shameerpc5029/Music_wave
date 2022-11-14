@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:music_wave/Model/functions/db_funtions.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 
-class BoxFavButton extends StatefulWidget {
+class BoxFavButton extends StatelessWidget {
   final SongModel song;
   final void Function() onTap;
   final Color color;
@@ -17,52 +17,34 @@ class BoxFavButton extends StatefulWidget {
   });
 
   @override
-  State<BoxFavButton> createState() => _BoxFavButtonState();
-}
-
-class _BoxFavButtonState extends State<BoxFavButton> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40,
       child: SizedBox(
-        width: 200,
-        child: ValueListenableBuilder(
-          valueListenable: FavDb.musicListNotifier,
-          builder:
-              (BuildContext context, List<SongModel> musiclist, Widget? child) {
-            return ElevatedButton.icon(
-              label: Text(
-                'Favorite',
-                style:
-                    TextStyle(color: widget.color, fontWeight: FontWeight.bold),
-              ),
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10)),
-                    side: BorderSide(
-                      color: Color.fromARGB(255, 109, 182, 207),
-                    ),
+          width: 200,
+          child: ElevatedButton.icon(
+            label: Text(
+              'Favorite',
+              style: TextStyle(color: color, fontWeight: FontWeight.bold),
+            ),
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10)),
+                  side: BorderSide(
+                    color: Color.fromARGB(255, 109, 182, 207),
                   ),
                 ),
               ),
-              onPressed: widget.onTap,
-              icon: Icon(
-                widget.icon,
-                color: widget.color,
-              ),
-            );
-          },
-        ),
-      ),
+            ),
+            onPressed: onTap,
+            icon: Icon(
+              icon,
+              color: color,
+            ),
+          )),
     );
   }
 }
