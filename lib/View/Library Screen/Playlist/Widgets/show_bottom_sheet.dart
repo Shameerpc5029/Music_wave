@@ -5,18 +5,14 @@ import 'package:music_wave/View/widgets/text.dart';
 import 'package:music_wave/View/widgets/white_space.dart';
 import 'package:provider/provider.dart';
 
-class ShowBottomSheet extends StatefulWidget {
-  const ShowBottomSheet({
+class ShowBottomSheet extends StatelessWidget {
+  ShowBottomSheet({
     super.key,
   });
-
-  @override
-  State<ShowBottomSheet> createState() => _ShowBottomSheetState();
-}
-
-class _ShowBottomSheetState extends State<ShowBottomSheet> {
   GlobalKey<FormState> fromKey = GlobalKey();
+
   final playlistNameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -143,7 +139,7 @@ class _ShowBottomSheetState extends State<ShowBottomSheet> {
                     ),
                     onPressed: () {
                       if (fromKey.currentState!.validate()) {
-                        addplaylistCliked();
+                        addplaylistCliked(context);
                       } else {
                         return;
                       }
@@ -164,7 +160,7 @@ class _ShowBottomSheetState extends State<ShowBottomSheet> {
     );
   }
 
-  Future<void> addplaylistCliked() async {
+  Future<void> addplaylistCliked(context) async {
     final add = playlistNameController.text.trim();
 
     if (add.isNotEmpty) {

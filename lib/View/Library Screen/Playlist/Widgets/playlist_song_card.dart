@@ -4,7 +4,7 @@ import 'package:music_wave/View/Library%20Screen/Playlist/Widgets/playlist_butto
 
 import 'package:on_audio_query/on_audio_query.dart';
 
-class PlaylistSongCard extends StatefulWidget {
+class PlaylistSongCard extends StatelessWidget {
   final AsyncSnapshot<List<SongModel>> item;
   final AudioPlayer audioPlayer;
   final String folderName;
@@ -24,18 +24,13 @@ class PlaylistSongCard extends StatefulWidget {
   });
 
   @override
-  State<PlaylistSongCard> createState() => _PlaylistSongCardState();
-}
-
-class _PlaylistSongCardState extends State<PlaylistSongCard> {
-  @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: QueryArtworkWidget(
         artworkBorder: BorderRadius.circular(
           10,
         ),
-        id: widget.item.data![widget.index].id,
+        id: item.data![index].id,
         type: ArtworkType.AUDIO,
         nullArtworkWidget: Container(
           width: 50,
@@ -52,19 +47,19 @@ class _PlaylistSongCardState extends State<PlaylistSongCard> {
         ),
       ),
       title: Text(
-        widget.titleText,
+        titleText,
         style: TextStyle(
           fontSize: 16,
-          fontWeight: widget.fontWeight,
+          fontWeight: fontWeight,
           overflow: TextOverflow.ellipsis,
         ),
       ),
       trailing: PlaylistButton(
-        folderName: widget.folderName,
-        songModel: widget.item.data![widget.index],
+        folderName: folderName,
+        songModel: item.data![index],
       ),
       subtitle: Text(
-        widget.subText,
+        subText,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
           overflow: TextOverflow.ellipsis,

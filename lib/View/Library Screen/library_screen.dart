@@ -22,7 +22,7 @@ class LibraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<FavDb>(context,listen: false).getAllPlaylist();
+      Provider.of<FavDb>(context, listen: false).getAllPlaylist();
     });
     log("libr");
     return Scaffold(
@@ -81,7 +81,7 @@ class LibraryScreen extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                           context: context,
                           builder: ((context) {
-                            return const ShowBottomSheet();
+                            return ShowBottomSheet();
                           }),
                         );
                       },

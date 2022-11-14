@@ -77,7 +77,7 @@ class FavorateScreen extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: ((context) {
                                   return PlayerScreen(
-                                    index: index,
+                                    // index: index,
                                     songModel: favList,
                                   );
                                 }),

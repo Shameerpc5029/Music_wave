@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                 Column(
                   children: [
                     MiniPlayer(
-                      index: MusicFile.audioPlayer.currentIndex!,
+                      // index: MusicFile.audioPlayer.currentIndex!,
                     )
                   ],
                 ),

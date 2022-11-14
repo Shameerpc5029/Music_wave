@@ -23,7 +23,7 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Songs'),
+        title: const Text('All Songs'),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

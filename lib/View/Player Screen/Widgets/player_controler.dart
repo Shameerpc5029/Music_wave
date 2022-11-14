@@ -22,19 +22,17 @@ class _MusicControllerState extends State<MusicController> {
           children: [
             IconButton(
               onPressed: () {
-                setState(() {
-                  if (shuffleOn) {
-                    MusicFile.audioPlayer.shuffle();
-                    MusicFile.audioPlayer.setShuffleModeEnabled(
-                      true,
-                    );
-                  } else {
-                    MusicFile.audioPlayer.setShuffleModeEnabled(
-                      false,
-                    );
-                  }
-                  shuffleOn = !shuffleOn;
-                });
+                if (shuffleOn) {
+                  MusicFile.audioPlayer.shuffle();
+                  MusicFile.audioPlayer.setShuffleModeEnabled(
+                    true,
+                  );
+                } else {
+                  MusicFile.audioPlayer.setShuffleModeEnabled(
+                    false,
+                  );
+                }
+                shuffleOn = !shuffleOn;
               },
               icon: Icon(
                 shuffleOn ? Icons.shuffle : Icons.shuffle_on_outlined,
@@ -52,7 +50,6 @@ class _MusicControllerState extends State<MusicController> {
                 ),
               ),
               onPressed: () async {
-                setState(() {});
                 if (MusicFile.audioPlayer.hasPrevious) {
                   await MusicFile.audioPlayer.seekToPrevious();
                   await MusicFile.audioPlayer.play();
@@ -79,10 +76,8 @@ class _MusicControllerState extends State<MusicController> {
               onPressed: () async {
                 if (MusicFile.audioPlayer.playing) {
                   await MusicFile.audioPlayer.pause();
-                  setState(() {});
                 } else {
                   await MusicFile.audioPlayer.play();
-                  setState(() {});
                 }
               },
               child: StreamBuilder<bool>(
@@ -125,18 +120,16 @@ class _MusicControllerState extends State<MusicController> {
             ),
             IconButton(
               onPressed: () {
-                setState(() {
-                  if (repetOn) {
-                    MusicFile.audioPlayer.setLoopMode(
-                      LoopMode.one,
-                    );
-                  } else {
-                    MusicFile.audioPlayer.setLoopMode(
-                      LoopMode.off,
-                    );
-                  }
-                  repetOn = !repetOn;
-                });
+                if (repetOn) {
+                  MusicFile.audioPlayer.setLoopMode(
+                    LoopMode.one,
+                  );
+                } else {
+                  MusicFile.audioPlayer.setLoopMode(
+                    LoopMode.off,
+                  );
+                }
+                repetOn = !repetOn;
               },
               icon: Icon(
                 repetOn ? Icons.repeat : Icons.repeat_on_outlined,

@@ -16,7 +16,6 @@ class PlaylistScreen extends StatelessWidget {
     required this.folderName,
   });
 
-//  @override
   final _audioQuery = OnAudioQuery();
 
   @override
@@ -131,7 +130,7 @@ class PlaylistScreen extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: ((context) {
                                   return PlayerScreen(
-                                    index: index,
+                                    // index: index,
                                     songModel: playList,
                                   );
                                 }),

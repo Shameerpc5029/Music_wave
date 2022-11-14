@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:music_wave/View/Music%20Screen/Widgets/fav_button.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class SongCard extends StatefulWidget {
+class SongCard extends StatelessWidget {
   final AsyncSnapshot<List<SongModel>> item;
   final IconData icon;
 
@@ -23,20 +23,15 @@ class SongCard extends StatefulWidget {
   });
 
   @override
-  State<SongCard> createState() => _SongCardState();
-}
-
-class _SongCardState extends State<SongCard> {
-  @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: widget.onTap,
+      onTap: onTap,
       leading: QueryArtworkWidget(
         artworkBorder: BorderRadius.circular(
           10,
         ),
         quality: 100,
-        id: widget.item.data![widget.index].id,
+        id: item.data![index].id,
         type: ArtworkType.AUDIO,
         nullArtworkWidget: Container(
           width: 50,
@@ -53,7 +48,7 @@ class _SongCardState extends State<SongCard> {
         ),
       ),
       title: Text(
-        widget.titleText,
+        titleText,
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
@@ -61,10 +56,10 @@ class _SongCardState extends State<SongCard> {
         ),
       ),
       trailing: FavButton(
-        songModel: widget.item.data![widget.index],
+        songModel: item.data![index],
       ),
       subtitle: Text(
-        widget.subText,
+        subText,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
           overflow: TextOverflow.ellipsis,

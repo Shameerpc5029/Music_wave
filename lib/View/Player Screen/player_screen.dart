@@ -9,11 +9,11 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class PlayerScreen extends StatefulWidget {
-  final int index;
+  // final int index;
   const PlayerScreen({
     super.key,
     required this.songModel,
-    required this.index,
+    // required this.index,
   });
   final List<SongModel> songModel;
 
@@ -28,30 +28,30 @@ class _PlayerScreenState extends State<PlayerScreen> {
   int currentIndex = 0;
 
   @override
-  // void initState() {
-  //   MusicFile.audioPlayer.currentIndexStream.listen((index) {
-  //     if (index != null && mounted) {
-  //       setState(() {
-  //         currentIndex = index;
-  //       });
+  void initState() {
+    MusicFile.audioPlayer.currentIndexStream.listen((index) {
+      if (index != null && mounted) {
+        setState(() {
+          currentIndex = index;
+        });
 
-  //       MusicFile.currentIndes = index;
-  //       // setState(() {
-  //         cheakFav();
-  //       // });
-  //     }
-  //   });
-  //   super.initState();
+        MusicFile.currentIndes = index;
+        setState(() {
+          // cheakFav();
+        });
+      }
+    });
+    super.initState();
 
-  //   playSongs();
-  // }
-
-  void cheakFav() async {
-    // isFav = await FavDb.isFav(
-    //   widget.songModel[currentIndex].id,
-    // );
-    // setState(() {});
+    playSongs();
   }
+
+  // void cheakFav() async {
+  //   isFav = await FavDb.isFav(
+  //     widget.songModel[currentIndex].id,
+  //   );
+  //   setState(() {});
+  // }
 
   void playSongs() {
     MusicFile.audioPlayer.durationStream.listen(
@@ -183,9 +183,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                 // );
                               }
 
-                              setState(() {
-                                cheakFav();
-                              });
+                              // setState(() {
+                              //   cheakFav();
+                              // });
                             },
                             icon: Icons.favorite,
                             color: isFav ? Colors.red : Colors.blue,
@@ -267,7 +267,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ),
                 ),
                 const WhiteSpace(),
-                const MusicController(),
+                MusicController(),
               ],
             ),
           ),

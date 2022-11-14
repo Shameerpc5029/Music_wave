@@ -82,7 +82,7 @@ class AllSong extends StatelessWidget {
                                     builder: ((context) {
                                       return PlayerScreen(
                                         songModel: item.data!,
-                                        index: index,
+                                        // index: index,
                                       );
                                     }),
                                   ),
@@ -179,7 +179,7 @@ class AllSong extends StatelessWidget {
                                 builder: ((context) {
                                   return PlayerScreen(
                                     songModel: item.data!,
-                                    index: index,
+                                    // index: index,
                                   );
                                 }),
                               ),

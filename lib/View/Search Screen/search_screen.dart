@@ -122,7 +122,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 builder: ((context) {
                                   return PlayerScreen(
                                     songModel: song,
-                                    index: index,
+                                    // index: index,
                                   );
                                 }),
                               ),
