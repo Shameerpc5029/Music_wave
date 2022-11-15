@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:music_wave/Controller/provider/home_provider.dart';
 import 'package:music_wave/Model/functions/db_funtions.dart';
 import 'package:music_wave/View/Settings%20Screen/About/about_screen.dart';
 import 'package:music_wave/View/Settings%20Screen/Privacy/privacy_screen.dart';
@@ -9,6 +10,7 @@ import 'package:music_wave/View/Settings%20Screen/Terms%20And%20Conditions/teams
 import 'package:music_wave/View/widgets/card.dart';
 import 'package:music_wave/View/widgets/music_file.dart';
 import 'package:music_wave/View/widgets/remove_alert.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -79,19 +81,24 @@ class SettingsScreen extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: ((context) {
-                      return RemoveAlert(
-                        title: 'Reset App',
-                        contant: 'Do you want to reset this app?',
-                        yesPress: () {
-                          FavDb().resetAll();
-                          MusicFile.audioPlayer.stop();
-
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                            builder: ((context) {
-                              return const SplashScreen();
-                            }),
-                          ), (route) => false);
+                      return Consumer<FavDb>(
+                        builder: (context, value, child) {
+                          return RemoveAlert(
+                            title: 'Reset App',
+                            contant: 'Do you want to reset this app?',
+                            yesPress: () {
+                              value.resetAll();
+                              MusicFile.audioPlayer.stop();
+                              Provider.of<HomeProvider>(context, listen: false)
+                                  .currentIndex = 0;
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                builder: ((context) {
+                                  return const SplashScreen();
+                                }),
+                              ), (route) => false);
+                            },
+                          );
                         },
                       );
                     }),

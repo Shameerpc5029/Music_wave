@@ -240,15 +240,10 @@ class FavDb extends ChangeNotifier {
 
   //reset App
   Future<void> resetAll() async {
-    await db.delete(
-      'song',
-    );
-    await playlistDb.delete(
-      'playlist',
-    );
-    await playlistMusicDb.delete(
-      'playlistSong',
-    );
+    await db.delete('song');
+    await playlistDb.delete('playlist');
+    await playlistMusicDb.delete('playlistSong');
+    getAllPlaylist();
     notifyListeners();
   }
 

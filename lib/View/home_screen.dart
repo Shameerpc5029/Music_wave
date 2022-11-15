@@ -61,10 +61,10 @@ class HomeScreen extends StatelessWidget {
                           48,
                           39,
                         ),
-                        selectedIndex: currentIndex,
+                        selectedIndex: value.currentIndex,
                         onTabChange: (index) {
                           currentIndex = index;
-                          value.currentIndex = index;
+                          value.currentIndex = currentIndex;
                         },
                         tabs: const [
                           GButton(
@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          body: pages[currentIndex],
+          body: pages[value.currentIndex],
         );
       },
     );
