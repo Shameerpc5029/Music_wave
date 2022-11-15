@@ -239,7 +239,7 @@ class FavDb extends ChangeNotifier {
   }
 
   //reset App
-  static Future<void> resetAll() async {
+  Future<void> resetAll() async {
     await db.delete(
       'song',
     );
@@ -249,6 +249,7 @@ class FavDb extends ChangeNotifier {
     await playlistMusicDb.delete(
       'playlistSong',
     );
+    notifyListeners();
   }
 
   static Future<void> dbClose() async {

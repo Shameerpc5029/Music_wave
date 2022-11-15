@@ -2,9 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:music_wave/Controller/provider/home_provider.dart';
+import 'package:music_wave/Controller/provider/library_provider.dart';
 import 'package:music_wave/Model/functions/db_funtions.dart';
+import 'package:music_wave/View/Library%20Screen/library_screen.dart';
 import 'package:music_wave/View/Player%20Screen/player_screen.dart';
 import 'package:music_wave/View/Library%20Screen/Favorite/Widgets/fav_card.dart';
+import 'package:music_wave/View/home_screen.dart';
 import 'package:music_wave/View/widgets/music_file.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
@@ -34,11 +38,9 @@ class FavorateScreen extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           onPressed: (() {
-            // setState(() {
             Navigator.pop(
               context,
             );
-            //   });
           }),
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -93,7 +95,6 @@ class FavorateScreen extends StatelessWidget {
                                   : value.favSongModel[index].artist.toString(),
                           traling: IconButton(
                             onPressed: () {
-                              // FavDb.removeFav(music[index].id);
                               value.removeFav(value.favSongModel[index].id);
 
                               ScaffoldMessenger.of(context).showSnackBar(

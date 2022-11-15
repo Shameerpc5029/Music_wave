@@ -5,18 +5,13 @@ import 'package:music_wave/View/Library%20Screen/Playlist/Widgets/playlist_song_
 import 'package:music_wave/View/widgets/text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class SelectPlaylistScreen extends StatefulWidget {
+class SelectPlaylistScreen extends StatelessWidget {
   final String folderName;
-  const SelectPlaylistScreen({
+  SelectPlaylistScreen({
     super.key,
     required this.folderName,
   });
 
-  @override
-  State<SelectPlaylistScreen> createState() => _SelectPlaylistScreenState();
-}
-
-class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
   final _audioQuery = OnAudioQuery();
 
   @override
@@ -61,7 +56,7 @@ class _SelectPlaylistScreenState extends State<SelectPlaylistScreen> {
                       itemCount: item.data!.length,
                       itemBuilder: ((context, index) {
                         return PlaylistSongCard(
-                          folderName: widget.folderName,
+                          folderName: folderName,
                           titleText: item.data![index].displayNameWOExt,
                           subText:
                               item.data![index].artist.toString() == "<unknown>"

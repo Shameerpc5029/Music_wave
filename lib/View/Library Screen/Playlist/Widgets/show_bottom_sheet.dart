@@ -5,13 +5,13 @@ import 'package:music_wave/View/widgets/text.dart';
 import 'package:music_wave/View/widgets/white_space.dart';
 import 'package:provider/provider.dart';
 
+GlobalKey<FormState> fromKey = GlobalKey();
+final playlistNameController = TextEditingController();
+
 class ShowBottomSheet extends StatelessWidget {
-  ShowBottomSheet({
+  const ShowBottomSheet({
     super.key,
   });
-  GlobalKey<FormState> fromKey = GlobalKey();
-
-  final playlistNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +66,7 @@ class ShowBottomSheet extends StatelessWidget {
             ),
             const WhiteSpace(),
             Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               key: fromKey,
               child: Consumer<FavDb>(
                 builder: (context, consumer, child) {

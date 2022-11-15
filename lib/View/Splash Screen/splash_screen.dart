@@ -2,25 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:music_wave/Controller/provider/splash_provider.dart';
 import 'package:music_wave/View/home_screen.dart';
 import 'package:music_wave/View/widgets/white_space.dart';
+import 'package:provider/provider.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    gotMainScreen();
-    super.initState();
-  }
-
+  // @override
   @override
   Widget build(BuildContext context) {
+    Provider.of<SplashProvider>(context).gotMainScreen(context);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -60,14 +53,14 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  gotMainScreen() {
-    Timer(
-      const Duration(seconds: 3),
-      (() => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: ((context) => HomeScreen()),
-            ),
-          )),
-    );
-  }
+  // gotMainScreen() {
+  //   Timer(
+  //     const Duration(seconds: 3),
+  //     (() => Navigator.of().pushReplacement(
+  //           MaterialPageRoute(
+  //             builder: ((context) => HomeScreen()),
+  //           ),
+  //         )),
+  //   );
+  // }
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:music_wave/Controller/provider/favbt_provider.dart';
 import 'package:music_wave/Controller/provider/home_provider.dart';
+import 'package:music_wave/Controller/provider/library_provider.dart';
 import 'package:music_wave/Controller/provider/miniplayer_provider.dart';
-import 'package:music_wave/Controller/provider/music_screen_provider.dart';
+import 'package:music_wave/Controller/provider/request_provider.dart';
 import 'package:music_wave/Controller/provider/player_provider.dart';
+import 'package:music_wave/Controller/provider/search_provider.dart';
 import 'package:music_wave/Controller/provider/splash_provider.dart';
 import 'package:music_wave/Model/functions/db_funtions.dart';
 import 'package:music_wave/View/Splash%20Screen/splash_screen.dart';
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
           create: (context) => SplashProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => MusicScreenProvider(),
+          create: (context) => RequestProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => FavDb(),
@@ -46,6 +49,15 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => MiniPlayerProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SearchProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LibrayProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FavBt(),
         ),
       ],
       child: MaterialApp(

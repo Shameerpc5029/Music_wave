@@ -11,88 +11,89 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+  int currentIndex = 0;
 
-  Widget screen = pages[0];
-
-  static List<Widget> pages = [
-     AllSong(),
-     LibraryScreen(),
+  List<Widget> pages = [
+    AllSong(),
+    LibraryScreen(),
     const SearchScreen(),
     const SettingsScreen(),
   ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 10,
-          top: 5,
-          left: 20,
-          right: 20,
-        ),
-        child: SingleChildScrollView(
-          physics: const ScrollPhysics(),
-          child: Column(
-            children: [
-              if (MusicFile.audioPlayer.currentIndex != null)
-                Column(
-                  children: [
-                    MiniPlayer(
-                      // index: MusicFile.audioPlayer.currentIndex!,
-                    )
-                  ],
-                ),
-              Consumer<HomeProvider>(
-                builder: (context, value, child) {
-                  return GNav(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 5,
+    return Consumer<HomeProvider>(
+      builder: (context, value, child) {
+        return Scaffold(
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.only(
+              bottom: 10,
+              top: 5,
+              left: 20,
+              right: 20,
+            ),
+            child: SingleChildScrollView(
+              physics: const ScrollPhysics(),
+              child: Column(
+                children: [
+                  if (MusicFile.audioPlayer.currentIndex != null)
+                    Column(
+                      children: const [
+                        MiniPlayer(),
+                      ],
                     ),
-                    tabActiveBorder: Border.all(
-                      width: 1.5,
-                      color: Colors.black,
-                    ),
-                    tabBorderRadius: 10,
-                    gap: 10,
-                    haptic: true,
-                    activeColor: const Color.fromARGB(
-                      255,
-                      174,
-                      48,
-                      39,
-                    ),
-                    selectedIndex: value.selectedIndex,
-                    onTabChange: (index) {
-                      value.navBottonBar(index);
+                  Consumer<HomeProvider>(
+                    builder: (context, value, child) {
+                      return GNav(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 5,
+                        ),
+                        tabActiveBorder: Border.all(
+                          width: 1.5,
+                          color: Colors.black,
+                        ),
+                        tabBorderRadius: 10,
+                        gap: 10,
+                        haptic: true,
+                        activeColor: const Color.fromARGB(
+                          255,
+                          174,
+                          48,
+                          39,
+                        ),
+                        selectedIndex: currentIndex,
+                        onTabChange: (index) {
+                          currentIndex = index;
+                          value.currentIndex = index;
+                        },
+                        tabs: const [
+                          GButton(
+                            icon: Icons.music_note,
+                            text: 'Music',
+                          ),
+                          GButton(
+                            icon: Icons.library_music_rounded,
+                            text: 'Library',
+                          ),
+                          GButton(
+                            icon: Icons.search_rounded,
+                            text: 'Search',
+                          ),
+                          GButton(
+                            icon: Icons.settings,
+                            text: 'Settings',
+                          ),
+                        ],
+                      );
                     },
-                    tabs: const [
-                      GButton(
-                        icon: Icons.music_note,
-                        text: 'Music',
-                      ),
-                      GButton(
-                        icon: Icons.library_music_rounded,
-                        text: 'Library',
-                      ),
-                      GButton(
-                        icon: Icons.search_rounded,
-                        text: 'Search',
-                      ),
-                      GButton(
-                        icon: Icons.settings,
-                        text: 'Settings',
-                      ),
-                    ],
-                  );
-                },
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-      body: pages[Provider.of<HomeProvider>(context).selectedIndex],
+          body: pages[currentIndex],
+        );
+      },
     );
   }
 }

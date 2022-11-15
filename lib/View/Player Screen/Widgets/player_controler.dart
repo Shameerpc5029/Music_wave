@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_wave/Controller/provider/player_provider.dart';
 import 'package:music_wave/View/widgets/music_file.dart';
 import 'package:music_wave/View/widgets/white_space.dart';
+import 'package:provider/provider.dart';
 
-class MusicController extends StatefulWidget {
+bool repetOn = true;
+bool shuffleOn = true;
+
+class MusicController extends StatelessWidget {
   const MusicController({super.key});
 
-  @override
-  State<MusicController> createState() => _MusicControllerState();
-}
-
-class _MusicControllerState extends State<MusicController> {
-  bool repetOn = true;
-  bool shuffleOn = true;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,6 +31,8 @@ class _MusicControllerState extends State<MusicController> {
                   );
                 }
                 shuffleOn = !shuffleOn;
+                Provider.of<PlayerProvider>(context, listen: false)
+                    .notifyListeners();
               },
               icon: Icon(
                 shuffleOn ? Icons.shuffle : Icons.shuffle_on_outlined,
@@ -130,6 +130,8 @@ class _MusicControllerState extends State<MusicController> {
                   );
                 }
                 repetOn = !repetOn;
+                Provider.of<PlayerProvider>(context, listen: false)
+                    .notifyListeners();
               },
               icon: Icon(
                 repetOn ? Icons.repeat : Icons.repeat_on_outlined,

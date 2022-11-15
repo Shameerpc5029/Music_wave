@@ -23,7 +23,6 @@ class PlaylistButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Consumer<FavDb>(
       builder: (context, value, child) {
         return IconButton(

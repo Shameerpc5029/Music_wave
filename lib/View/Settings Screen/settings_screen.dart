@@ -83,7 +83,7 @@ class SettingsScreen extends StatelessWidget {
                         title: 'Reset App',
                         contant: 'Do you want to reset this app?',
                         yesPress: () {
-                          FavDb.resetAll();
+                          FavDb().resetAll();
                           MusicFile.audioPlayer.stop();
 
                           Navigator.of(context).pushAndRemoveUntil(
