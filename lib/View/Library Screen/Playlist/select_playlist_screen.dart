@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_wave/View/widgets/music_file.dart';
 import 'package:music_wave/View/Library%20Screen/Playlist/Widgets/playlist_song_card.dart';
-import 'package:music_wave/View/widgets/text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SelectPlaylistScreen extends StatelessWidget {

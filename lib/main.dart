@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:music_wave/Controller/provider/favbt_provider.dart';
-import 'package:music_wave/Controller/provider/home_provider.dart';
+
+import 'package:music_wave/Controller/provider/bottom_nav_provider.dart';
+
 import 'package:music_wave/Controller/provider/library_provider.dart';
 import 'package:music_wave/Controller/provider/miniplayer_provider.dart';
 import 'package:music_wave/Controller/provider/request_provider.dart';
@@ -56,9 +57,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => LibrayProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => FavBt(),
-        ),
+    
       ],
       child: MaterialApp(
         theme: ThemeData(

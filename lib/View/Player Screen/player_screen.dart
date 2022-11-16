@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:music_wave/Controller/provider/favbt_provider.dart';
+
 import 'package:music_wave/Controller/provider/player_provider.dart';
 import 'package:music_wave/Model/functions/db_funtions.dart';
-import 'package:music_wave/View/Music%20Screen/Widgets/fav_button.dart';
+
 import 'package:music_wave/View/Player%20Screen/Widgets/box_fav_button.dart';
+import 'package:music_wave/View/bottom_nav.dart';
 import 'package:music_wave/View/widgets/music_file.dart';
 import 'package:music_wave/View/Player%20Screen/Widgets/music_slider.dart';
 import 'package:music_wave/View/Player%20Screen/Widgets/player_controler.dart';
@@ -13,15 +14,15 @@ import 'package:provider/provider.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class PlayerScreen extends StatelessWidget {
-  // final int index;
+
   const PlayerScreen({
     super.key,
     required this.songModel,
-    // required this.index,
+
   });
   final List<SongModel> songModel;
 
-//
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -39,18 +40,18 @@ class PlayerScreen extends StatelessWidget {
               ),
             ),
             centerTitle: true,
-            leading: Consumer<FavBt>(
-              builder: (context, value, child) {
-                return IconButton(
-                  onPressed: (() {
-                    Navigator.pop(context);
-                    value.notifyListeners();
-                  }),
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                  ),
-                );
-              },
+            leading: IconButton(
+              onPressed: (() {
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                  builder: (context) {
+                    return HomeScreen();
+                  },
+                ), (route) => false);
+                // Navigator.pop(context);
+              }),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+              ),
             ),
           ),
           body: Stack(
@@ -129,27 +130,22 @@ class PlayerScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                 bottom: 5,
                               ),
-                              child: Consumer<FavBt>(
-                                builder: (context, provider, child) {
-                                  return BoxFavButton(
-                                    song: songModel[value.currentIndex],
-                                    onTap: () async {
-                                      if (value.isFav) {
-                                        FavDb().removeFav(
-                                          songModel[value.currentIndex].id,
-                                        );
-                                      } else {
-                                        FavDb().addFav(
-                                          songModel[value.currentIndex],
-                                        );
-                                      }
-                                      value.cheakFav();
-                                    },
-                                    icon: Icons.favorite,
-                                    color:
-                                        value.isFav ? Colors.red : Colors.blue,
-                                  );
+                              child: BoxFavButton(
+                                song: songModel[value.currentIndex],
+                                onTap: () async {
+                                  if (value.isFav) {
+                                    FavDb().removeFav(
+                                      songModel[value.currentIndex].id,
+                                    );
+                                  } else {
+                                    FavDb().addFav(
+                                      songModel[value.currentIndex],
+                                    );
+                                  }
+                                  value.cheakFav();
                                 },
+                                icon: Icons.favorite,
+                                color: value.isFav ? Colors.red : Colors.blue,
                               ),
                             ),
                           ],
@@ -228,7 +224,7 @@ class PlayerScreen extends StatelessWidget {
                       ),
                     ),
                     const WhiteSpace(),
-                    MusicController(),
+                    const MusicController(),
                   ],
                 ),
               ),

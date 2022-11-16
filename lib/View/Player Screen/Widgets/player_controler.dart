@@ -18,26 +18,28 @@ class MusicController extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(
-              onPressed: () {
-                if (shuffleOn) {
-                  MusicFile.audioPlayer.shuffle();
-                  MusicFile.audioPlayer.setShuffleModeEnabled(
-                    true,
-                  );
-                } else {
-                  MusicFile.audioPlayer.setShuffleModeEnabled(
-                    false,
-                  );
-                }
-                shuffleOn = !shuffleOn;
-                Provider.of<PlayerProvider>(context, listen: false)
-                    .notifyListeners();
+            Consumer<PlayerProvider>(
+              builder: (context, value, child) {
+                return IconButton(
+                  onPressed: () {
+                    if (shuffleOn) {
+                      MusicFile.audioPlayer.shuffle();
+                      MusicFile.audioPlayer.setShuffleModeEnabled(
+                        true,
+                      );
+                    } else {
+                      MusicFile.audioPlayer.setShuffleModeEnabled(
+                        false,
+                      );
+                    }
+                    shuffleOn = !shuffleOn;
+                  },
+                  icon: Icon(
+                    shuffleOn ? Icons.shuffle : Icons.shuffle_on_outlined,
+                  ),
+                  color: Colors.white,
+                );
               },
-              icon: Icon(
-                shuffleOn ? Icons.shuffle : Icons.shuffle_on_outlined,
-              ),
-              color: Colors.white,
             ),
             RawMaterialButton(
               padding: const EdgeInsets.all(
@@ -118,25 +120,27 @@ class MusicController extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            IconButton(
-              onPressed: () {
-                if (repetOn) {
-                  MusicFile.audioPlayer.setLoopMode(
-                    LoopMode.one,
-                  );
-                } else {
-                  MusicFile.audioPlayer.setLoopMode(
-                    LoopMode.off,
-                  );
-                }
-                repetOn = !repetOn;
-                Provider.of<PlayerProvider>(context, listen: false)
-                    .notifyListeners();
+            Consumer<PlayerProvider>(
+              builder: (context, value, child) {
+                return IconButton(
+                  onPressed: () {
+                    if (repetOn) {
+                      MusicFile.audioPlayer.setLoopMode(
+                        LoopMode.one,
+                      );
+                    } else {
+                      MusicFile.audioPlayer.setLoopMode(
+                        LoopMode.off,
+                      );
+                    }
+                    repetOn = !repetOn;
+                  },
+                  icon: Icon(
+                    repetOn ? Icons.repeat : Icons.repeat_on_outlined,
+                  ),
+                  color: Colors.white,
+                );
               },
-              icon: Icon(
-                repetOn ? Icons.repeat : Icons.repeat_on_outlined,
-              ),
-              color: Colors.white,
             ),
           ],
         ),

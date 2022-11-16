@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:music_wave/Model/functions/db_funtions.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -28,15 +30,13 @@ class FavButton extends StatelessWidget {
             color: iconColor,
           ),
           onPressed: (() async {
-            // bool isFav = await FavDb.isFav(widget.songModel.id);
             bool isFav = await value.isFav(songModel.id);
             if (!isFav) {
-              // FavDb.addFav(widget.songModel);
               value.addFav(songModel);
             } else {
-              // FavDb.removeFav(widget.songModel.id);
               value.removeFav(songModel.id);
             }
+
             buttonPressed(context);
           }),
         );

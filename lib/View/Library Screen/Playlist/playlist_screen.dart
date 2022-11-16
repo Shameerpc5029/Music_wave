@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:lottie/lottie.dart';
 import 'package:music_wave/Model/functions/db_funtions.dart';
 import 'package:music_wave/View/Player%20Screen/player_screen.dart';
 import 'package:music_wave/View/Library%20Screen/Playlist/select_playlist_screen.dart';

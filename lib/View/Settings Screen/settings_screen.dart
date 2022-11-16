@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:music_wave/Controller/provider/home_provider.dart';
+import 'package:music_wave/Controller/provider/bottom_nav_provider.dart';
 import 'package:music_wave/Model/functions/db_funtions.dart';
 import 'package:music_wave/View/Settings%20Screen/About/about_screen.dart';
 import 'package:music_wave/View/Settings%20Screen/Privacy/privacy_screen.dart';

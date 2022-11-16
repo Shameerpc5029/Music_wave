@@ -14,7 +14,6 @@ class PlaylistButton extends StatelessWidget {
     required this.folderName,
   });
 
-  // @override
   Color iconColor = Colors.black38;
 
   IconData icon = Icons.radio_button_off;
@@ -28,30 +27,17 @@ class PlaylistButton extends StatelessWidget {
         return IconButton(
           color: iconColor,
           onPressed: (() {
-            // buttonPressed();
             if (!buttonClick) {
-              //setState(() {
               iconColor = Colors.blue;
               icon = Icons.radio_button_checked;
               buttonClick = true;
               value.addPlaylistMusic(songModel, folderName);
-              // FavDb.addPlaylistMusic(
-              //   songModel,
-              //   folderName,
-              // );
-              //   });
             } else {
-              // setState(() {
               icon = Icons.radio_button_off;
-              // FavDb.removePlaylistMusic(
-              //   songModel.id,
-              //   folderName,
-              // );
+
               value.removePlaylistMusic(songModel.id, folderName);
               iconColor = Colors.black38;
               buttonClick = false;
-              // });
-
             }
           }),
           icon: Icon(

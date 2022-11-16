@@ -1,5 +1,3 @@
-// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -59,8 +57,6 @@ class FavDb extends ChangeNotifier {
     getAllPlaylist();
     playlistModel.add(playlistmodel);
     notifyListeners();
-
-    // FavDb.playListNotifier.notifyListeners();
   }
 
   Future<void> removePlaylist(String playlistName) async {
@@ -75,8 +71,6 @@ class FavDb extends ChangeNotifier {
     );
     getAllPlaylist();
     notifyListeners();
-
-    // playListNotifier.notifyListeners();
   }
 
   Future<void> getAllPlaylist() async {
@@ -84,16 +78,12 @@ class FavDb extends ChangeNotifier {
       'SELECT * FROM playlist',
     );
     playlistModel.clear();
-    // playListNotifier.value.clear();
+
     for (var map in playlistmodel) {
       final playlist = ListModel.fromMap(map);
-      // playListNotifier.notifyListeners(
-      // );
+
       playlistModel.add(playlist);
 
-      // playListNotifier.value.add(
-      //   playlist,
-      // );
       notifyListeners();
     }
   }
@@ -104,18 +94,16 @@ class FavDb extends ChangeNotifier {
       'SELECT * FROM playlistSong WHERE playlistName = ? ',
       [playlistName],
     );
-    // playListMusicNotifier.value.clear();
+
     songsPlaylist.clear();
     for (var map in song) {
       final addsong = SongModel(
         map,
       );
-      // playListMusicNotifier.value.add(
-      //   addsong,
-      // );
+
       songsPlaylist.add(addsong);
     }
-    // playListMusicNotifier.notifyListeners();
+
     notifyListeners();
   }
 
@@ -132,16 +120,13 @@ class FavDb extends ChangeNotifier {
         playlistName
       ],
     );
-    // playListMusicNotifier.value.add(
-    //   song,
-    // );
+
     songsPlaylist.add(song);
 
     getAllPlaylistSongs(
       playlistName,
     );
 
-    // FavDb.playListMusicNotifier.notifyListeners();
     notifyListeners();
   }
 
@@ -155,7 +140,6 @@ class FavDb extends ChangeNotifier {
       playlistName,
     );
 
-    // playListMusicNotifier.notifyListeners();
     notifyListeners();
   }
 
@@ -171,16 +155,11 @@ class FavDb extends ChangeNotifier {
           song.artist,
           song.displayNameWOExt
         ]);
-    // musicListNotifier.value.add(
-    //   song,
-    // );
 
-    // favSongModel.add(song);
     favSongModel.add(song);
-    log(song.toString());
+
     getAllSongs();
     notifyListeners();
-    // musicListNotifier.notifyListeners();
   }
 
   Future<void> getAllSongs() async {
@@ -188,19 +167,14 @@ class FavDb extends ChangeNotifier {
       'SELECT * FROM song',
     );
     favSongModel.clear();
-    // musicListNotifier.value.clear();
+
     for (var map in song) {
       final addsong = SongModel(
         map,
       );
-      // musicListNotifier.value.add(
-      //   addsong,
-      // );
       favSongModel.add(addsong);
-      // log(addsong.toString());
+      log(addsong.toString());
     }
-    // musicListNotifier.notifyListeners();
-    print("Get all Music");
 
     notifyListeners();
   }
@@ -211,7 +185,7 @@ class FavDb extends ChangeNotifier {
       where: '_id= ?',
       whereArgs: [id],
     );
-    print("Removed");
+
     getAllSongs();
     notifyListeners();
   }
@@ -223,7 +197,6 @@ class FavDb extends ChangeNotifier {
       ),
     );
 
-    // musicListNotifier.notifyListeners();
     notifyListeners();
     return count;
   }
@@ -234,7 +207,7 @@ class FavDb extends ChangeNotifier {
       [id],
     );
     notifyListeners();
-    // musicListNotifier.notifyListeners()
+
     return song.isNotEmpty;
   }
 

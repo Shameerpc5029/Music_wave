@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_wave/Controller/provider/favbt_provider.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:provider/provider.dart';
 
 class BoxFavButton extends StatelessWidget {
   final SongModel song;
@@ -20,38 +17,34 @@ class BoxFavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FavBt>(
-      builder: (context, value, child) {
-        return SizedBox(
-          height: 40,
-          child: SizedBox(
-            width: 200,
-            child: ElevatedButton.icon(
-              label: Text(
-                'Favorite',
-                style: TextStyle(color: color, fontWeight: FontWeight.bold),
-              ),
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10)),
-                    side: BorderSide(
-                      color: Color.fromARGB(255, 109, 182, 207),
-                    ),
-                  ),
+    return SizedBox(
+      height: 40,
+      child: SizedBox(
+        width: 200,
+        child: ElevatedButton.icon(
+          label: Text(
+            'Favorite',
+            style: TextStyle(color: color, fontWeight: FontWeight.bold),
+          ),
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
+                side: BorderSide(
+                  color: Color.fromARGB(255, 109, 182, 207),
                 ),
-              ),
-              onPressed: onTap,
-              icon: Icon(
-                icon,
-                color: color,
               ),
             ),
           ),
-        );
-      },
+          onPressed: onTap,
+          icon: Icon(
+            icon,
+            color: color,
+          ),
+        ),
+      ),
     );
   }
 }
